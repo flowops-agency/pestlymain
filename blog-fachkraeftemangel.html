@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fachkräftemangel? Warum dein bester Büro-Mitarbeiter keinen Urlaub braucht – Pestly Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d; --surface: #181818; --surface2: #222222; --border: #2e2e2e;
+      --accent: #f5820d; --accent-dim: #7a400a; --text: #f0ece4; --muted: #888880;
+      --font-display: 'Bricolage Grotesque', sans-serif; --font-body: 'Lora', serif;
+      --radius: 12px; --max: 1160px; --article-max: 720px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 17px; line-height: 1.7; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .tag { display: inline-block; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-dim); background: rgba(245,130,13,0.08); padding: 5px 14px; border-radius: 999px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,13,13,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-text { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; }
+    .nav-cta { background: var(--accent); color: #000; font-family: var(--font-display); font-weight: 700; font-size: 14px; padding: 10px 22px; border-radius: var(--radius); border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: #ff9a2e; transform: translateY(-1px); }
+    #article-hero { padding: 120px 0 0; position: relative; overflow: hidden; }
+    #article-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,130,13,0.06) 0%, transparent 65%); pointer-events: none; }
+    .article-hero-inner { max-width: var(--article-max); margin: 0 auto; padding: 0 24px 48px; }
+    .article-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .article-breadcrumb a { transition: color 0.2s; }
+    .article-breadcrumb a:hover { color: var(--accent); }
+    .article-breadcrumb-sep { color: var(--border); }
+    .article-meta-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .article-read-meta { font-family: var(--font-display); font-size: 13px; color: var(--muted); }
+    .article-title { font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.04em; margin-bottom: 24px; }
+    .article-lede { font-size: 19px; line-height: 1.65; color: #c8c4bc; border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 40px; font-style: italic; }
+    .article-thumb-full { height: 320px; background: linear-gradient(135deg, #0a1a0a 0%, #1a3d1a 60%, #0d1a0d 100%); display: flex; align-items: center; justify-content: center; font-size: 90px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .article-thumb-full::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(245,130,13,0.05) 0%, transparent 70%); }
+    #article-body { padding: 64px 0 100px; }
+    .article-content { max-width: var(--article-max); margin: 0 auto; padding: 0 24px; }
+    .article-content p { margin-bottom: 24px; font-size: 17px; line-height: 1.8; color: #d8d4cc; }
+    .article-content h2 { font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.65rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text); margin: 48px 0 16px; }
+    .article-content h2:first-child { margin-top: 0; }
+    .article-content strong { color: var(--text); font-weight: 600; }
+    .pull-quote { border-left: 3px solid var(--accent); padding: 4px 20px; margin: 36px 0; font-size: 18px; font-style: italic; color: #c8c4bc; line-height: 1.65; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0 28px; }
+    .comparison-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+    .comparison-card.pestly { border-color: var(--accent-dim); background: rgba(245,130,13,0.04); }
+    .comparison-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+    .comparison-card:not(.pestly) .comparison-label { color: var(--muted); }
+    .comparison-card.pestly .comparison-label { color: var(--accent); }
+    .comparison-item { display: flex; gap: 10px; font-family: var(--font-display); font-size: 14px; line-height: 1.5; margin-bottom: 10px; color: var(--muted); }
+    .comparison-item:last-child { margin-bottom: 0; }
+    .comparison-icon { flex-shrink: 0; }
+    .comparison-card.pestly .comparison-item { color: var(--text); }
+    .article-cta-box { background: var(--surface); border: 1px solid var(--accent-dim); border-radius: var(--radius); padding: 36px 32px; margin: 48px 0 0; text-align: center; }
+    .article-cta-box p { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
+    .article-cta-box p:last-of-type { margin-bottom: 0; }
+    .btn-primary { display: inline-block; background: var(--accent); color: #000; font-family: var(--font-display); font-weight: 700; font-size: 16px; padding: 16px 32px; border-radius: var(--radius); border: none; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; margin-bottom: 16px; }
+    .btn-primary:hover { background: #ff9a2e; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,130,13,0.3); }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; } .article-hero-inner { padding: 0 16px 40px; } .article-content { padding: 0 16px; }
+      .article-thumb-full { height: 220px; font-size: 64px; } .article-title { font-size: 1.75rem; }
+      .comparison-grid { grid-template-columns: 1fr; } .article-cta-box { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; } .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68" stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68" stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68" stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">ESTLY</span>
+      </a>
+      <a href="index.html#cta"><button class="nav-cta">Demo anfragen</button></a>
+    </div>
+  </nav>
+
+  <section id="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-breadcrumb">
+        <a href="index.html">Startseite</a><span class="article-breadcrumb-sep">/</span>
+        <a href="blog.html">Blog</a><span class="article-breadcrumb-sep">/</span>
+        <span>Fachkräftemangel</span>
+      </div>
+      <div class="article-meta-top">
+        <span class="tag">Betrieb &amp; Alltag</span>
+        <span class="article-read-meta">5 Min. Lesezeit · 10. April 2025</span>
+      </div>
+      <h1 class="article-title">Fachkräftemangel? Warum dein bester neuer Büro-Mitarbeiter keinen Urlaub braucht</h1>
+      <p class="article-lede">Dein Betrieb wächst, aber das Telefon und die Terminvergabe fressen dich auf. Die logische Konsequenz wäre, jemanden einzustellen. Doch versuch mal, heute eine gute Bürokraft zu finden.</p>
+    </div>
+  </section>
+
+  <div class="article-thumb-full">🧑‍💼</div>
+
+  <section id="article-body">
+    <div class="article-content">
+
+      <p>Erst recht jemanden, der auch nur ansatzweise Ahnung von Schädlingsbekämpfung hat und den Unterschied zwischen einer Schabe und einem Silberfisch kennt! Eine Vollzeitkraft hingegen rechnet sich (noch) nicht, denn dafür ist das Geschäft oft zu saisonabhängig.</p>
+
+      <h2>Mensch vs. Maschine: Wer gewinnt im Büro?</h2>
+      <p>Wenn du doch jemanden für die Rezeption findest, sieht die Realität oft so aus: Die Person ist mal krank, hat pünktlich um 16 Uhr Feierabend und im Stress wird auch mal vergessen, die Telefonnummer richtig aufzuschreiben.</p>
+      <p>Vergleichen wir das mal direkt:</p>
+
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-label">Bürokraft (Minijob)</div>
+          <div class="comparison-item"><span class="comparison-icon">😷</span><span>Manchmal krank</span></div>
+          <div class="comparison-item"><span class="comparison-icon">🕔</span><span>Feierabend um 16 Uhr</span></div>
+          <div class="comparison-item"><span class="comparison-icon">✏️</span><span>Macht im Stress Tippfehler</span></div>
+          <div class="comparison-item"><span class="comparison-icon">🌍</span><span>Spricht 1–2 Sprachen</span></div>
+          <div class="comparison-item"><span class="comparison-icon">💸</span><span>538 € / Monat + Verwaltung</span></div>
+        </div>
+        <div class="comparison-card pestly">
+          <div class="comparison-label">Pestly</div>
+          <div class="comparison-item"><span class="comparison-icon">✅</span><span>Nie krank, nie im Urlaub</span></div>
+          <div class="comparison-item"><span class="comparison-icon">✅</span><span>24 / 7, auch nachts und am WE</span></div>
+          <div class="comparison-item"><span class="comparison-icon">✅</span><span>Keine Tippfehler, nie</span></div>
+          <div class="comparison-item"><span class="comparison-icon">✅</span><span>Über 50 Sprachen fließend</span></div>
+          <div class="comparison-item"><span class="comparison-icon">✅</span><span>Fester Monatsbetrag, fertig</span></div>
+        </div>
+      </div>
+
+      <h2>Der „Aha"-Moment: Mehr als nur ein Chatbot</h2>
+      <p>Jetzt denkst du vielleicht: „Ach, das ist doch nur so ein nerviger Chatbot, der die Leute im Kreis schickt."</p>
+      <p>Falsch. Pestly ist eine trainierte Künstliche Intelligenz. Sie kennt deine genauen Preise für verschiedene Einsätze. Sie spricht in deinem Tonfall. Und das Beste: Sie unterhält sich nicht nur mit dem Kunden, sondern trägt alle relevanten Daten (Name, Adresse, Problem, Preis, Terminwunsch) direkt und vollautomatisch in dein System ein.</p>
+
+      <div class="pull-quote">
+        Es ist, als hättest du eine absolute Top-Assistenz im Büro sitzen – nur dass sie nie Pause macht.
+      </div>
+
+      <p>Ein riesiger Vorteil in unserer Branche: Wenn der asiatische Restaurantbesitzer oder der englischsprachige Mieter ein Rattenproblem meldet, antwortet Pestly perfekt in deren Muttersprache. Keine Sprachbarrieren, keine verlorenen Aufträge.</p>
+      <p>Stell dir Pestly noch heute als deine digitale Assistenz ein. Keine Kündigungsfrist, keine Lohnfortzahlung im Krankheitsfall, kein Stress.</p>
+
+      <div class="article-cta-box">
+        <p>Den Fachkräftemangel einfach ignorieren?</p>
+        <a href="index.html#cta"><button class="btn-primary">👉 Jetzt 14 Tage kostenlos testen</button></a>
+        <p>Keine Kreditkarte. Kein Risiko. Einfach ausprobieren.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68" stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68" stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68" stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-logo-text">ESTLY</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html#features">Funktionen</a><a href="index.html#faq">Preise</a>
+          <a href="blog.html">Blog</a><a href="#">Kontakt</a><a href="#">Datenschutz</a><a href="#">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

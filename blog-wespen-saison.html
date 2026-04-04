@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wespen-Saison 2024: Wie du 50 Anfragen am Tag bewältigst – Pestly Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ───────────────────────────────────────── */
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #181818;
+      --surface2: #222222;
+      --border:   #2e2e2e;
+      --accent:   #f5820d;
+      --accent-dim: #7a400a;
+      --text:     #f0ece4;
+      --muted:    #888880;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body:    'Lora', serif;
+      --radius:   12px;
+      --max:      1160px;
+      --article-max: 720px;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── Utility ─────────────────────────────────────────── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      background: rgba(245,130,13,0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #ff9a2e; transform: translateY(-1px); }
+
+    /* ── ARTICLE HERO ────────────────────────────────────── */
+    #article-hero {
+      padding: 120px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,130,13,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .article-hero-inner {
+      max-width: var(--article-max);
+      margin: 0 auto;
+      padding: 0 24px 48px;
+    }
+    .article-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .article-breadcrumb a { transition: color 0.2s; }
+    .article-breadcrumb a:hover { color: var(--accent); }
+    .article-breadcrumb-sep { color: var(--border); }
+    .article-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .article-read-meta {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .article-lede {
+      font-size: 19px;
+      line-height: 1.65;
+      color: #c8c4bc;
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* ── ARTICLE THUMBNAIL ───────────────────────────────── */
+    .article-thumb-full {
+      height: 320px;
+      background: linear-gradient(135deg, #1a1200 0%, #3d2800 60%, #1a0d00 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 90px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .article-thumb-full::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(245,130,13,0.08) 0%, transparent 70%);
+    }
+
+    /* ── ARTICLE BODY ────────────────────────────────────── */
+    #article-body {
+      padding: 64px 0 100px;
+    }
+    .article-content {
+      max-width: var(--article-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .article-content p {
+      margin-bottom: 24px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #d8d4cc;
+    }
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text);
+      margin: 48px 0 16px;
+    }
+    .article-content h2:first-child { margin-top: 0; }
+    .article-content strong { color: var(--text); font-weight: 600; }
+    .article-content em { font-style: italic; color: #c8c4bc; }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 20px;
+      margin: 36px 0;
+      font-size: 18px;
+      font-style: italic;
+      color: #c8c4bc;
+      line-height: 1.65;
+    }
+
+    /* WhatsApp message bubble mockup */
+    .whatsapp-mock {
+      background: #0d1f12;
+      border: 1px solid #1a3d22;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-family: var(--font-display);
+      font-size: 15px;
+      line-height: 1.6;
+      color: #d0f0d8;
+      position: relative;
+    }
+    .whatsapp-mock::before {
+      content: '💬 WhatsApp';
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #25d366;
+      margin-bottom: 10px;
+    }
+
+    /* CTA box */
+    .article-cta-box {
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      margin: 48px 0 0;
+      text-align: center;
+    }
+    .article-cta-box p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+    .article-cta-box p:last-of-type { margin-bottom: 0; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(245,130,13,0.4);
+      margin-bottom: 16px;
+    }
+    .btn-primary:hover {
+      background: #ff9a2e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,130,13,0.3);
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .article-hero-inner { padding: 0 16px 40px; }
+      .article-content { padding: 0 16px; }
+      .article-thumb-full { height: 220px; font-size: 64px; }
+      .article-title { font-size: 1.75rem; }
+      .article-cta-box { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">ESTLY</span>
+      </a>
+      <a href="index.html#cta"><button class="nav-cta">Demo anfragen</button></a>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HERO -->
+  <section id="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-breadcrumb">
+        <a href="index.html">Startseite</a>
+        <span class="article-breadcrumb-sep">/</span>
+        <a href="blog.html">Blog</a>
+        <span class="article-breadcrumb-sep">/</span>
+        <span>Wespen-Saison 2024</span>
+      </div>
+      <div class="article-meta-top">
+        <span class="tag">Betrieb &amp; Alltag</span>
+        <span class="article-read-meta">6 Min. Lesezeit · 15. August 2024</span>
+      </div>
+      <h1 class="article-title">Wespen-Saison 2024: Wie du 50 Anfragen am Tag bewältigst, ohne im Chaos zu versinken</h1>
+      <p class="article-lede">
+        August. 32 Grad im Schatten. Du hockst im dicken, luftdichten Schutzanzug unter einem staubigen Dachboden. Der Schweiß läuft dir über das Gesicht, du hast beide Hände voll mit Ausrüstung – und in deiner Tasche vibriert das Smartphone ununterbrochen.
+      </p>
+    </div>
+  </section>
+
+  <!-- THUMBNAIL -->
+  <div class="article-thumb-full">🐝</div>
+
+  <!-- ARTICLE BODY -->
+  <section id="article-body">
+    <div class="article-content">
+
+      <p>Es ist Wespen-Saison. Das Telefon brennt.</p>
+      <p>Jeder, der anruft, hat ein „riesiges Nest" und braucht „sofort" Hilfe. Aber du steckst mitten im Einsatz oder sitzt gerade am Steuer. Du kannst einfach nicht drangehen.</p>
+
+      <h2>Der typische August-Tag: Viel Stress, verlorener Umsatz</h2>
+      <p>Machen wir uns nichts vor: Dein Arbeitstag im Hochsommer ist ein reiner Überlebenskampf. Du fährst von Einsatz zu Einsatz, das Telefon klingelt im 10-Minuten-Takt. 50 Anfragen am Tag sind keine Seltenheit. Deine Strategie? <strong>„Ich ruf die alle heute Abend zurück."</strong></p>
+      <p>Dann ist es 19:30 Uhr. Du bist völlig erledigt, willst eigentlich nur unter die rettende Dusche und ein kühles Bier aufmachen. Stattdessen setzt du dich an den Rechner, starrst auf eine endlose Liste verpasster Anrufe und fängst an zu telefonieren.</p>
+      <p>Und was ist der Dank für deine Extrastunden? Bei jedem zweiten Anruf hörst du diesen einen, frustrierenden Satz:</p>
+
+      <div class="pull-quote">
+        „Oh, hallo. Danke für den Rückruf, aber wir haben mittlerweile schon jemand anderen gefunden."
+      </div>
+
+      <p>Autsch. Du hast nicht nur deinen Feierabend geopfert, sondern dir ist gerade massiv Umsatz durch die Lappen gegangen – einfach nur, weil du in deinem Job physisch gebunden bist.</p>
+
+      <h2>Der „Aha"-Moment: Wie die smarte Konkurrenz dir die Aufträge wegschnappt</h2>
+      <p>Glaubst du, dein größter Wettbewerber hat mehr Zeit als du? Nein. Der sitzt im gleichen Schutzanzug und schwitzt genauso. Aber er verliert die Kunden nicht.</p>
+      <p>Warum? Weil bei ihm im Hintergrund ein cleveres System läuft. Wenn bei deinem Konkurrenten ein Kunde anruft und er nicht rangehen kann, passiert Folgendes: Das Telefon klingelt aus. Und genau 5 Sekunden später ploppt auf dem Handy des potenziellen Kunden eine WhatsApp-Nachricht auf:</p>
+
+      <div class="whatsapp-mock">
+        💬 „Hallo! Wespennotdienst [Name] hier. Ich bin gerade im Einsatz und kann nicht ans Telefon. Wespennester entfernen wir schnell und sicher ab 150€. Schick mir kurz ein Foto vom Nest und deine Adresse hier in den Chat, dann komme ich heute Nachmittag direkt bei dir vorbei!"
+      </div>
+
+      <p>Boom. Fall geschlossen.</p>
+      <p>Was passiert beim Kunden? Er hat sofort eine Antwort. Er hat eine Lösung für sein Problem. Er hat einen klaren Preis. Er fängt gar nicht erst an, den nächsten Kammerjäger auf Google zu suchen. Er macht das Foto, schickt die Adresse und wartet auf die Rettung.</p>
+      <p>Der Auftrag ist gesichert – und dein Wettbewerber hat dafür nicht einen einzigen Finger gekrümmt. Er liest die Nachricht einfach, wenn er wieder im Auto sitzt, und plant die Route.</p>
+
+      <h2>Mach Schluss mit dem abendlichen Telefon-Frust!</h2>
+      <p>Die Wahrheit ist: In der Wespen-Saison gewinnt nicht immer derjenige, der die beste Arbeit macht. Oft gewinnt derjenige, der am schnellsten antwortet.</p>
+      <p>Aber du musst dafür nicht dein Handy mit auf den Dachboden nehmen oder eine teure Telefonzentrale bezahlen. Du brauchst einfach nur das richtige System im Hintergrund. Genau dafür haben wir Pestly entwickelt. Wir automatisieren deine Kundenkommunikation so, dass jeder verpasste Anruf zu einem qualifizierten Auftrag in deinem WhatsApp-Postfach wird.</p>
+      <p>Lass dir das lukrative Wespen-Geschäft nicht länger von denen wegnehmen, die einfach nur schneller tippen.</p>
+
+      <div class="article-cta-box">
+        <p>Bereit, den nächsten Sommer ohne Chaos zu überstehen?</p>
+        <a href="index.html#cta">
+          <button class="btn-primary">👉 Jetzt unverbindliche Demo buchen</button>
+        </a>
+        <p>Pestly fängt noch diese Woche an, deine Leads automatisch zu konvertieren – damit du deinen Feierabend wieder genießen kannst.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-logo-text">ESTLY</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html#features">Funktionen</a>
+          <a href="index.html#faq">Preise</a>
+          <a href="blog.html">Blog</a>
+          <a href="#">Kontakt</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

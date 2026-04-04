@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pestly – KI-Kundenservice für Schädlingsbekämpfer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ───────────────────────────────────────── */
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #181818;
+      --surface2: #222222;
+      --border:   #2e2e2e;
+      --accent:   #f5820d;
+      --accent-dim: #7a400a;
+      --text:     #f0ece4;
+      --muted:    #888880;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body:    'Lora', serif;
+      --radius:   12px;
+      --max:      1160px;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── Scroll-Reveal ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Utility ─────────────────────────────────────────── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      background: rgba(245,130,13,0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo svg { flex-shrink: 0; }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #ff9a2e; transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* diagonal bg stripe */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 65% 50%, rgba(245,130,13,0.07) 0%, transparent 70%),
+        repeating-linear-gradient(
+          -55deg,
+          transparent,
+          transparent 38px,
+          rgba(255,255,255,0.015) 38px,
+          rgba(255,255,255,0.015) 39px
+        );
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-label { margin-bottom: 20px; }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(245,130,13,0.4);
+    }
+    .btn-primary:hover {
+      background: #ff9a2e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,130,13,0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(245,130,13,0.05); }
+
+    /* ── Chat mock ───────────────────────────────────────── */
+    .chat-mock {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .chat-mock-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .chat-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .chat-mock-header-text { font-family: var(--font-display); font-weight: 600; font-size: 14px; }
+    .chat-mock-header-sub { font-size: 11px; color: var(--muted); }
+    .chat-online { width: 8px; height: 8px; border-radius: 50%; background: #25d366; margin-left: auto; box-shadow: 0 0 6px #25d366; }
+
+    .bubble {
+      max-width: 82%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      font-family: var(--font-display);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .bubble.show { opacity: 1; transform: none; }
+    .bubble-customer {
+      background: var(--surface2);
+      color: var(--text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .bubble-ai {
+      background: var(--accent);
+      color: #000;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      font-weight: 500;
+    }
+    .bubble-time {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+      margin-top: -6px;
+      opacity: 0;
+      transition: opacity 0.3s 0.2s;
+    }
+    .bubble-time.show { opacity: 1; }
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 14px 18px;
+      background: var(--accent-dim);
+      border-radius: 16px;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .typing-indicator.show { opacity: 1; }
+    .typing-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+    .response-badge {
+      position: absolute;
+      top: -12px; right: 20px;
+      background: #25d366;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .response-badge.show { opacity: 1; transform: scale(1); }
+
+    /* ── PAIN ────────────────────────────────────────────── */
+    #pain {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+    }
+    .section-sub {
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 17px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .pain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff3333, #ff6633);
+    }
+    .pain-icon { font-size: 32px; margin-bottom: 16px; }
+    .pain-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .pain-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+    /* ── HOW IT WORKS ────────────────────────────────────── */
+    #how {
+      padding: 100px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 0 auto; }
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 28px;
+      align-items: start;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .step-content h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .step-content p { color: var(--muted); font-size: 16px; }
+    .step-badge {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: rgba(245,130,13,0.1);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    /* ── FEATURES ────────────────────────────────────────── */
+    #features { padding: 100px 0; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
+      cursor: default;
+    }
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 19px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .feature-card p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+    /* ── STATS ───────────────────────────────────────────── */
+    #stats {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stat-item {
+      background: var(--surface);
+      padding: 44px 32px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-label { color: var(--muted); font-size: 15px; }
+
+    /* ── TESTIMONIALS ────────────────────────────────────── */
+    #testimonials { padding: 100px 0; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .testimonial {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+    .testimonial-quote {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+    .testimonial-quote::before { content: '„'; }
+    .testimonial-quote::after  { content: '"'; }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .author-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .author-role { font-size: 13px; color: var(--muted); }
+    .stars { color: var(--accent); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    #faq {
+      padding: 100px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 17px;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 400;
+      transition: transform 0.3s var(--ease), border-color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      background: rgba(245,130,13,0.1);
+      color: var(--accent);
+    }
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.45s var(--ease), padding 0.3s;
+    }
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── CTA SECTION ─────────────────────────────────────── */
+    #cta {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(245,130,13,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cta-inner { text-align: center; max-width: 620px; margin: 0 auto; position: relative; }
+    .cta-inner .section-title { margin-bottom: 16px; }
+    .cta-inner .section-sub { margin-bottom: 40px; }
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto 16px;
+      flex-wrap: wrap;
+    }
+    .cta-input {
+      flex: 1;
+      min-width: 220px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cta-input:focus { border-color: var(--accent); }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-note { color: var(--muted); font-size: 13px; }
+    #form-success {
+      display: none;
+      color: #25d366;
+      font-family: var(--font-display);
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    #form-error {
+      display: none;
+      color: #ff4444;
+      font-family: var(--font-display);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      .hero-grid { gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-headline { font-size: 2.4rem; }
+      .chat-mock { max-width: 420px; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 56px 1fr; gap: 16px; }
+      .cta-form { flex-direction: column; }
+      .cta-input { min-width: unset; width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero-headline { font-size: 2rem; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+      .section-title { font-size: 1.75rem; }
+      .stat-item { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">
+        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Outer P: full stem + large bowl -->
+          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Middle P: up from junction, medium bowl -->
+          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Inner P: up from junction, small bowl -->
+          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">ESTLY</span>
+      </div>
+      <a href="#cta"><button class="nav-cta">Demo anfragen</button></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="tag">KI-Kundenservice · Schädlingsbekämpfung</div>
+          <h1 class="hero-headline">
+            Nie wieder eine Anfrage<br /><em>verpassen.</em>
+          </h1>
+          <p class="hero-sub">
+            Dein Schädlingsbekämpfungsbetrieb antwortet automatisch — auf WhatsApp und E-Mail. Mit Preisrahmen, Terminvorschlag und Follow-up. Auch wenn du gerade beim Einsatz bist.
+          </p>
+          <div class="hero-actions">
+            <a href="#cta"><button class="btn-primary">Jetzt kostenlos testen</button></a>
+            <a href="#how"><button class="btn-secondary">Wie funktioniert's? →</button></a>
+          </div>
+        </div>
+
+        <!-- Chat Animation -->
+        <div style="display:flex; justify-content:center;">
+          <div class="chat-mock">
+            <div class="response-badge" id="respBadge">⚡ Antwort in 4 Sekunden</div>
+            <div class="chat-mock-header">
+              <div class="chat-avatar">💬</div>
+              <div>
+                <div class="chat-mock-header-text">WhatsApp · Kundenanfrage</div>
+                <div class="chat-mock-header-sub">KI antwortet automatisch</div>
+              </div>
+              <div class="chat-online"></div>
+            </div>
+
+            <div class="bubble bubble-customer" id="b1">
+              Hallo, ich habe seit gestern Mäuse in der Küche entdeckt — da sind eindeutig Spuren. Ich brauche dringend Hilfe. Wie schnell könnt ihr kommen? 😟
+            </div>
+
+            <div class="typing-indicator" id="typing" style="align-self:flex-end;">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+
+            <div class="bubble bubble-ai" id="b2" style="display:none;">
+              Hallo! 👋 Danke für Ihre Nachricht. Für eine Erstinspektion & Bekämpfung bei Mäusebefall rechnen wir mit <strong>90–180 €</strong>. Wir haben noch freie Termine am <strong>Mi. 02.04. (9–11 Uhr)</strong> oder <strong>Do. 03.04. (14–16 Uhr)</strong>. Welcher Termin passt Ihnen?
+            </div>
+            <div class="bubble-time" id="b2time">Heute 14:32 · KI-Assistent</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN -->
+  <section id="pain">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Das kennen die meisten</div>
+        <h2 class="section-title reveal">So läuft es heute<br />bei den meisten Schädlingsbekämpfern</h2>
+        <p class="section-sub reveal reveal-delay-1">Drei Situationen, die täglich Aufträge kosten — obwohl der Bedarf da ist.</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card reveal reveal-delay-1">
+          <div class="pain-icon">📵</div>
+          <h3>Nicht erreichbar beim Einsatz</h3>
+          <p>Du bist beim Kunden vor Ort, ein neuer Interessent schreibt — und wartet. Bis du antwortest, hat er längst bei der Konkurrenz gebucht.</p>
+        </div>
+        <div class="pain-card reveal reveal-delay-2">
+          <div class="pain-icon">🌙</div>
+          <h3>Anfragen abends und am Wochenende</h3>
+          <p>Schädlingsbefall wird oft abends bemerkt. Kunden schreiben dann — ohne automatische Antwort verlierst du genau diese dringenden Aufträge.</p>
+        </div>
+        <div class="pain-card reveal reveal-delay-3">
+          <div class="pain-icon">🔄</div>
+          <h3>Kein Follow-up nach dem ersten Kontakt</h3>
+          <p>Viele Kunden antworten nicht sofort, obwohl sie den Termin eigentlich brauchen. Wer nicht nachhakt, verliert — manuell passiert das selten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">So einfach funktioniert's</div>
+        <h2 class="section-title reveal">Drei Schritte. Kein Aufwand.</h2>
+        <p class="section-sub reveal reveal-delay-1">Pestly arbeitet im Hintergrund — du greifst nur ein, wenn es wirklich nötig ist.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Kunde schreibt — per WhatsApp oder E-Mail</h3>
+            <p>Egal ob Terminanfrage, Befallsmeldung oder Preisfrage: Pestly empfängt die Nachricht sofort und analysiert automatisch, worum es geht.</p>
+            <span class="step-badge">Eingehende Kanäle: WhatsApp · E-Mail</span>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>KI antwortet professionell — in Sekunden</h3>
+            <p>Die KI erkennt das Anliegen, nennt einen ungefähren Preisrahmen und schlägt direkt passende Termine vor. Die Antwort klingt wie du — nicht wie ein Bot.</p>
+            <span class="step-badge">⚡ Durchschnittliche Antwortzeit: unter 8 Sekunden</span>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Du wirst nur benachrichtigt, wenn es nötig ist</h3>
+            <p>Komplizierte Fälle, Gewerbekunden oder Preisverhandlungen landen sofort als Push-Nachricht auf deinem Handy. Alles andere läuft automatisch — inklusive Follow-up nach zwei Tagen.</p>
+            <span class="step-badge">Nur relevante Fälle landen bei dir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Features</div>
+        <h2 class="section-title reveal">Alles drin — nichts Überflüssiges</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">⚡</span>
+          <h3>Sofortantwort, 24 / 7</h3>
+          <p>Kunden warten nie mehr. Die KI antwortet automatisch — auch nachts, am Wochenende und wenn du gerade beim Einsatz bist.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <span class="feature-icon">📅</span>
+          <h3>Termin- & Preisvorschlag</h3>
+          <p>Die KI kennt deinen Kalender und deine Preisspannen. Sie nennt dem Kunden direkt realistische Werte — kein leeres „Wir melden uns".</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <span class="feature-icon">🔔</span>
+          <h3>Automatisches Follow-up</h3>
+          <p>Meldet sich ein Kunde nach zwei Tagen nicht zurück, schreibt das System von selbst nach — freundlich, ohne aufdringlich zu wirken.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-4">
+          <span class="feature-icon">🧠</span>
+          <h3>Smarte Eskalation</h3>
+          <p>Gewerbekunden, Großobjekte, schwierige Befallssituationen — Pestly erkennt diese Fälle und gibt sie sofort an dich weiter. Du entscheidest, was zählt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num" data-target="94">0</div>
+          <div class="stat-label">% der Anfragen werden vollautomatisch beantwortet</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-num" data-target="8" data-suffix="s">0s</div>
+          <div class="stat-label">Durchschnittliche Antwortzeit</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-num" data-target="3" data-prefix="+" data-suffix="x">0x</div>
+          <div class="stat-label">mehr Terminabschlüsse im ersten Monat</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Erfahrungen</div>
+        <h2 class="section-title reveal">Was Betriebe sagen</h2>
+        <p class="section-sub reveal reveal-delay-1">Echte Ergebnisse aus dem Alltag.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-quote">Früher habe ich abends noch schnell auf WhatsApp geantwortet — oft zu spät. Jetzt sind Anfragen schon beantwortet, bevor ich vom Einsatz heimkomme. Letzten Monat drei Aufträge mehr als sonst.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">🐀</div>
+            <div>
+              <div class="author-name">Marcus H.</div>
+              <div class="author-role">Schädlingsbekämpfung, Köln</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-quote">Das automatische Follow-up ist Gold wert. Viele Kunden melden sich nicht sofort — früher hab ich die verloren. Jetzt buchen sie trotzdem, weil Pestly einfach nochmal nachfragt. Ohne mein Zutun.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">🐜</div>
+            <div>
+              <div class="author-name">Sandra W.</div>
+              <div class="author-role">Schädlingsbekämpfung, Hamburg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Häufige Fragen</div>
+        <h2 class="section-title reveal">Deine Fragen, direkt beantwortet</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            Was kostet Pestly?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Pestly setzt sich aus einer einmaligen Einrichtungsgebühr und einer monatlichen Service-Pauschale zusammen. Wir bieten drei Pakete an:<br><br>
+              <strong>Starter:</strong> 299 € Setup / 150 € pro Monat — ein Kanal, z. B. E-Mail.<br>
+              <strong>Professional:</strong> 399 € Setup / 250 € pro Monat — E-Mail + WhatsApp Business.<br>
+              <strong>Enterprise:</strong> 499 € Setup / 350 € pro Monat — Full-Service inkl. Angebots-Engine.<br><br>
+              Im Vergleich zu einer Vollzeit-Bürokraft spart Pestly dir über 90 % der Kosten ein.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-question">
+            Gibt es eine kostenlose Testphase?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Ja. Nach der Einrichtung hast du 14 Tage Zeit, Pestly im echten Arbeitsalltag zu testen — und zu sehen, wie viele Anfragen das System für dich konvertiert. Bist du nicht zufrieden, greift unsere 30-Tage-Geld-zurück-Garantie auf das Setup. Kein Risiko.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <div class="faq-question">
+            Wie lange dauert die Einrichtung?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Für dich: etwa 20 Minuten. In einem gemeinsamen Onboarding-Call legen wir deine Preisrahmen fest, verbinden deine Kanäle und definieren, welche Fälle sofort an dein Handy eskaliert werden. Den technischen Rest erledigen wir — du musst nichts programmieren oder installieren.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3">
+          <div class="faq-question">
+            Erkennt der Kunde, dass er mit einer KI schreibt?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Pestly lernt deinen persönlichen Schreibstil und nutzt die Fachbegriffe deiner Region. Kunden bemerken den Unterschied meist nicht. Was für sie viel wichtiger ist: Sie erhalten innerhalb von Sekunden eine qualifizierte Antwort — während die Konkurrenz erst Stunden später zurückruft.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-4">
+          <div class="faq-question">
+            Was passiert bei komplexen Fällen?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Pestly ist kein blindes System. Erkennt die KI einen Großkunden, eine unklare Schadenslage oder eine Preisverhandlung, stoppt sie die Automatisierung sofort. Du bekommst eine Push-Benachrichtigung mit allen Infos auf dein Handy und übernimmst den Fall persönlich.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-4">
+          <div class="faq-question">
+            Muss ich technisch begabt sein?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Nein. Pestly ist eine "Done-for-you"-Lösung. Wir richten alles ein und sorgen dafür, dass es läuft. Du nutzt einfach weiterhin dein Handy oder deinen PC wie gewohnt.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <div class="tag">Kostenlos starten</div>
+        <h2 class="section-title">Bereit für den nächsten Schritt?</h2>
+        <p class="section-sub">14 Tage gratis testen. Keine Kreditkarte. Keine Kündigung nötig.</p>
+        <form class="cta-form" id="ctaForm" novalidate>
+          <input
+            class="cta-input"
+            type="email"
+            id="emailInput"
+            placeholder="deine@email.de"
+            autocomplete="email"
+            required
+          />
+          <button type="submit" class="btn-primary">Jetzt starten →</button>
+        </form>
+        <div id="form-error">Bitte gib eine gültige E-Mail-Adresse ein.</div>
+        <p class="cta-note">Kein Spam. Keine Weitergabe. Abmeldung jederzeit möglich.</p>
+        <div id="form-success">✓ Super! Wir melden uns innerhalb von 24 Stunden bei dir.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-logo-text">ESTLY</span>
+        </div>
+        <div class="footer-links">
+          <a href="#">Funktionen</a>
+          <a href="#">Preise</a>
+          <a href="blog.html">Blog</a>
+          <a href="#">Kontakt</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Scroll-Reveal ───────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Chat Animation ──────────────────────────────────── */
+    const b1      = document.getElementById('b1');
+    const b2      = document.getElementById('b2');
+    const b2time  = document.getElementById('b2time');
+    const typing  = document.getElementById('typing');
+    const respBadge = document.getElementById('respBadge');
+
+    function runChatAnimation() {
+      // Show customer bubble
+      setTimeout(() => b1.classList.add('show'), 600);
+
+      // Show typing after 1.4s
+      setTimeout(() => typing.classList.add('show'), 1400);
+
+      // Hide typing, show AI reply after 3.2s
+      setTimeout(() => {
+        typing.classList.remove('show');
+        b2.style.display = 'block';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => b2.classList.add('show'));
+        });
+      }, 3200);
+
+      // Show timestamp
+      setTimeout(() => b2time.classList.add('show'), 3700);
+
+      // Show response-time badge
+      setTimeout(() => respBadge.classList.add('show'), 4000);
+    }
+
+    // Run on load, then loop
+    window.addEventListener('load', () => {
+      runChatAnimation();
+    });
+
+    function resetAndReplay() {
+      b1.classList.remove('show');
+      b2.classList.remove('show');
+      b2.style.display = 'none';
+      b2time.classList.remove('show');
+      typing.classList.remove('show');
+      respBadge.classList.remove('show');
+      setTimeout(runChatAnimation, 400);
+    }
+
+    setInterval(resetAndReplay, 9000);
+
+    /* ── Counter Animation ───────────────────────────────── */
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 1600;
+        const start = performance.now();
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // ease-out
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(eased * target);
+          el.textContent = prefix + value + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = prefix + target + suffix;
+        }
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObserver.observe(el));
+
+    /* ── FAQ Accordion ───────────────────────────────────── */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer   = item.querySelector('.faq-answer');
+
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item.open').forEach(openItem => {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-answer').style.maxHeight = '0';
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* ── CTA Form ────────────────────────────────────────── */
+    const ctaForm     = document.getElementById('ctaForm');
+    const emailInput  = document.getElementById('emailInput');
+    const formSuccess = document.getElementById('form-success');
+    const formError   = document.getElementById('form-error');
+
+    ctaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formError.style.display = 'none';
+
+      const emailVal = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(emailVal)) {
+        formError.style.display = 'block';
+        emailInput.focus();
+        return;
+      }
+
+      fetch('http://localhost:5678/webhook-test/ebca9d1b-0419-460c-a57e-f6c1d7e44a3f', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email: emailVal, source: 'pestly-landingpage', timestamp: new Date().toISOString() })
+      }).catch(() => {});
+
+      ctaForm.style.display = 'none';
+      formSuccess.style.display = 'block';
+    });
+
+    /* ── Smooth scroll for anchor links ─────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

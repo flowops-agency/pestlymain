@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – Pestly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ───────────────────────────────────────── */
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #181818;
+      --surface2: #222222;
+      --border:   #2e2e2e;
+      --accent:   #f5820d;
+      --accent-dim: #7a400a;
+      --text:     #f0ece4;
+      --muted:    #888880;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body:    'Lora', serif;
+      --radius:   12px;
+      --max:      1160px;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── Scroll-Reveal ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ── Utility ─────────────────────────────────────────── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      background: rgba(245,130,13,0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo svg { flex-shrink: 0; }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #ff9a2e; transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      padding: 140px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 0%, rgba(245,130,13,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-tag { margin-bottom: 20px; }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── BLOG GRID ───────────────────────────────────────── */
+    #blog {
+      padding: 80px 0 120px;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── ARTICLE CARD ────────────────────────────────────── */
+    .article-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
+      cursor: pointer;
+    }
+    .article-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .article-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .article-body {
+      padding: 24px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .article-category {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(245,130,13,0.1);
+      border: 1px solid var(--accent-dim);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .article-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .article-excerpt {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .article-meta-info {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--font-display);
+    }
+    .article-read-more {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+      transition: gap 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .article-card:hover .article-read-more {
+      gap: 8px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .hero-headline { font-size: 2rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">ESTLY</span>
+      </a>
+      <a href="index.html#cta"><button class="nav-cta">Demo anfragen</button></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="tag reveal">Blog</div>
+      <h1 class="hero-headline reveal reveal-delay-1">Wissen für Schädlingsbekämpfer</h1>
+      <p class="hero-sub reveal reveal-delay-2">Praxistipps, Branchen-Insights und alles über KI im Handwerk — damit dein Betrieb keine Anfrage mehr verpasst.</p>
+    </div>
+  </section>
+
+  <!-- BLOG GRID -->
+  <section id="blog">
+    <div class="container">
+      <div class="blog-grid">
+
+        <!-- Article 1 -->
+        <a href="blog-wespen-saison.html" class="article-card reveal reveal-delay-1">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #1a1200 0%, #3d2800 60%, #1a0d00 100%);">
+            🐝
+          </div>
+          <div class="article-body">
+            <span class="article-category">Betrieb &amp; Alltag</span>
+            <h2 class="article-title">Wespen-Saison 2024: Wie du 50 Anfragen am Tag bewältigst, ohne im Chaos zu versinken</h2>
+            <p class="article-excerpt">August, 32 Grad, voller Einsatzplan — und das Telefon klingelt im 10-Minuten-Takt. Warum schnelle Antworten in der Hochsaison mehr zählen als gute Arbeit.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">6 Min. Lesezeit · 15. Aug. 2024</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="blog-technik-mythos.html" class="article-card reveal reveal-delay-2">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #0d0d1a 0%, #1e1e3d 60%, #0d0a1a 100%);">
+            🤖
+          </div>
+          <div class="article-body">
+            <span class="article-category">KI &amp; Automation</span>
+            <h2 class="article-title">Der Technik-Mythos: Warum du für KI absolut kein technisches Vorwissen brauchst</h2>
+            <p class="article-excerpt">„Ich bin Kammerjäger, kein IT-Nerd." Das stimmt — und genau deshalb musst du dich um die Technik nicht kümmern. Was unser Done-for-you-Prinzip bedeutet.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">5 Min. Lesezeit · 28. März 2025</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="blog-fachkraeftemangel.html" class="article-card reveal reveal-delay-3">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #0a1a0a 0%, #1a3d1a 60%, #0d1a0d 100%);">
+            🧑‍💼
+          </div>
+          <div class="article-body">
+            <span class="article-category">Betrieb &amp; Alltag</span>
+            <h2 class="article-title">Fachkräftemangel? Warum dein bester Büro-Mitarbeiter keinen Urlaub braucht</h2>
+            <p class="article-excerpt">Eine gute Bürokraft zu finden ist schwer. Pestly ist 24/7 verfügbar, macht keine Tippfehler und spricht über 50 Sprachen — ohne Krankmeldung oder Kündigung.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">5 Min. Lesezeit · 10. Apr. 2025</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 4 -->
+        <a href="blog-feierabend-17-uhr.html" class="article-card reveal reveal-delay-1">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #0d0c1a 0%, #1a1230 60%, #0d0a1a 100%);">
+            🌙
+          </div>
+          <div class="article-body">
+            <span class="article-category">Betrieb &amp; Alltag</span>
+            <h2 class="article-title">Feierabend um 17 Uhr: Wie du als Kammerjäger endlich wieder Zeit für die Familie hast</h2>
+            <p class="article-excerpt">Die unbezahlte „zweite Schicht" am Abend frisst dich auf. Wie ein System im Hintergrund dafür sorgt, dass du das Handy um 17 Uhr einfach ausschalten kannst.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">5 Min. Lesezeit · 3. Apr. 2025</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 5 -->
+        <a href="blog-angebot-morgen.html" class="article-card reveal reveal-delay-2">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #1a0a00 0%, #3d1800 60%, #1a0800 100%);">
+            ⚡
+          </div>
+          <div class="article-body">
+            <span class="article-category">Vertrieb</span>
+            <h2 class="article-title">Warum ein „Ich schick dir morgen ein Angebot" heute nicht mehr reicht</h2>
+            <p class="article-excerpt">Kunden im Panik-Modus warten nicht. Wer in Sekunden antwortet, gewinnt den Auftrag — wer vertöstet, verliert ihn an die Konkurrenz.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">4 Min. Lesezeit · 27. März 2025</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 6 -->
+        <a href="blog-whatsapp-chaos.html" class="article-card reveal reveal-delay-3">
+          <div class="article-thumb" style="background: linear-gradient(135deg, #0a1a0f 0%, #0d3320 60%, #0a1a0f 100%);">
+            📱
+          </div>
+          <div class="article-body">
+            <span class="article-category">WhatsApp</span>
+            <h2 class="article-title">Dein WhatsApp Business explodiert? So bringst du Struktur in hunderte Sprachnachrichten</h2>
+            <p class="article-excerpt">Unscharfe Fotos, 3-minütige Sprachnachrichten, Anfragen die sich verlieren — Pestly transkribiert, sortiert und packt alles automatisch in dein CRM.</p>
+            <div class="article-meta">
+              <span class="article-meta-info">5 Min. Lesezeit · 20. März 2025</span>
+              <span class="article-read-more">Weiterlesen <span>→</span></span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
+                  stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-logo-text">ESTLY</span>
+        </div>
+        <div class="footer-links">
+          <a href="index.html#features">Funktionen</a>
+          <a href="index.html#faq">Preise</a>
+          <a href="blog.html">Blog</a>
+          <a href="#">Kontakt</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Scroll-Reveal ───────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
