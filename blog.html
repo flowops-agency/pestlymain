@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – Pestly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:         #0d0d0d;
+      --surface:    #181818;
+      --surface2:   #222222;
+      --border:     #2e2e2e;
+      --accent:     #f5820d;
+      --accent-dim: #7a400a;
+      --text:       #f0ece4;
+      --muted:      #888880;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body:    'Lora', serif;
+      --radius: 12px;
+      --max:    1160px;
+      --ease:   cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo svg { flex-shrink: 0; }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #ff9a2e; transform: translateY(-1px); }
+
+    /* HERO */
+    .blog-hero {
+      padding: 120px 0 64px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(245,130,13,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      background: rgba(245,130,13,0.08);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .blog-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+    .blog-hero h1 em { font-style: normal; color: var(--accent); }
+    .blog-hero p { color: var(--muted); font-size: 18px; max-width: 520px; }
+
+    /* FEATURED */
+    .featured-section { padding: 72px 0 48px; }
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+    .featured-card:hover { border-color: var(--accent); }
+    .featured-image {
+      background: linear-gradient(135deg, #1a1000, #2d1a00);
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(245,130,13,0.03) 20px, rgba(245,130,13,0.03) 21px);
+    }
+    .featured-body { padding: 44px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .post-category {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .featured-body h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .featured-body p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .post-meta-dot { color: var(--border); }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--accent);
+      transition: gap 0.2s;
+    }
+    .read-more:hover { gap: 10px; }
+
+    /* GRID */
+    .posts-section { padding: 0 0 100px; }
+    .posts-section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .post-card-image {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .bg-1 { background: linear-gradient(135deg, #0d1a0d, #1a2e1a); }
+    .bg-2 { background: linear-gradient(135deg, #0d0d1a, #1a1a2e); }
+    .bg-3 { background: linear-gradient(135deg, #1a0d0d, #2e1a1a); }
+    .bg-4 { background: linear-gradient(135deg, #0d1a1a, #1a2e2e); }
+    .bg-5 { background: linear-gradient(135deg, #1a1a0d, #2e2e1a); }
+    .bg-6 { background: linear-gradient(135deg, #1a0d1a, #2e1a2e); }
+    .post-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+    .post-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .post-card p { color: var(--muted); font-size: 14px; line-height: 1.65; flex: 1; margin-bottom: 20px; }
+    .post-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .newsletter-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .newsletter-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .newsletter-inner p { color: var(--muted); font-size: 16px; }
+    .nl-form { display: flex; gap: 12px; }
+    .nl-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .nl-input:focus { border-color: var(--accent); }
+    .nl-input::placeholder { color: var(--muted); }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #ff9a2e; transform: translateY(-1px); }
+    .nl-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-image { min-height: 200px; }
+      .newsletter-inner { grid-template-columns: 1fr; gap: 32px; }
+      .nl-form { flex-direction: column; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .featured-body { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68" stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68" stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68" stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-logo-text">ESTLY</span>
+      </a>
+      <a href="index.html#cta"><button class="nav-cta">Demo anfragen</button></a>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="reveal">
+        <div class="tag">Wissen · Praxis · Schädlingsbekämpfung</div>
+        <h1>Der Pestly <em>Blog</em></h1>
+        <p>Praxiswissen für Kammerjäger — über automatisierte Kundenkommunikation, mehr Aufträge und weniger Büroaufwand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-label reveal">Aktueller Beitrag</div>
+      <a href="#" class="featured-card reveal">
+        <div class="featured-image">📱</div>
+        <div class="featured-body">
+          <div class="post-category">Praxistipp</div>
+          <h2>Warum Schädlingsbekämpfer bis zu 40 % ihrer Anfragen verlieren — und wie du das stoppst</h2>
+          <p>Die meisten Betriebe antworten erst nach Stunden. Kunden aber entscheiden sich innerhalb von Minuten. Was das konkret kostet — und wie automatisierte Erstantworten per WhatsApp das ändern.</p>
+          <div class="post-meta">
+            <span>12. März 2025</span>
+            <span class="post-meta-dot">·</span>
+            <span>5 Min. Lesezeit</span>
+            <span class="post-meta-dot">·</span>
+            <span class="read-more">Weiterlesen →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="posts-section">
+    <div class="container">
+      <div class="posts-section-header reveal">
+        <span class="section-label" style="margin-bottom:0">Alle Beiträge</span>
+      </div>
+      <div class="posts-grid">
+
+        <article class="post-card reveal reveal-delay-1">
+          <div class="post-card-image bg-1">📞</div>
+          <div class="post-card-body">
+            <div class="post-category">Kundenkommunikation</div>
+            <h3>WhatsApp Business für Kammerjäger: Was wirklich funktioniert</h3>
+            <p>WhatsApp ist der meistgenutzte Kanal für Schadensmeldungen. Wie du ihn professionell nutzt — ohne ständig aufs Handy zu schauen.</p>
+            <div class="post-card-footer">
+              <span>5. März 2025 · 4 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card reveal reveal-delay-2">
+          <div class="post-card-image bg-2">📅</div>
+          <div class="post-card-body">
+            <div class="post-category">Betrieb & Effizienz</div>
+            <h3>Termine automatisch vergeben: So läuft dein Kalender von selbst</h3>
+            <p>Kein Hin-und-Her mehr per Telefon. Wie automatische Terminbuchung funktioniert und warum Kunden sie bevorzugen.</p>
+            <div class="post-card-footer">
+              <span>26. Feb. 2025 · 3 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card reveal reveal-delay-3">
+          <div class="post-card-image bg-3">👩‍💼</div>
+          <div class="post-card-body">
+            <div class="post-category">Kosten sparen</div>
+            <h3>Bürokraft vs. KI: Ein ehrlicher Vergleich für Schädlingsbekämpfer</h3>
+            <p>Was kostet eine Teilzeitkraft wirklich — und was kann eine KI besser, schlechter oder genauso gut? Eine nüchterne Rechnung.</p>
+            <div class="post-card-footer">
+              <span>18. Feb. 2025 · 6 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card reveal reveal-delay-1">
+          <div class="post-card-image bg-4">🏢</div>
+          <div class="post-card-body">
+            <div class="post-category">Gewerbekunden</div>
+            <h3>Gewerbeaufträge richtig qualifizieren — bevor du hinfahrst</h3>
+            <p>Hotellerie, Gastronomie, Logistik: Gewerbekunden sind lukrativ — aber komplex. So filterst du gute von schlechten Anfragen heraus.</p>
+            <div class="post-card-footer">
+              <span>10. Feb. 2025 · 5 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card reveal reveal-delay-2">
+          <div class="post-card-image bg-5">📊</div>
+          <div class="post-card-body">
+            <div class="post-category">Zahlen & Fakten</div>
+            <h3>Was kostet ein verpasster Anruf wirklich? Eine Rechnung für Kammerjäger</h3>
+            <p>Wir rechnen durch, was ein nicht beantworteter Anruf über ein Jahr hinweg bedeutet — in Euro und verlorenen Stammkunden.</p>
+            <div class="post-card-footer">
+              <span>3. Feb. 2025 · 4 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card reveal reveal-delay-3">
+          <div class="post-card-image bg-6">🌙</div>
+          <div class="post-card-body">
+            <div class="post-category">Praxistipp</div>
+            <h3>Abends Feierabend — und trotzdem jede Anfrage beantworten</h3>
+            <p>Wie drei Kammerjäger aus NRW ihre Abendstunden zurückgewonnen haben, ohne einen einzigen Auftrag zu verlieren.</p>
+            <div class="post-card-footer">
+              <span>27. Jan. 2025 · 3 Min.</span>
+              <span class="read-more">Lesen →</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="reveal">
+          <h2>Neue Beiträge direkt ins Postfach</h2>
+          <p>Kein Spam. Nur Praxiswissen für Schädlingsbekämpfer — einmal im Monat.</p>
+        </div>
+        <div class="reveal">
+          <form onsubmit="handleNl(event)">
+            <div class="nl-form">
+              <input class="nl-input" type="email" placeholder="deine@email.de" required />
+              <button type="submit" class="btn-primary">Anmelden</button>
+            </div>
+          </form>
+          <p class="nl-note">Jederzeit abmeldbar. Keine Weitergabe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">
+          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68" stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68" stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68" stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-logo-text">ESTLY</span>
+        </a>
+        <div class="footer-links">
+          <a href="index.html">Startseite</a>
+          <a href="blog.html">Blog</a>
+          <a href="index.html#cta">Demo anfragen</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    function handleNl(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = '✓ Angemeldet!';
+      btn.style.background = '#25d366';
+      btn.disabled = true;
+    }
+  </script>
+</body>
+</html>
