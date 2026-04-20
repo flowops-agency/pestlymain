@@ -968,6 +968,25 @@
   </footer>
 
   <script>
+    /* ── NEU: Die Turnstile-Funktion aus dem langsamen Modul befreit! ── */
+    window.pestlyTurnstileToken = null;
+
+    window.onTurnstileSuccess = function(token) {
+      window.pestlyTurnstileToken = token;
+      
+      const statusText = document.getElementById('statusText');
+      const turnstileWidget = document.getElementById('turnstile-widget');
+      const callButton = document.getElementById('callButton');
+
+      if(statusText) statusText.innerText = "Klicke auf den Button und stelle eine Test-Anfrage.";
+      if(turnstileWidget) turnstileWidget.style.display = 'none'; // Widget ausblenden
+      
+      if(callButton) {
+        callButton.style.display = 'block';
+        callButton.disabled = false;
+      }
+    };
+
     /* ── Scroll-Reveal ───────────────────────────────────── */
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1076,86 +1095,94 @@
     import { RetellWebClient } from 'https://esm.sh/retell-client-js-sdk';
 
     const retellWebClient = new RetellWebClient();
-    let turnstileToken = null;
     let isCalling = false;
 
     const callButton = document.getElementById('callButton');
     const statusText = document.getElementById('statusText');
     const avatarIcon = document.getElementById('avatarIcon');
     const respBadge = document.getElementById('respBadge');
-    const turnstileWidget = document.getElementById('turnstile-widget');
-
-    // Wird von Cloudflare aufgerufen, wenn erfolgreich
-    window.onTurnstileSuccess = function(token) {
-      turnstileToken = token;
-      statusText.innerText = "Klicke auf den Button und stelle eine Test-Anfrage.";
-      turnstileWidget.style.display = 'none'; // Widget ausblenden nach Erfolg
-      callButton.style.display = 'block';
-      callButton.disabled = false;
-    };
 
     // Retell Events
     retellWebClient.on('call_started', () => {
       isCalling = true;
-      statusText.innerText = "Gespräch läuft...";
-      statusText.style.color = "#25d366";
-      avatarIcon.innerText = "🎙️";
-      callButton.innerText = "Auflegen 🛑";
-      callButton.classList.replace('btn-primary', 'btn-secondary');
-      callButton.style.borderColor = "#ff3333";
-      callButton.style.color = "#ff3333";
-      respBadge.classList.add('show');
+      if(statusText) {
+        statusText.innerText = "Gespräch läuft...";
+        statusText.style.color = "#25d366";
+      }
+      if(avatarIcon) avatarIcon.innerText = "🎙️";
+      if(callButton) {
+        callButton.innerText = "Auflegen 🛑";
+        callButton.classList.replace('btn-primary', 'btn-secondary');
+        callButton.style.borderColor = "#ff3333";
+        callButton.style.color = "#ff3333";
+      }
+      if(respBadge) respBadge.classList.add('show');
     });
 
     retellWebClient.on('call_ended', () => {
       isCalling = false;
-      statusText.innerText = "Beendet. Seite neu laden für weiteren Test.";
-      statusText.style.color = "var(--muted)";
-      avatarIcon.innerText = "🤖";
-      callButton.innerText = "Demo starten ▶";
-      callButton.classList.replace('btn-secondary', 'btn-primary');
-      callButton.style.borderColor = "";
-      callButton.style.color = "";
-      callButton.disabled = true; 
-      respBadge.classList.remove('show');
+      if(statusText) {
+        statusText.innerText = "Beendet. Seite neu laden für weiteren Test.";
+        statusText.style.color = "var(--muted)";
+      }
+      if(avatarIcon) avatarIcon.innerText = "🤖";
+      if(callButton) {
+        callButton.innerText = "Demo starten ▶";
+        callButton.classList.replace('btn-secondary', 'btn-primary');
+        callButton.style.borderColor = "";
+        callButton.style.color = "";
+        callButton.disabled = true; 
+      }
+      if(respBadge) respBadge.classList.remove('show');
     });
 
     retellWebClient.on('error', (error) => {
       console.error('Retell error:', error);
-      statusText.innerText = "Verbindungsfehler.";
-      statusText.style.color = "#ff4444";
+      if(statusText) {
+        statusText.innerText = "Verbindungsfehler.";
+        statusText.style.color = "#ff4444";
+      }
       isCalling = false;
     });
 
     // Klick auf Button
-    callButton.addEventListener('click', async () => {
-      if (isCalling) {
-        retellWebClient.stopCall();
-        return;
-      }
-      if (!turnstileToken) return;
+    if(callButton) {
+      callButton.addEventListener('click', async () => {
+        if (isCalling) {
+          retellWebClient.stopCall();
+          return;
+        }
 
-      statusText.innerText = "Verbinde...";
-      statusText.style.color = "var(--text)";
+        // Token wird jetzt sicher aus dem anderen Skriptbereich geholt
+        const token = window.pestlyTurnstileToken;
+        if (!token) return;
 
-      try {
-        // Fragt das API-Backend an, das du bei Vercel anlegst
-        const res = await fetch('/api/create-web-call', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ turnstileToken }),
-        });
+        if(statusText) {
+          statusText.innerText = "Verbinde...";
+          statusText.style.color = "var(--text)";
+        }
 
-        if (!res.ok) throw new Error('API Request failed');
+        try {
+          // Fragt das API-Backend an, das du bei Vercel angelegt hast
+          const res = await fetch('/api/create-web-call', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ turnstileToken: token }),
+          });
 
-        const data = await res.json();
-        await retellWebClient.startCall({ accessToken: data.access_token });
-      } catch (err) {
-        console.error('Fehler:', err);
-        statusText.innerText = "Fehler beim Starten.";
-        statusText.style.color = "#ff4444";
-      }
-    });
+          if (!res.ok) throw new Error('API Request failed');
+
+          const data = await res.json();
+          await retellWebClient.startCall({ accessToken: data.access_token });
+        } catch (err) {
+          console.error('Fehler:', err);
+          if(statusText) {
+            statusText.innerText = "Fehler beim Starten.";
+            statusText.style.color = "#ff4444";
+          }
+        }
+      });
+    }
   </script>
 </body>
 </html>
