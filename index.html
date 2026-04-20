@@ -628,472 +628,35 @@
   </style>
 </head>
 <body>
+ <script>
+    // Wir speichern den Token global, damit das andere Skript ihn später nutzen kann
+    window.pestlyTurnstileToken = null;
 
-  <nav>
-    <div class="container nav-inner">
-      <div class="nav-logo">
-        <svg width="30" height="40" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
-                stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
-                stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
-                stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="nav-logo-text">ESTLY</span>
-      </div>
-      <a href="#cta"><button class="nav-cta">Demo anfragen</button></a>
-    </div>
-  </nav>
-
-  <section id="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div>
-          <div class="tag">KI-Kundenservice · WhatsApp & Telefon · 24/7</div>
-          <h1 class="hero-headline">
-            Nie wieder eine Anfrage<br /><em>verpassen.</em>
-          </h1>
-          <p class="hero-sub">
-            Dein Betrieb antwortet automatisch auf WhatsApp und Telefon — rund um die Uhr. Die KI nennt Preise, schlägt Termine vor und trägt sie direkt in deinen Kalender ein. Kein verlorener Auftrag mehr. Keine Bürokraft nötig.
-          </p>
-          <div class="hero-actions">
-            <a href="#cta"><button class="btn-primary">Jetzt kostenlos testen</button></a>
-            <a href="#how"><button class="btn-secondary">Wie funktioniert's? →</button></a>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:center;">
-          <div class="chat-mock" style="align-items: center; text-align: center; width: 100%;">
-            <div class="response-badge" id="respBadge">⚡ Live verbunden</div>
-            
-            <div class="chat-avatar" id="avatarIcon" style="width: 70px; height: 70px; font-size: 32px; margin: 0 auto 16px;">🤖</div>
-            
-            <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--text);">
-              Sprich mit der Pestly KI
-            </h3>
-            
-            <p id="statusText" style="color: var(--muted); font-size: 15px; margin-bottom: 24px;">
-              Bitte warten auf Security Check...
-            </p>
-
-            <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAADAHg3_SFqfhypdd" data-callback="onTurnstileSuccess" style="margin-bottom: 20px; min-height: 65px; display: flex; justify-content: center;"></div>
-
-            <button id="callButton" class="btn-primary" style="width: 100%; display: none;" disabled>Demo starten ▶</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pain">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag">Das kennen die meisten</div>
-        <h2 class="section-title reveal">So läuft es heute<br />bei den meisten Schädlingsbekämpfern</h2>
-        <p class="section-sub reveal reveal-delay-1">Drei Situationen, die täglich Aufträge kosten — obwohl der Bedarf da ist.</p>
-      </div>
-      <div class="pain-grid">
-        <div class="pain-card reveal reveal-delay-1">
-          <div class="pain-icon">📵</div>
-          <h3>Beim Einsatz nicht erreichbar</h3>
-          <p>Du bist beim Kunden, jemand anderes ruft an oder schreibt auf WhatsApp — und bekommt keine Antwort. Bis du zurückrufst, hat er woanders gebucht.</p>
-        </div>
-        <div class="pain-card reveal reveal-delay-2">
-          <div class="pain-icon">🌙</div>
-          <h3>Abends und am Wochenende klingelt das Handy</h3>
-          <p>Schädlingsbefall wird meist abends bemerkt. Kunden rufen dann an oder schreiben auf WhatsApp — und erwarten eine schnelle Reaktion. Die du nicht liefern kannst.</p>
-        </div>
-        <div class="pain-card reveal reveal-delay-3">
-          <div class="pain-icon">👩‍💼</div>
-          <h3>Bürokraft kostet — und löst das Problem trotzdem nicht</h3>
-          <p>Eine Teilzeitkraft für Telefonannahme und Terminvergabe kostet 1.500–2.500 € im Monat. Und ist trotzdem nicht um Mitternacht erreichbar, wenn der Kunde anruft.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="how">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag">So einfach funktioniert's</div>
-        <h2 class="section-title reveal">Drei Schritte. Kein Aufwand.</h2>
-        <p class="section-sub reveal reveal-delay-1">Pestly arbeitet im Hintergrund — du greifst nur ein, wenn es wirklich nötig ist.</p>
-      </div>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Kunde schreibt oder ruft an — rund um die Uhr</h3>
-            <p>Egal ob Terminanfrage, Befallsmeldung oder Preisfrage — per WhatsApp oder Telefon: Pestly empfängt die Anfrage sofort und erkennt automatisch, worum es geht.</p>
-            <span class="step-badge">Kanäle: WhatsApp · Telefon</span>
-          </div>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>KI antwortet professionell — und bucht den Termin</h3>
-            <p>Die KI nennt einen Preisrahmen, schlägt freie Termine vor und trägt den gebuchten Termin automatisch in deinen Kalender ein. Die Antwort klingt wie du — nicht wie ein Bot.</p>
-            <span class="step-badge">⚡ Antwort in Sekunden · Termin automatisch eingetragen</span>
-          </div>
-        </div>
-        <div class="step reveal">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Du wirst nur benachrichtigt, wenn es nötig ist</h3>
-            <p>Komplizierte Fälle, Gewerbekunden oder Preisverhandlungen landen sofort als Push-Nachricht auf deinem Handy. Alles andere läuft automatisch — inklusive Follow-up nach zwei Tagen.</p>
-            <span class="step-badge">Nur relevante Fälle landen bei dir</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="features">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag">Features</div>
-        <h2 class="section-title reveal">Alles drin — nichts Überflüssiges</h2>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card reveal reveal-delay-1">
-          <span class="feature-icon">📱</span>
-          <h3>WhatsApp & Telefon — 24 / 7</h3>
-          <p>Kunden schreiben oder rufen an — Pestly antwortet sofort. Auch nachts, am Wochenende, und wenn du gerade beim Einsatz bist. Kein Anruf geht mehr verloren.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-2">
-          <span class="feature-icon">📅</span>
-          <h3>Termin buchen & Kalender eintragen</h3>
-          <p>Die KI kennt deine freien Slots und deine Preisspannen. Sie schlägt Termine vor, bestätigt die Buchung — und trägt alles automatisch in deinen Kalender ein.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-3">
-          <span class="feature-icon">👩‍💼</span>
-          <h3>Bürokraft einsparen</h3>
-          <p>Pestly übernimmt, was sonst eine Teilzeitkraft für 1.500–2.500 € im Monat tut — Telefonannahme, Terminvergabe, Nachfassen. Rund um die Uhr, ohne Krankentage.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-4">
-          <span class="feature-icon">🧠</span>
-          <h3>Smarte Eskalation</h3>
-          <p>Gewerbekunden, Großobjekte, schwierige Befallssituationen — Pestly erkennt diese Fälle und gibt sie sofort als Benachrichtigung an dein Handy weiter.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="stats">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item reveal">
-          <div class="stat-num" data-target="94">0</div>
-          <div class="stat-label">% der Anfragen werden vollautomatisch beantwortet</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-1">
-          <div class="stat-num" data-target="8" data-suffix="s">0s</div>
-          <div class="stat-label">Durchschnittliche Antwortzeit</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-2">
-          <div class="stat-num" data-target="3" data-prefix="+" data-suffix="x">0x</div>
-          <div class="stat-label">mehr Terminabschlüsse im ersten Monat</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag">Erfahrungen</div>
-        <h2 class="section-title reveal">Was Betriebe sagen</h2>
-        <p class="section-sub reveal reveal-delay-1">Echte Ergebnisse aus dem Alltag.</p>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial reveal reveal-delay-1">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-quote">Früher habe ich abends noch schnell auf WhatsApp geantwortet — oft zu spät. Jetzt sind Anfragen schon beantwortet, bevor ich vom Einsatz heimkomme. Letzten Monat drei Aufträge mehr als sonst.</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">🐀</div>
-            <div>
-              <div class="author-name">Marcus H.</div>
-              <div class="author-role">Schädlingsbekämpfung, Köln</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial reveal reveal-delay-2">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-quote">Das automatische Follow-up ist Gold wert. Viele Kunden melden sich nicht sofort — früher hab ich die verloren. Jetzt buchen sie trotzdem, weil Pestly einfach nochmal nachfragt. Ohne mein Zutun.</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">🐜</div>
-            <div>
-              <div class="author-name">Sandra W.</div>
-              <div class="author-role">Schädlingsbekämpfung, Hamburg</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <div class="section-header">
-        <div class="tag">Häufige Fragen</div>
-        <h2 class="section-title reveal">Deine Fragen, direkt beantwortet</h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item reveal">
-          <div class="faq-question">
-            Was kostet Pestly?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Pestly setzt sich aus einer einmaligen Einrichtungsgebühr und einer monatlichen Service-Pauschale zusammen. Wir bieten drei Pakete an:<br><br>
-              <strong>Starter:</strong> 299 € Setup / 150 € pro Monat — WhatsApp-Automation.<br>
-              <strong>Professional:</strong> 399 € Setup / 250 € pro Monat — WhatsApp + Telefon-Automation.<br>
-              <strong>Enterprise:</strong> 499 € Setup / 350 € pro Monat — Full-Service inkl. Kalender-Integration & Angebots-Engine.<br><br>
-              Im Vergleich zu einer Bürokraft spart Pestly dir über 90 % der Kosten — bei doppelter Erreichbarkeit.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-1">
-          <div class="faq-question">
-            Gibt es eine kostenlose Testphase?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Ja. Nach der Einrichtung hast du 14 Tage Zeit, Pestly im echten Arbeitsalltag zu testen — und zu sehen, wie viele Anfragen das System für dich konvertiert. Bist du nicht zufrieden, greift unsere 30-Tage-Geld-zurück-Garantie auf das Setup. Kein Risiko.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-2">
-          <div class="faq-question">
-            Wie lange dauert die Einrichtung?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Für dich: etwa 20 Minuten. In einem gemeinsamen Onboarding-Call verbinden wir deine WhatsApp-Nummer und Telefonnummer, legen deine Preisrahmen und freien Termine fest und definieren, welche Fälle direkt an dich eskaliert werden. Den technischen Rest erledigen wir — du musst nichts installieren.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-3">
-          <div class="faq-question">
-            Erkennt der Kunde, dass er mit einer KI schreibt?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Pestly lernt deinen persönlichen Schreibstil und nutzt die Fachbegriffe deiner Region. Kunden bemerken den Unterschied meist nicht. Was für sie viel wichtiger ist: Sie erhalten innerhalb von Sekunden eine qualifizierte Antwort — während die Konkurrenz erst Stunden später zurückruft.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-4">
-          <div class="faq-question">
-            Was passiert bei komplexen Fällen?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Pestly ist kein blindes System. Erkennt die KI einen Großkunden, eine unklare Schadenslage oder eine Preisverhandlung, stoppt sie die Automatisierung sofort. Du bekommst eine Push-Benachrichtigung mit allen Infos auf dein Handy und übernimmst den Fall persönlich.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-4">
-          <div class="faq-question">
-            Muss ich technisch begabt sein?
-            <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Nein. Pestly ist eine "Done-for-you"-Lösung. Wir richten alles ein und sorgen dafür, dass es läuft. Du nutzt einfach weiterhin dein Handy oder deinen PC wie gewohnt.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="cta">
-    <div class="container">
-      <div class="cta-inner reveal">
-        <div class="tag">Kostenlos starten</div>
-        <h2 class="section-title">Bereit für den nächsten Schritt?</h2>
-        <p class="section-sub">14 Tage gratis testen. Keine Kreditkarte. Keine Kündigung nötig.</p>
-        <form class="cta-form" id="ctaForm" novalidate>
-          <input
-            class="cta-input"
-            type="email"
-            id="emailInput"
-            placeholder="deine@email.de"
-            autocomplete="email"
-            required
-          />
-          <button type="submit" class="btn-primary">Jetzt starten →</button>
-        </form>
-        <div id="form-error">Bitte gib eine gültige E-Mail-Adresse ein.</div>
-        <p class="cta-note">Kein Spam. Keine Weitergabe. Abmeldung jederzeit möglich.</p>
-        <div id="form-success">✓ Super! Wir melden uns innerhalb von 24 Stunden bei dir.</div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">
-          <svg width="24" height="32" viewBox="0 0 70 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 16,112 L 16,8 A 36,30 0 0 1 16,68"
-                  stroke="#f5820d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 16,68 L 16,24 A 23,22 0 0 1 16,68"
-                  stroke="#f5820d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 16,68 L 16,40 A 12,14 0 0 1 16,68"
-                  stroke="#f5820d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="nav-logo-text">ESTLY</span>
-        </div>
-        <div class="footer-links">
-          <a href="#">Funktionen</a>
-          <a href="#">Preise</a>
-          <a href="/blog">Blog</a>
-          <a href="#">Kontakt</a>
-          <a href="#">Datenschutz</a>
-          <a href="#">Impressum</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2025 Pestly. Alle Rechte vorbehalten.</p>
-        <p class="footer-copy" style="color:var(--accent)">Gebaut für Schädlingsbekämpfer — nicht für Silicon Valley.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    /* ── Scroll-Reveal ───────────────────────────────────── */
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    /* ── Counter Animation ───────────────────────────────── */
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = parseInt(el.dataset.target, 10);
-        const prefix = el.dataset.prefix || '';
-        const suffix = el.dataset.suffix || '';
-        const duration = 1600;
-        const start = performance.now();
-
-        function tick(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          // ease-out
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const value = Math.round(eased * target);
-          el.textContent = prefix + value + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = prefix + target + suffix;
-        }
-        requestAnimationFrame(tick);
-        counterObserver.unobserve(el);
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObserver.observe(el));
-
-    /* ── FAQ Accordion ───────────────────────────────────── */
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const question = item.querySelector('.faq-question');
-      const answer   = item.querySelector('.faq-answer');
-
-      question.addEventListener('click', () => {
-        const isOpen = item.classList.contains('open');
-
-        // Close all
-        document.querySelectorAll('.faq-item.open').forEach(openItem => {
-          openItem.classList.remove('open');
-          openItem.querySelector('.faq-answer').style.maxHeight = '0';
-        });
-
-        // Open clicked if it was closed
-        if (!isOpen) {
-          item.classList.add('open');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    });
-
-    /* ── CTA Form ────────────────────────────────────────── */
-    const ctaForm     = document.getElementById('ctaForm');
-    const emailInput  = document.getElementById('emailInput');
-    const formSuccess = document.getElementById('form-success');
-    const formError   = document.getElementById('form-error');
-
-    ctaForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      formError.style.display = 'none';
-
-      const emailVal = emailInput.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailRegex.test(emailVal)) {
-        formError.style.display = 'block';
-        emailInput.focus();
-        return;
-      }
-
-      fetch('https://n8n.pestly.de/webhook/ebca9d1b-0419-460c-a57e-f6c1d7e44a3f', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ email: emailVal, source: 'pestly-landingpage', timestamp: new Date().toISOString() })
-      }).catch(() => {});
-
-      ctaForm.style.display = 'none';
-      formSuccess.style.display = 'block';
-    });
-
-    /* ── Smooth scroll for anchor links ─────────────────── */
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+    // Diese Funktion existiert jetzt zu 100%, wenn Turnstile fertig ist
+    window.onTurnstileSuccess = function(token) {
+      console.log("Turnstile erfolgreich!");
+      window.pestlyTurnstileToken = token;
+      
+      // UI aktualisieren
+      document.getElementById('statusText').innerText = "Klicke auf den Button und stelle eine Test-Anfrage.";
+      document.getElementById('turnstile-widget').style.display = 'none'; // Widget weg
+      
+      const btn = document.getElementById('callButton');
+      btn.style.display = 'block'; // Button zeigen
+      btn.disabled = false;
+    };
   </script>
 
   <script type="module">
     import { RetellWebClient } from 'https://esm.sh/retell-client-js-sdk';
 
     const retellWebClient = new RetellWebClient();
-    let turnstileToken = null;
     let isCalling = false;
 
     const callButton = document.getElementById('callButton');
     const statusText = document.getElementById('statusText');
     const avatarIcon = document.getElementById('avatarIcon');
     const respBadge = document.getElementById('respBadge');
-    const turnstileWidget = document.getElementById('turnstile-widget');
-
-    // Wird von Cloudflare aufgerufen, wenn erfolgreich
-    window.onTurnstileSuccess = function(token) {
-      turnstileToken = token;
-      statusText.innerText = "Klicke auf den Button und stelle eine Test-Anfrage.";
-      turnstileWidget.style.display = 'none'; // Widget ausblenden nach Erfolg
-      callButton.style.display = 'block';
-      callButton.disabled = false;
-    };
 
     // Retell Events
     retellWebClient.on('call_started', () => {
@@ -1128,23 +691,25 @@
       isCalling = false;
     });
 
-    // Klick auf Button
+    // Klick auf den Button
     callButton.addEventListener('click', async () => {
       if (isCalling) {
         retellWebClient.stopCall();
         return;
       }
-      if (!turnstileToken) return;
+      
+      // Wir holen uns den Token aus dem ersten Skript
+      const token = window.pestlyTurnstileToken;
+      if (!token) return;
 
       statusText.innerText = "Verbinde...";
       statusText.style.color = "var(--text)";
 
       try {
-        // Fragt das API-Backend an, das du bei Vercel anlegst
         const res = await fetch('/api/create-web-call', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ turnstileToken }),
+          body: JSON.stringify({ turnstileToken: token }),
         });
 
         if (!res.ok) throw new Error('API Request failed');
