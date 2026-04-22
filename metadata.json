@@ -1,8 +1,0 @@
-{
-  "name": "Pestly AI",
-  "description": "KI-Kundenservice für Schädlingsbekämpfer mit Retell AI Agenten",
-  "requestFramePermissions": [
-    "microphone"
-  ],
-  "majorCapabilities": []
-}
