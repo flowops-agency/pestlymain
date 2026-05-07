@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/pestly-icon.png" />
+
+  <title>Pestly Blog | Einsatzberichte & Fallstudien</title>
+  <meta name="description" content="Echte Einsatzberichte und Fallstudien aus der SchÃ¤dlingsbekÃ¤mpfung. Erfahre, wie Pestly Betrieben hilft, mehr AuftrÃ¤ge zu gewinnen." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/pestly-logo.png" alt="Pestly Logo" width="104" style="display:block;flex-shrink:0;" />
+      </a>
+      <div class="nav-desktop-items" style="display: flex; gap: 16px; align-items: center;">
+        <a href="/us" style="font-weight: 600; font-size: 14px; text-decoration: none; color: var(--muted); transition: color 0.2s;" onmouseover="this.style.color='#f0ece4'" onmouseout="this.style.color='var(--muted)'">🇺🇸 English</a>
+        <a href="/#cta"><button class="nav-cta">Demo anfragen</button></a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="nav-overlay" id="navOverlay"></div>
+  <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+    <a href="/us">🇺🇸 English</a>
+    <a href="/#cta" class="nav-cta">Demo anfragen</a>
+  </div>
+
+  <section id="blog-header">
+    <div class="container">
+      <div class="tag reveal">Pestly Blog</div>
+      <h1 class="blog-title reveal">Einsatzberichte &amp; Fallstudien</h1>
+      <p class="blog-subtitle reveal">Echte Einblicke aus der Sch&auml;dlingsbek&auml;mpfung. So helfen KI-gest&uuml;tzte Prozesse Betrieben, schneller zu reagieren und mehr Auftr&auml;ge zu gewinnen.</p>
+    </div>
+  </section>
+
+  <section id="blog-content">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <button class="filter-pill active" data-filter="alle">Alle</button>
+        <button class="filter-pill" data-filter="einsatzberichte">Einsatzberichte</button>
+        <button class="filter-pill" data-filter="fallstudien">Fallstudien</button>
+        <button class="filter-pill" data-filter="lösungen">Lösungen</button>
+      </div>
+
+      <!-- Hero Post (newest) -->
+      <article class="hero-post reveal" data-category="lösungen">
+        <div class="hero-post-image">
+          <img src="/blog-hero-ki-revolution.png" alt="KI-gest&uuml;tzter Kundenservice f&uuml;r Sch&auml;dlingsbek&auml;mpfer" loading="lazy" decoding="async" fetchpriority="high" />
+        </div>
+        <div class="hero-post-body">
+          <span class="post-category loesung">L&ouml;sung</span>
+          <h2>Nie wieder verlorene Auftr&auml;ge: Wie KI den Kundenservice f&uuml;r Sch&auml;dlingsbek&auml;mpfer revolutioniert</h2>
+          <p class="post-date">6. Mai 2026</p>
+          <p class="post-excerpt">Verpasste Anrufe bedeuten verpassten Umsatz &mdash; und genau hier setzt Pestly an. Der erste KI-gest&uuml;tzte Kundenservice f&uuml;r Sch&auml;dlingsbek&auml;mpfer nimmt Anrufe automatisch entgegen, beantwortet WhatsApp-Nachrichten und bucht Termine direkt in Deinen Kalender. 24/7 erreichbar, kein B&uuml;ropersonal n&ouml;tig.</p>
+          <a href="/blog/ki-revolutioniert-kundenservice" class="hero-read-more">Weiterlesen &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Post Grid -->
+      <div class="post-grid">
+
+        <article class="post-card reveal" data-category="fallstudien" style="cursor:pointer;" onclick="location.href='/blog/hoffmann-kammerjaeger-40-mehr-auftraege'">
+          <div class="post-card-image">
+            <img src="/blog-card-ki-revolution.png" alt="Familienbetrieb mit Pestly" loading="lazy" decoding="async" />
+          </div>
+          <div class="post-card-body">
+            <span class="post-category fallstudie">Fallstudie</span>
+            <h3>Wie ein Familienbetrieb mit Pestly 40 % mehr Auftr&auml;ge annimmt</h3>
+            <p class="post-date">15. April 2026</p>
+            <p class="post-excerpt">Die Hoffmann Kammerj&auml;ger GmbH hatte ein typisches Problem: Tags&uuml;ber beim Einsatz, klingelte das Telefon durchgehend. Seit der Einf&uuml;hrung von Pestly hat sich die Quote angenommener Anfragen um 40 % gesteigert &mdash; ohne zus&auml;tzliches Personal.</p>
+          </div>
+        </article>
+
+        <article class="post-card reveal" data-category="einsatzberichte" style="cursor:pointer;" onclick="location.href='/blog/bettwanzen-mehrfamilienhaus-ki-disposition'">
+          <div class="post-card-image">
+            <img src="/blog-hero-bettwanzen.png" alt="Bettwanzen-Einsatz im Mehrfamilienhaus" loading="lazy" decoding="async" />
+          </div>
+          <div class="post-card-body">
+            <span class="post-category einsatz">Einsatzbericht</span>
+            <h3>Bettwanzen in Mehrfamilienhaus: So lief die KI-gest&uuml;tzte Disposition</h3>
+            <p class="post-date">2. April 2026</p>
+            <p class="post-excerpt">Ein 12-Parteien-Haus meldet Befall. Pestly koordiniert die Erstbewertung per WhatsApp, schl&auml;gt einen Termin vor und informiert den Techniker &mdash; alles w&auml;hrend der Kunde schl&auml;ft.</p>
+          </div>
+        </article>
+
+
+      </div>
+
+      <div class="empty-state" id="empty-state">
+        <p>Keine Beitr&auml;ge in dieser Kategorie gefunden.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="/pestly-logo.png" alt="Pestly Logo" width="104" style="display:block;flex-shrink:0;" />
+        </div>
+        <div class="footer-links">
+          <a href="/#features">Funktionen</a>
+          <a href="/#pricing">Preise</a>
+          <a href="/blog">Blog</a>
+          <a href="#">Kontakt</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/impressum">Impressum</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Pestly. Alle Rechte vorbehalten.</p>
+        <p class="footer-copy" style="color:var(--accent)">Gebaut f&uuml;r Sch&auml;dlingsbek&auml;mpfer &mdash; nicht f&uuml;r Silicon Valley.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* â”€â”€ Scroll-Reveal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* â”€â”€ Category Filter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const heroPost = document.querySelector('.hero-post');
+    const postCards = document.querySelectorAll('.post-card');
+    const emptyState = document.getElementById('empty-state');
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const filter = pill.dataset.filter;
+        let visibleCount = 0;
+
+        if (heroPost) {
+          if (filter === 'alle' || heroPost.dataset.category === filter) {
+            heroPost.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            heroPost.classList.add('hidden');
+          }
+        }
+
+        postCards.forEach(card => {
+          if (filter === 'alle' || card.dataset.category === filter) {
+            card.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        if (visibleCount === 0) {
+          emptyState.classList.add('visible');
+        } else {
+          emptyState.classList.remove('visible');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    (function() {
+      var h = document.getElementById('hamburger');
+      var d = document.getElementById('navDrawer');
+      var o = document.getElementById('navOverlay');
+      function n() { h.classList.add('open'); h.setAttribute('aria-expanded','true'); d.classList.add('open'); d.setAttribute('aria-hidden','false'); o.classList.add('open'); document.body.classList.add('nav-open'); }
+      function c() { h.classList.remove('open'); h.setAttribute('aria-expanded','false'); d.classList.remove('open'); d.setAttribute('aria-hidden','true'); o.classList.remove('open'); document.body.classList.remove('nav-open'); }
+      if (h) { h.addEventListener('click', function() { d.classList.contains('open') ? c() : n(); }); }
+      if (o) { o.addEventListener('click', c); }
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && d.classList.contains('open')) c(); });
+      if (d) { d.querySelectorAll('a').forEach(function(l) { l.addEventListener('click', c); }); }
+    })();
+  </script>
+
+</body>
+</html>
