@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://pestly.de/sitemap.xml
