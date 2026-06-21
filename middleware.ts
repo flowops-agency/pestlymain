@@ -15,7 +15,7 @@ function getLocale(request: NextRequest): Locale {
   return defaultLocale;
 }
 
-export function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip static files (images, fonts, etc.)
