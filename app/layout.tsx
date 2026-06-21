@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Pestly — KI-Telefonassistent für Ihr Handwerk",
   description:
     "Pestly beantwortet Anrufe, WhatsApp, SMS und E-Mails für Ihr Handwerk — automatisch. Nie wieder einen Auftrag verpassen.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/pestly-icon.png" },
 };
 
 export default function RootLayout({
