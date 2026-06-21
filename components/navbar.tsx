@@ -26,9 +26,9 @@ export default function Navbar() {
           <Image
             src="/pestly-logo.png"
             alt="Pestly"
-            width={100}
-            height={28}
-            className="h-7 w-auto"
+            width={400}
+            height={112}
+            className="h-28 w-auto"
             priority
           />
         </LocalizedLink>
@@ -66,9 +66,9 @@ export default function Navbar() {
             <Image
               src="/pestly-logo.png"
               alt="Pestly"
-              width={90}
-              height={24}
-              className="h-6 w-auto"
+              width={360}
+              height={96}
+              className="h-24 w-auto"
               priority
             />
           </LocalizedLink>

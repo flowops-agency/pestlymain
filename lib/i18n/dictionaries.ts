@@ -308,10 +308,10 @@ const de: Dictionary = {
     line2Highlight: "Anfrage",
     line2After: "verpassen",
     subtitle:
-      "Pestly ist Ihr KI-Telefonassistent für Handwerk & Praxis. Er beantwortet Anrufe, WhatsApp, SMS und E-Mails autonom — bucht Termine in Ihren Kalender und leitet dringende Fälle weiter. <strong>Sie arbeiten, Pestly telefoniert.</strong>",
+      "Pestly ist Ihr KI-Telefonassistent für Schädlingsbekämpfung. Er beantwortet Anrufe, WhatsApp, SMS und E-Mails autonom — bucht Termine in Ihren Kalender und leitet dringende Fälle weiter. <strong>Sie bekämpfen Schädlinge, Pestly telefoniert.</strong>",
     cta: "Kostenlose Demo buchen",
     callerName: "Herr Müller",
-    callerMsg: "Guten Tag, ich habe einen Rohrbruch im Keller — können Sie morgen kommen?",
+    callerMsg: "Guten Tag, wir haben Kakerlaken in der Küche — können Sie heute noch vorbeikommen?",
     aiName: "Pestly (KI)",
     aiResponse:
       "Guten Tag Herr Müller, das tut mir leid zu hören. Ich prüfe schnell die Verfügbarkeit...",
@@ -325,11 +325,11 @@ const de: Dictionary = {
     statusConnected: "Verbunden",
   },
   socialProof: {
-    heading: "Von der Branche empfohlen",
+    heading: "Von der Schädlingsbekämpfung empfohlen",
     logos: [
-      { name: "HWK", subtitle: "Handwerkskammer" },
-      { name: "ZDH", subtitle: "Zentralverband" },
-      { name: "SHK", subtitle: "Fachverband" },
+      { name: "VSS", subtitle: "Verband für Schädlingsbekämpfung" },
+      { name: "DPSD", subtitle: "Deutscher Schädlingsbekämpfer" },
+      { name: "DSLV", subtitle: "Landesverb. Schädlingsbek." },
       { name: "IHK", subtitle: "Industrie- und Handelskammer" },
     ],
   },
@@ -337,9 +337,9 @@ const de: Dictionary = {
     headingBefore: "Das Problem ist",
     headingHighlight: "real",
     subtitle:
-      "Während Sie auf der Baustelle oder in der Praxis sind, klingelt das Telefon — und potenzielle Aufträge bleiben unbeantwortet.",
+      "Während Sie im Außeneinsatz Schädlinge bekämpfen, klingelt das Telefon in Ihrer Zentrale — und Aufträge bleiben unbeantwortet.",
     stats: [
-      { value: "35", label: "der Anrufe bei Handwerkern werden nicht beantwortet", decimals: 0, suffix: "%" },
+      { value: "35", label: "der Anrufe bei Schädlingsbekämpfern werden nicht beantwortet", decimals: 0, suffix: "%" },
       { value: "62", label: "der Anrufer rufen nicht zurück", decimals: 0, suffix: "%" },
       { value: "3500", label: "Umsatzverlust pro Woche (bei 5 verpassten Anrufen / Tag)", decimals: 0, prefix: "€", suffix: "" },
       { value: "85", label: "rufen nicht ein zweites Mal an", decimals: 0, suffix: "%" },
@@ -349,14 +349,14 @@ const de: Dictionary = {
   features: {
     headingBefore: "Ihr",
     headingHighlight: "KI-Assistent",
-    headingAfter: "fürs Handwerk",
+    headingAfter: "für Schädlingsbekämpfer",
     subtitle:
-      "Pestly übernimmt die Kommunikation für Ihren Betrieb — von der Rufannahme bis zur Terminbuchung.",
+      "Pestly übernimmt die Kommunikation für Ihr Schädlingsbekämpfungsunternehmen — von der Rufannahme bis zur Terminbuchung.",
     cards: {
       voice: {
         status: "Aktiv — nimmt Anrufe entgegen",
         title: "KI-Sprachassistent — versteht Deutsch perfekt",
-        desc: "Dank Mistral und Azure-optimiertem Deutsch versteht Pestly auch Fachbegriffe aus Handwerk und Medizin. Kein „Drücken Sie die 1“ mehr.",
+        desc: "Dank Mistral und Azure-optimiertem Deutsch versteht Pestly auch Fachbegriffe der Schädlingsbekämpfung. Kein „Drücken Sie die 1“ mehr.",
       },
       multichannel: {
         title: "Alle Kanäle, eine Nummer",
@@ -365,8 +365,8 @@ const de: Dictionary = {
       },
       knowledge: {
         title: "Intelligente Wissensdatenbank",
-        desc: "Hinterlegen Sie einfach Ihre Preise, Öffnungszeiten und Dienstleistungen — Pestly beantwortet alles korrekt und bucht passende Termine.",
-        labels: ["Öffnungszeiten", "Preise", "Servicegebiet", "Notfälle", "Team", "Angebote"],
+        desc: "Hinterlegen Sie einfach Ihre Preise, Einsatzgebiete und Schädlingsarten — Pestly beantwortet alles korrekt und bucht passende Termine.",
+        labels: ["Öffnungszeiten", "Preise", "Einsatzgebiet", "Notfälle", "Team", "Schädlingsarten"],
       },
       calendar: {
         title: "Automatische Terminbuchung",
@@ -400,9 +400,9 @@ const de: Dictionary = {
         desc: "Hinterlegen Sie Preise, Leistungen und Richtlinien einmalig — Pestly beantwortet alles korrekt und konsistent.",
         placeholder: "Frage an Pestly...",
         qa: [
-          { q: "Was kostet eine Badrenovierung?", a: "Ab €5.000, genaues Angebot nach Besichtigung." },
-          { q: "Wann können Sie vorbeikommen?", a: "Diesen Donnerstag ab 14 Uhr wäre möglich." },
-          { q: "Nehmen Sie Kreditkarte?", a: "Ja, wir akzeptieren alle gängigen Karten." },
+          { q: "Was kostet eine Wespenbekämpfung?", a: "Ab €80, genauer Preis nach Sichtung vor Ort." },
+          { q: "Wie schnell können Sie kommen?", a: "Heute Nachmittag ab 15 Uhr hätten wir einen Termin frei." },
+          { q: "Hilft das auch gegen Bettwanzen?", a: "Ja, wir haben eine spezielle Wärmebehandlung dafür." },
         ],
       },
       escalation: {
@@ -411,9 +411,9 @@ const de: Dictionary = {
         mode: "Notfall-Modus",
         urgentLabel: "Dringend",
         items: [
-          { label: "Herr Meier — Rohrbruch", time: "vor 2 Min" },
-          { label: "Praxis Dr. Weber — Rezept", time: "vor 5 Min" },
-          { label: "Firma Schmidt — Angebot", time: "vor 15 Min" },
+          { label: "Familie Krüger — Kakerlaken", time: "vor 2 Min" },
+          { label: "Restaurant Linde — Mäuse", time: "vor 5 Min" },
+          { label: "Firma Schröder — Wespenbefall", time: "vor 15 Min" },
         ],
         notification: "SMS-Benachrichtigung gesendet",
         notificationDetail: "+49 176 1234567 — Transkript folgt per E-Mail",
@@ -427,17 +427,17 @@ const de: Dictionary = {
     items: [
       {
         name: "Markus Klein",
-        role: "Elektroinstallation, München",
-        text: "Seit ich Pestly habe, verpasse ich keinen Anruf mehr. Letzte Woche hat die KI einen 4.000-€-Auftrag angenommen, während ich auf dem Dach war.",
+        role: "Schädlingsbekämpfung, München",
+        text: "Seit ich Pestly habe, verpasse ich keinen Anruf mehr. Letzte Woche hat die KI einen Wespen-Einsatz angenommen, während ich auf dem Dach war.",
       },
       {
         name: "Thomas Wagner",
-        role: "Sanitär & Heizung, Berlin",
+        role: "Kammerjäger, Berlin",
         text: "Meine Kunden sind begeistert, dass sie sofort einen Termin bekommen — per WhatsApp, ohne Warteschleife. Ich spare locker 5 Stunden pro Woche.",
       },
       {
         name: "Sabine Müller",
-        role: "Schreinerei, Stuttgart",
+        role: "Schädlingsbekämpfung, Stuttgart",
         text: "Die Wissensdatenbank ist genial. Einmal eingerichtet, beantwortet Pestly 90% der Fragen selbstständig. Ich kann mich endlich auf die Arbeit konzentrieren.",
       },
     ],
@@ -445,7 +445,7 @@ const de: Dictionary = {
   pricing: {
     headingBefore: "Transparente",
     headingHighlight: "Preise",
-    headingAfter: "für Ihr Handwerk",
+    headingAfter: "für Schädlingsbekämpfer",
     subtitle: "Keine versteckten Kosten. Keine Mindestvertragslaufzeit. Setup einmalig €500–€800 — danach nur die Monatsgebühr.",
     setupNote: "Einmalige Setup-Gebühr: €500–€800",
     cta: "Demo buchen",
@@ -457,7 +457,7 @@ const de: Dictionary = {
         name: "Standard",
         price: 329,
         currency: "€",
-        description: "Für Einzelkämpfer und Kleinbetriebe",
+        description: "Für Einzelkämpfer und kleine Schädlingsbekämpfungsbetriebe",
         popular: true,
         features: [
           "KI-Sprachassistent (Deutsch)",
@@ -500,9 +500,9 @@ const de: Dictionary = {
           "In der Regel 5 Tage vom Verkaufsgespräch bis zur Live-Schaltung. Sie brauchen etwa 1–1,5 Stunden Ihrer Zeit für die Einrichtung der Wissensdatenbank und Kalenderanbindung — den Rest übernehmen wir.",
       },
       {
-        question: "Kann Pestly auch Fachbegriffe aus dem Handwerk verstehen?",
+        question: "Versteht Pestly auch Fachbegriffe aus der Schädlingsbekämpfung?",
         answer:
-          "Ja, kann es. Pestly nutzt Mistral AI (Frankreich) und Azure AI (Frankfurt) — beides DSGVO-konform mit Auftragsverarbeitungsvereinbarung (AVV). Die Sprachdaten werden auf deutschen Netcup-Servern verarbeitet. Fachbegriffe aus dem Handwerk sind dank des spezialisierten europäischen Sprachmodells kein Problem.",
+          "Ja. Pestly nutzt Mistral AI (Frankreich) und Azure AI (Frankfurt) — beides DSGVO-konform mit Auftragsverarbeitungsvereinbarung (AVV). Die Sprachdaten werden auf deutschen Netcup-Servern verarbeitet. Fachbegriffe wie ‚Befallsgrad‘, ‚Thermische Entwesung‘ oder ‚Rodentizid-Einsatz‘ sind kein Problem.",
       },
       {
         question: "Was passiert bei Notfällen oder komplexen Anfragen?",
@@ -528,7 +528,7 @@ const de: Dictionary = {
   },
   demo: {
     heading: "Pestly unverbindlich testen",
-    subtitle: "In nur 15 Minuten zeigen wir Ihnen, ob Pestly Ihren Betrieb entlastet — live am Telefon, unverbindlich.",
+    subtitle: "In nur 15 Minuten zeigen wir Ihnen, ob Pestly Ihre Schädlingsbekämpfung entlastet — live am Telefon, unverbindlich.",
     phonePlaceholder: "Ihre Telefonnummer",
     emailPlaceholder: "Ihre E-Mail-Adresse",
     cta: "Kostenlose Demo buchen",
@@ -540,7 +540,7 @@ const de: Dictionary = {
     name: "Tom Berger",
     role: "Gründer",
     success: "✓ Danke! Wir melden uns in Kürze.",
-    quote: "Pestly ist nicht fürs Silicon Valley gemacht, sondern für den echten Handwerksalltag. Eine KI, die Ihnen den Rücken freihält, während Sie arbeiten.",
+    quote: "Pestly ist nicht fürs Silicon Valley gemacht, sondern für den echten Schädlingsbekämpfungs-Alltag. Eine KI, die Ihnen den Rücken freihält, während Sie im Einsatz sind.",
     phonePlaceholder: "Ihre Telefonnummer",
     cta: "Jetzt anrufen lassen",
     dsgvo: "✓ DSGVO-konform — Ihre Daten sind sicher und werden nicht weitergegeben.",
@@ -571,14 +571,14 @@ const de: Dictionary = {
       },
       {
         icon: "brain",
-        title: "KI-Training auf dein Handwerk",
+        title: "KI-Training auf Schädlingsbekämpfung",
         desc: "Wir trainieren Pestly auf Ihre Fachbegriffe und Abläufe — damit die KI von Tag eins an perfekt funktioniert.",
       },
     ],
   },
   footer: {
     brandDesc:
-      "KI-Telefonassistent für deutsches Handwerk und Praxen. Nie wieder einen Auftrag verpassen.",
+      "KI-Telefonassistent für Schädlingsbekämpfung. Nie wieder einen Auftrag verpassen.",
     columns: {
       Leistungen: [
         { label: "KI-Sprachassistent", href: "/#features" },
@@ -892,10 +892,10 @@ const en: Dictionary = {
     line2Highlight: "on the job",
     line2After: "",
     subtitle:
-      "Pestly is your AI phone assistant for small businesses, contractors, and medical practices. It answers calls, WhatsApp, SMS, and emails autonomously — books appointments in your calendar and forwards urgent cases. <strong>You work, Pestly answers.</strong>",
+      "Pestly is your AI phone assistant for pest control companies. It answers calls, WhatsApp, SMS, and emails autonomously — books appointments in your calendar and forwards urgent cases. <strong>You handle pests, Pestly handles calls.</strong>",
     cta: "Book a Free Demo",
     callerName: "Mr. Johnson",
-    callerMsg: "Hi, I have a burst pipe in my basement — can you come by tomorrow?",
+    callerMsg: "Hi, I think we have termites in the basement — can you come take a look?",
     aiName: "Pestly (AI)",
     aiResponse:
       "Good morning Mr. Johnson, sorry to hear that. Let me check availability right away...",
@@ -909,23 +909,23 @@ const en: Dictionary = {
     statusConnected: "Connected",
   },
   socialProof: {
-    heading: "Trusted by the Trades",
+    heading: "Trusted by Pest Control Professionals",
     logos: [
-      { name: "NAHB", subtitle: "Home Builders" },
-      { name: "PHCC", subtitle: "Plumbing-Heating-Cooling" },
-      { name: "NECA", subtitle: "Electrical Contractors" },
-      { name: "ABC", subtitle: "Associated Builders" },
+      { name: "NPMA", subtitle: "National Pest Management" },
+      { name: "PCA", subtitle: "Pest Control Association" },
+      { name: "FPMA", subtitle: "Florida Pest Management" },
+      { name: "TPCA", subtitle: "Texas Pest Control" },
     ],
   },
   stats: {
     headingBefore: "The problem is",
     headingHighlight: "real",
     subtitle:
-      "While you're on a job site or in your practice, your phone keeps ringing — and potential revenue goes unanswered.",
+      "While you're out on a pest control job, your office phone keeps ringing — and potential revenue goes unanswered.",
     stats: [
       { value: "35", label: "of business calls go unanswered", decimals: 0, suffix: "%" },
       { value: "62", label: "of callers never call back", decimals: 0, suffix: "%" },
-      { value: "4800", label: "in lost revenue per week (5 missed calls/day)", decimals: 0, prefix: "$", suffix: "" },
+      { value: "4800", label: "in lost revenue per week (5 missed pest control calls/day)", decimals: 0, prefix: "$", suffix: "" },
       { value: "85", label: "don't try a second time", decimals: 0, suffix: "%" },
       { value: "15", label: "revenue loss from missed calls", decimals: 0, suffix: "%" },
     ],
@@ -933,14 +933,14 @@ const en: Dictionary = {
   features: {
     headingBefore: "Your",
     headingHighlight: "AI Assistant",
-    headingAfter: "for Small Business",
+    headingAfter: "for Pest Control",
     subtitle:
-      "Pestly handles all communication for your business — from answering calls to booking appointments.",
+      "Pestly handles all communication for your pest control business — from answering calls to booking appointments.",
     cards: {
       voice: {
         status: "Active — taking calls now",
         title: "AI Voice Agent — understands English perfectly",
-        desc: "Powered by Mistral & Azure-optimized English, Pestly understands industry terminology from construction to healthcare. No more &ldquo;Press 1&rdquo; menus.",
+        desc: "Powered by Mistral & Azure-optimized English, Pestly understands pest control terminology inside and out. No more &ldquo;Press 1&rdquo; menus.",
       },
       multichannel: {
         title: "All channels, one number",
@@ -950,7 +950,7 @@ const en: Dictionary = {
       knowledge: {
         title: "Smart Knowledge Base",
         desc: "Just set your prices, hours, and services once — Pestly answers everything accurately and books the right appointments.",
-        labels: ["Hours", "Pricing", "Service Area", "Emergencies", "Team", "Quotes"],
+        labels: ["Hours", "Pricing", "Service Area", "Emergencies", "Team", "Pest Types"],
       },
       calendar: {
         title: "Automated Appointment Booking",
@@ -984,9 +984,9 @@ const en: Dictionary = {
         desc: "Set your prices, services, and policies once — Pestly answers everything accurately and consistently.",
         placeholder: "Ask Pestly...",
         qa: [
-          { q: "How much does a bathroom renovation cost?", a: "Starting at $5,000, exact quote after inspection." },
-          { q: "When can you come by?", a: "This Thursday after 2 PM is available." },
-          { q: "Do you take credit cards?", a: "Yes, we accept all major cards." },
+          { q: "How much is termite treatment?", a: "Starting at $800, exact quote after inspection." },
+          { q: "How fast can you come out?", a: "We have an opening this afternoon at 3 PM." },
+          { q: "Do you treat bed bugs too?", a: "Yes, we offer heat treatment and chemical options." },
         ],
       },
       escalation: {
@@ -995,9 +995,9 @@ const en: Dictionary = {
         mode: "Emergency Mode",
         urgentLabel: "Urgent",
         items: [
-          { label: "Mr. Johnson — Burst pipe", time: "2 min ago" },
-          { label: "Dr. Weber's Office — Prescription", time: "5 min ago" },
-          { label: "Smith Construction — Quote", time: "15 min ago" },
+          { label: "Johnson Family — Roaches", time: "2 min ago" },
+          { label: "Lakeside Diner — Rodents", time: "5 min ago" },
+          { label: "Greenwood School — Termites", time: "15 min ago" },
         ],
         notification: "SMS notification sent",
         notificationDetail: "+1 (505) 555-0123 — Transcript will follow via email",
@@ -1011,17 +1011,17 @@ const en: Dictionary = {
     items: [
       {
         name: "James Carter",
-        role: "Electrical Contracting, Austin TX",
-        text: "Since I got Pestly, I haven't missed a single call. Last week the AI booked a $4,200 job while I was up on a roof. Absolute game-changer.",
+        role: "Pest Control, Austin TX",
+        text: "Since I got Pestly, I haven't missed a single call. Last week the AI booked a termite treatment while I was out on inspection. Absolute game-changer.",
       },
       {
         name: "David Chen",
-        role: "Plumbing & HVAC, Portland OR",
+        role: "Termite & Fumigation, Portland OR",
         text: "My customers love that they get an appointment instantly — via WhatsApp, no hold time. I'm saving at least 5 hours a week.",
       },
       {
         name: "Sarah Mitchell",
-        role: "Carpentry & Design, Denver CO",
+        role: "Pest Management, Denver CO",
         text: "The knowledge base is brilliant. Set it up once and Pestly answers 90% of questions on its own. I can finally focus on the work.",
       },
     ],
@@ -1029,7 +1029,7 @@ const en: Dictionary = {
   pricing: {
     headingBefore: "Transparent",
     headingHighlight: "Pricing",
-    headingAfter: "for Your Business",
+    headingAfter: "for Pest Control",
     subtitle: "No hidden fees. No long-term contracts. One-time setup $500–$800 — then just the monthly fee.",
     setupNote: "One-time setup fee: $500–$800",
     cta: "Book a Demo",
@@ -1084,9 +1084,9 @@ const en: Dictionary = {
           "Typically 5 days from sales call to live deployment. You'll need about 1–1.5 hours of your time to set up the knowledge base and calendar connection — we handle the rest.",
       },
       {
-        question: "Can Pestly understand industry-specific terms?",
+        question: "Can Pestly understand pest control-specific terms?",
         answer:
-          "Yes. Pestly uses Mistral AI (France) and Azure AI (Frankfurt, Germany) — both GDPR-compliant with Data Processing Agreements (DPA). Voice data is processed on German Netcup servers. Industry terminology is handled by the specialized European AI models.",
+          "Yes. Pestly uses Mistral AI (France) and Azure AI (Frankfurt, Germany) — both GDPR-compliant with Data Processing Agreements (DPA). Voice data is processed on German Netcup servers. Terms like 'infestation level,' 'thermal remediation,' or 'rodent exclusion' are handled naturally.",
       },
       {
         question: "What happens with emergencies or complex requests?",
@@ -1112,7 +1112,7 @@ const en: Dictionary = {
   },
   demo: {
     heading: "Try Pestly risk-free",
-    subtitle: "In just 15 minutes we'll show you if Pestly can take calls off your plate — live on the phone, no commitment.",
+    subtitle: "In just 15 minutes we'll show you if Pestly can take calls off your pest control company's plate — live on the phone, no commitment.",
     phonePlaceholder: "Your phone number",
     emailPlaceholder: "Your email address",
     cta: "Book a free demo",
@@ -1124,7 +1124,7 @@ const en: Dictionary = {
     name: "Tom Berger",
     role: "Founder",
     success: "✓ Thanks! We'll be in touch shortly.",
-    quote: "Pestly wasn't built for Silicon Valley — it was built for real workshops and job sites. An AI that has your back while you work.",
+    quote: "Pestly wasn't built for Silicon Valley — it was built for real pest control jobs. An AI that has your back while you work.",
     phonePlaceholder: "Your phone number",
     cta: "Get a call back",
     dsgvo: "✓ GDPR compliant — your data is safe and never shared with third parties.",
@@ -1155,14 +1155,14 @@ const en: Dictionary = {
       },
       {
         icon: "brain",
-        title: "AI Training for Your Business",
+        title: "AI Training for Pest Control",
         desc: "We train Pestly on your terminology and workflows — so the AI performs perfectly from day one.",
       },
     ],
   },
   footer: {
     brandDesc:
-      "AI phone assistant for US small businesses, contractors, and practices. Never miss another lead.",
+      "AI phone assistant for pest control companies. Never miss another lead.",
     columns: {
       Services: [
         { label: "AI Voice Assistant", href: "/#features" },

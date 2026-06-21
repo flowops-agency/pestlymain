@@ -117,7 +117,7 @@ export default function Hero() {
                   <div className="flex items-start gap-2">
                     <div className="mt-1 h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-300">
                       <Image
-                        src="https://ui-avatars.com/api/?name=Herr+M%C3%BCller&background=F77843&color=fff&size=64"
+                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(t.callerName)}&background=F77843&color=fff&size=64`}
                         alt={t.callerName}
                         width={32}
                         height={32}

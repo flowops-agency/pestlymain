@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: locale === "de"
-      ? "Pestly — KI-Telefonassistent für Ihr Handwerk"
-      : "Pestly — AI Phone Assistant for Your Small Business",
+      ? "Pestly — KI-Telefonassistent für Schädlingsbekämpfung"
+      : "Pestly — AI Phone Assistant for Pest Control",
     description: dict.hero.subtitle.replace(/<[^>]*>/g, ""),
     alternates: {
       languages: {
