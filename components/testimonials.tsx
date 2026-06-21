@@ -32,6 +32,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
+              whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(0,0,0,0.08)" }}
               className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
             >
               <div className="flex items-center gap-4 mb-4">

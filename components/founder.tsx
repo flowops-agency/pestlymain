@@ -11,11 +11,18 @@ export default function Founder() {
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone.trim()) return;
-    // TODO: send to backend
-    console.log("Founder call request:", { phone });
+    try {
+      await fetch("https://n8n.pestly.de/webhook/385ed7ed-7e30-46b2-acb4-0b47e390a7ce", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source: "founder", phone: phone.trim(), timestamp: new Date().toISOString() }),
+      });
+    } catch (err) {
+      console.error("Webhook failed:", err);
+    }
     setSent(true);
   };
 
@@ -30,7 +37,11 @@ export default function Founder() {
       >
         {/* Photo */}
         <div className="shrink-0">
-          <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border-4 border-[#FB4C01]/20 shadow-xl md:h-56 md:w-56">
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border-4 border-[#FB4C01]/20 shadow-xl md:h-56 md:w-56"
+          >
             <Image
               src="/tom-berger.jpg"
               alt={t.name}
@@ -38,7 +49,7 @@ export default function Founder() {
               height={224}
               className="h-full w-full object-cover"
             />
-          </div>
+          </motion.div>
         </div>
 
         {/* Text */}

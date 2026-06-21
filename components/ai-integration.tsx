@@ -35,27 +35,71 @@ export default function AiIntegration() {
           >
             <div className="h-[320px] flex flex-col items-center justify-center rounded-xl border border-[#E1E1E1] bg-white p-4">
               <div className="relative flex flex-col items-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-orange-200">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB4C01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
+                {/* Phone icon with sound waves */}
+                <div className="relative flex h-16 w-16 items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {[1, 2, 3].map((i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute rounded-full border-2 border-orange-300"
+                        style={{ width: 48 + i * 16, height: 48 + i * 16 }}
+                        animate={{
+                          scale: [1, 1.15, 1],
+                          opacity: [0.4, 0, 0.4],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeOut",
+                          delay: i * 0.3,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-orange-200">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB4C01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </div>
                 </div>
                 <div className="mt-2 flex items-center gap-1 text-sm text-gray-500">
-                  <span className="h-2 w-2 rounded-full bg-green-500" />
+                  <motion.div
+                    className="h-2 w-2 rounded-full bg-green-500"
+                    animate={{ opacity: [0.3, 1, 0.3], scale: [0.9, 1.2, 0.9] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
                   {t.cards.voice.steps[0]}
                 </div>
               </div>
 
               <div className="mt-4 flex flex-col items-center gap-2">
-                <div className="text-gray-300">↓</div>
+                <motion.div
+                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-orange-400"
+                >
+                  ↓
+                </motion.div>
                 <div className="rounded-lg bg-orange-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[1]}
                 </div>
-                <div className="text-gray-300">↓</div>
+                <motion.div
+                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                  className="text-green-500"
+                >
+                  ↓
+                </motion.div>
                 <div className="rounded-lg bg-green-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[2]}
                 </div>
-                <div className="text-gray-300">↓</div>
+                <motion.div
+                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                  className="text-blue-500"
+                >
+                  ↓
+                </motion.div>
                 <div className="rounded-lg bg-blue-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[3]}
                 </div>
@@ -82,14 +126,27 @@ export default function AiIntegration() {
                 <span className="text-sm text-gray-400">{t.cards.knowledge.placeholder}</span>
               </div>
 
-              <div className="mt-3 flex-1 space-y-2 overflow-hidden">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+                className="mt-3 flex-1 space-y-2 overflow-hidden"
+              >
                 {t.cards.knowledge.qa.map((item, i) => (
-                  <div key={i} className="rounded-lg bg-gray-50 p-2">
+                  <motion.div
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, x: -12 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+                    }}
+                    className="rounded-lg bg-gray-50 p-2"
+                  >
                     <p className="text-xs font-medium text-gray-800">{item.q}</p>
                     <p className="mt-0.5 text-xs text-gray-500">{item.a}</p>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
             <h3 className="mb-2 mt-6 text-xl font-bold">{t.cards.knowledge.title}</h3>
             <p className="text-sm leading-relaxed text-gray-500">{t.cards.knowledge.desc}</p>

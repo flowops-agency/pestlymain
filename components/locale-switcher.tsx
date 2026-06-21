@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import { locales } from "@/lib/i18n/dictionaries";
 
@@ -17,8 +18,10 @@ export default function LocaleSwitcher() {
   };
 
   return (
-    <button
+    <motion.button
       onClick={switchLocale}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/80 px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm transition-all hover:bg-white hover:text-gray-900 hover:shadow"
       aria-label={locale === "de" ? "Switch to English" : "Zu Deutsch wechseln"}
     >
@@ -43,6 +46,6 @@ export default function LocaleSwitcher() {
       >
         US
       </span>
-    </button>
+    </motion.button>
   );
 }

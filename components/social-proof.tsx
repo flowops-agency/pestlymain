@@ -31,6 +31,7 @@ export default function SocialProof() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               className="flex items-center justify-center"
             >
               <div className="flex h-16 w-full flex-col items-center justify-center rounded-lg">

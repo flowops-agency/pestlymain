@@ -19,26 +19,47 @@ export default function Hero() {
           "linear-gradient(to top, rgba(247,135,67,1) 0%, rgba(255,244,239,1) 50%, rgba(255,255,255,1) 100%)",
       }}
     >
+      {/* Breathing gradient overlay */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(247,135,67,0.15) 0%, rgba(255,244,239,0.1) 50%, transparent 100%)",
+        }}
+        animate={{ opacity: [0, 0.4, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        initial="hidden"
+        animate="visible"
         className="relative z-20 mx-auto mb-4 max-w-6xl text-balance text-center text-4xl font-semibold tracking-tight text-gray-700 md:text-7xl"
       >
-        <h2 className="block bg-gradient-to-b from-[rgba(94,94,94,1)] to-[rgba(0,0,0,1)] bg-clip-text text-transparent">
+        <motion.h2
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+          }}
+          className="block bg-gradient-to-b from-[rgba(94,94,94,1)] to-[rgba(0,0,0,1)] bg-clip-text text-transparent"
+        >
           {t.line1Before}{" "}
           <span className="bg-gradient-to-b from-[rgba(255,167,86,1)] to-[rgba(238,96,44,1)] bg-clip-text text-transparent">
             {t.line1Highlight}
           </span>
-        </h2>
+        </motion.h2>
         {(t.line2Before || t.line2Highlight || t.line2After) && (
-          <h2 className="block bg-gradient-to-b from-[rgba(94,94,94,1)] to-[rgba(0,0,0,1)] bg-clip-text text-transparent py-2">
+          <motion.h2
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.15, ease: "easeOut" } },
+            }}
+            className="block bg-gradient-to-b from-[rgba(94,94,94,1)] to-[rgba(0,0,0,1)] bg-clip-text text-transparent py-2"
+          >
             {t.line2Before}{" "}
             <span className="bg-gradient-to-b from-[rgba(255,167,86,1)] to-[rgba(238,96,44,1)] bg-clip-text text-transparent">
               {t.line2Highlight}
             </span>{" "}
             {t.line2After}
-          </h2>
+          </motion.h2>
         )}
       </motion.div>
 
@@ -54,14 +75,20 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-        className="z-10 mb-8 mt-6 flex w-full flex-col items-center justify-center gap-4 px-4 sm:flex-row sm:px-8 md:mb-12"
+        className="z-20 mb-8 mt-6 flex w-full flex-col items-center justify-center gap-4 px-4 sm:flex-row sm:px-8 md:mb-12"
       >
-        <LocalizedLink
-          href="#demo"
-          className="inline-flex h-12 w-full items-center justify-center rounded-[6px] bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-6 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 sm:w-48"
+        <motion.div
+          animate={{ boxShadow: ["0 0 0 0 rgba(251,76,1,0)", "0 0 24px 6px rgba(251,76,1,0.18)", "0 0 0 0 rgba(251,76,1,0)"] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="rounded-[6px]"
         >
-          {t.cta}
-        </LocalizedLink>
+          <LocalizedLink
+            href="#demo"
+            className="inline-flex h-12 w-full items-center justify-center rounded-[6px] bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-6 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 sm:w-48"
+          >
+            {t.cta}
+          </LocalizedLink>
+        </motion.div>
       </motion.div>
 
       {/* Phone mockup */}
@@ -114,7 +141,12 @@ export default function Hero() {
 
               <div className="flex w-full flex-col items-center px-2">
                 <div className="w-full py-2">
-                  <div className="flex items-start gap-2">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+                    className="flex items-start gap-2"
+                  >
                     <div className="mt-1 h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-300">
                       <Image
                         src={`https://ui-avatars.com/api/?name=${encodeURIComponent(t.callerName)}&background=F77843&color=fff&size=64`}
@@ -128,11 +160,16 @@ export default function Hero() {
                       <p className="text-gray-800 font-medium">{t.callerName}</p>
                       <p className="text-gray-500 mt-1">{t.callerMsg}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 <div className="w-full py-2">
-                  <div className="flex items-start justify-end gap-2">
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 1.1, ease: "easeOut" }}
+                    className="flex items-start justify-end gap-2"
+                  >
                     <div className="max-w-[80%] rounded-[10px_0px_10px_10px] bg-gradient-to-br from-[#FFA756] to-[#EE602C] p-3 text-sm text-white shadow-sm">
                       <p className="font-medium">{t.aiName}</p>
                       <p className="mt-1 opacity-90">{t.aiResponse}</p>
@@ -140,11 +177,16 @@ export default function Hero() {
                     <div className="mt-1 h-8 w-8 shrink-0 rounded-full bg-gradient-to-br from-[#FFA756] to-[#EE602C] flex items-center justify-center text-xs font-bold text-white">
                       P
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 <div className="w-full px-2 py-3">
-                  <div className="rounded-xl bg-[#FAF0E6] p-3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.4, ease: "easeOut" }}
+                    className="rounded-xl bg-[#FAF0E6] p-3"
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -162,14 +204,19 @@ export default function Hero() {
                         {t.bookingTag}
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 <div className="w-full px-2 pt-1">
-                  <div className="flex items-center justify-between rounded-lg bg-[#103685] px-3 py-2 text-white text-xs">
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.7, ease: "easeOut" }}
+                    className="flex items-center justify-between rounded-lg bg-[#103685] px-3 py-2 text-white text-xs"
+                  >
                     <span>{t.summaryLine1}</span>
                     <span>{t.summaryLine2}</span>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
               </div>
@@ -204,6 +251,29 @@ export default function Hero() {
             style={{ width: "800px", height: "800px" }}
           />
         </motion.div>
+
+        {/* Floating sparkle dots */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute z-20 h-2 w-2 rounded-full bg-orange-400/30"
+            style={{
+              left: `${15 + i * 18}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [0, -12, 0],
+              opacity: [0.2, 0.7, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 2 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.4,
+            }}
+          />
+        ))}
       </motion.div>
       </div>
     </div>

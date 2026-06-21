@@ -33,6 +33,8 @@ export default function Pricing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 * idx }}
+            whileHover={{ y: -6 }}
+            whileTap={{ scale: 0.98 }}
           >
             <div
               className={`relative flex flex-col gap-3 rounded-[37px] p-4 ${
@@ -61,10 +63,20 @@ export default function Pricing() {
                   {t.cta}
                 </LocalizedLink>
 
-                <ul className="space-y-3">
+                <motion.ul
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+                  className="space-y-3"
+                >
                   {plan.features.map((feature, fi) => (
-                    <li
+                    <motion.li
                       key={`${fi}-${feature}`}
+                      variants={{
+                        hidden: { opacity: 0, x: -10 },
+                        visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+                      }}
                       className="flex items-start gap-2 text-sm text-gray-600"
                     >
                       <svg
@@ -83,9 +95,9 @@ export default function Pricing() {
                         />
                       </svg>
                       {feature}
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
               </div>
             </div>
           </motion.div>

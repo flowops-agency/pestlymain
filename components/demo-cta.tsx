@@ -11,11 +11,18 @@ export default function DemoCta() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone.trim() && !email.trim()) return;
-    // TODO: send to backend
-    console.log("Demo request:", { phone, email });
+    try {
+      await fetch("https://n8n.pestly.de/webhook/385ed7ed-7e30-46b2-acb4-0b47e390a7ce", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source: "demo-cta", phone: phone.trim(), email: email.trim(), timestamp: new Date().toISOString() }),
+      });
+    } catch (err) {
+      console.error("Webhook failed:", err);
+    }
     setSent(true);
   };
 
@@ -34,27 +41,39 @@ export default function DemoCta() {
         {!sent ? (
           <form onSubmit={submit} className="mt-8 flex w-full flex-col gap-3">
             <div className="flex w-full flex-col gap-3 sm:flex-row">
-              <input
+              <motion.input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t.phonePlaceholder}
+                whileFocus={{ scale: 1.02 }}
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
-              <input
+              <motion.input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t.emailPlaceholder}
+                whileFocus={{ scale: 1.02 }}
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
             </div>
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 sm:w-auto"
+            <motion.div
+              animate={{
+                boxShadow: phone.trim() || email.trim()
+                  ? ["0 0 0 0 rgba(251,76,1,0)", "0 0 16px 3px rgba(251,76,1,0.15)", "0 0 0 0 rgba(251,76,1,0)"]
+                  : "0 0 0 0 rgba(251,76,1,0)",
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              className="rounded-lg"
             >
-              {t.cta}
-            </button>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 sm:w-auto"
+              >
+                {t.cta}
+              </button>
+            </motion.div>
           </form>
         ) : (
           <motion.p

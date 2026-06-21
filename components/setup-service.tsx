@@ -69,11 +69,16 @@ export default function SetupService() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 * i }}
+              whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
               className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50">
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50"
+              >
                 {icons[step.icon] || null}
-              </div>
+              </motion.div>
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {step.title}
               </h3>

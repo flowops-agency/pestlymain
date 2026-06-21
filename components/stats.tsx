@@ -42,8 +42,16 @@ export default function Stats() {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
               }}
-              className="relative rounded-xl border border-gray-200 bg-background/50 p-6 backdrop-blur-sm transition-shadow hover:shadow-xl before:absolute before:left-1/2 before:top-0 before:h-[2px] before:w-12 before:-translate-x-1/2 before:bg-linear-to-r/[in_oklch] from-[oklch(0.65_0.25_30)] to-[oklch(0.75_0.15_30)]"
+              className="relative rounded-xl border border-gray-200 bg-background/50 p-6 backdrop-blur-sm transition-shadow hover:shadow-xl"
             >
+              {/* Accent line — wächst von Mitte aus */}
+              <motion.div
+                className="absolute left-1/2 top-0 h-[2px] w-12 -translate-x-1/2 origin-center bg-linear-to-r/[in_oklch] from-[oklch(0.65_0.25_30)] to-[oklch(0.75_0.15_30)]"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              />
               <div
                 className="absolute inset-0 z-0 overflow-hidden rounded-xl"
                 style={{
