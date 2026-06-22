@@ -1090,7 +1090,7 @@ const en: Dictionary = {
       {
         question: "Can Pestly understand pest control-specific terms?",
         answer:
-          "Yes. Pestly uses Mistral AI (France) and Azure AI (Frankfurt, Germany) — both GDPR-compliant with Data Processing Agreements (DPA). Voice data is processed on German Netcup servers. Terms like 'infestation level,' 'thermal remediation,' or 'rodent exclusion' are handled naturally.",
+          "Yes. Pestly is trained on industry-specific terminology — terms like 'infestation level,' 'thermal remediation,' or 'rodent exclusion' are handled naturally. All voice data is encrypted and stored securely in the US.",
       },
       {
         question: "What happens with emergencies or complex requests?",
@@ -1103,9 +1103,9 @@ const en: Dictionary = {
           "It depends on your business complexity — solo operator or larger team, how many locations and channels need to be connected. In a brief, no-obligation call we'll create a tailored quote. No minimum contract.",
       },
       {
-        question: "Is Pestly GDPR / data privacy compliant?",
+        question: "Is my data private and secure?",
         answer:
-          "Yes. All data is processed and stored on German Netcup servers. The AI language models come from Mistral AI (France) and Azure AI (Frankfurt, Germany) — both GDPR-compliant. A Data Processing Agreement (DPA) is available on request. Call data is encrypted and never shared with third parties.",
+          "Absolutely. Your data is stored privately and encrypted end-to-end — never shared with third parties. For our trial AI, no sensitive call data is retained. If you need full compliance documentation or encryption details, we can provide that on request.",
       },
       {
         question: "Can I keep my existing phone number?",
@@ -1122,7 +1122,7 @@ const en: Dictionary = {
     emailPlaceholder: "Your email address",
     messagePlaceholder: "Your message (e.g., what pest problem?)",
     cta: "Book a free demo",
-    dsgvo: "✓ GDPR compliant — your data is safe.",
+    dsgvo: "✓ Your data is private, encrypted, and never shared.",
     success: "✓ Thanks! We'll reach out shortly.",
   },
   founder: {
@@ -1133,10 +1133,10 @@ const en: Dictionary = {
     quote: "Pestly wasn't built for Silicon Valley — it was built for real pest control jobs. An AI that has your back while you work.",
     phonePlaceholder: "Your phone number",
     cta: "Get a call back",
-    dsgvo: "✓ GDPR compliant — your data is safe and never shared with third parties.",
+    dsgvo: "✓ Your data is private, encrypted, and never shared.",
   },
   cookieBanner: {
-    text: "Pestly uses cookies & local storage to improve your experience. No third-party sharing. GDPR compliant.",
+    text: "Pestly uses cookies & local storage to improve your experience. No third-party sharing. Your data stays private.",
     accept: "Got it",
   },
   setupService: {
@@ -1432,7 +1432,7 @@ const en: Dictionary = {
   cookieSettings: {
     title: "Cookie Settings",
     subtitle: "Manage your privacy preferences",
-    intro: "Pestly uses cookies and local storage to ensure website functionality and improve your experience. You can set your preferences for different categories below. All data is processed GDPR-compliantly on German Netcup servers.",
+    intro: "Pestly uses cookies and local storage to ensure website functionality and improve your experience. You can set your preferences for different categories below. All data is encrypted and stored securely.",
     categories: [
       {
         id: "essential",
