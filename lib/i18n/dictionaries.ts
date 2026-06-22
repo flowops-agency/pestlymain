@@ -133,8 +133,10 @@ export interface FaqDict {
 export interface DemoDict {
   heading: string;
   subtitle: string;
+  namePlaceholder: string;
   phonePlaceholder: string;
   emailPlaceholder: string;
+  messagePlaceholder: string;
   cta: string;
   dsgvo: string;
   success: string;
@@ -529,8 +531,10 @@ const de: Dictionary = {
   demo: {
     heading: "Pestly unverbindlich testen",
     subtitle: "In nur 15 Minuten zeigen wir Ihnen, ob Pestly Ihre Schädlingsbekämpfung entlastet — live am Telefon, unverbindlich.",
+    namePlaceholder: "Ihr Name",
     phonePlaceholder: "Ihre Telefonnummer",
     emailPlaceholder: "Ihre E-Mail-Adresse",
+    messagePlaceholder: "Ihre Nachricht (z. B. welches Problem?)",
     cta: "Kostenlose Demo buchen",
     dsgvo: "✓ DSGVO-konform — Ihre Daten sind sicher.",
     success: "✓ Danke! Wir melden uns in Kürze bei Ihnen.",
@@ -1113,8 +1117,10 @@ const en: Dictionary = {
   demo: {
     heading: "Try Pestly risk-free",
     subtitle: "In just 15 minutes we'll show you if Pestly can take calls off your pest control company's plate — live on the phone, no commitment.",
+    namePlaceholder: "Your name",
     phonePlaceholder: "Your phone number",
     emailPlaceholder: "Your email address",
+    messagePlaceholder: "Your message (e.g., what pest problem?)",
     cta: "Book a free demo",
     dsgvo: "✓ GDPR compliant — your data is safe.",
     success: "✓ Thanks! We'll reach out shortly.",

@@ -7,22 +7,32 @@ import { useTranslation } from "@/lib/i18n/locale-context";
 export default function DemoCta() {
   const { dict } = useTranslation();
   const t = dict.demo;
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim() && !email.trim()) return;
+    if (!name.trim() && !email.trim() && !phone.trim()) return;
+    setLoading(true);
     try {
-      await fetch("https://n8n.pestly.de/webhook/385ed7ed-7e30-46b2-acb4-0b47e390a7ce", {
+      await fetch("https://n8n.pestly.de/webhook/lead-new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: "demo-cta", phone: phone.trim(), email: email.trim(), timestamp: new Date().toISOString() }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          message: message.trim(),
+        }),
       });
     } catch (err) {
       console.error("Webhook failed:", err);
     }
+    setLoading(false);
     setSent(true);
   };
 
@@ -40,6 +50,14 @@ export default function DemoCta() {
 
         {!sent ? (
           <form onSubmit={submit} className="mt-8 flex w-full flex-col gap-3">
+            <motion.input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t.namePlaceholder}
+              whileFocus={{ scale: 1.02 }}
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
+            />
             <div className="flex w-full flex-col gap-3 sm:flex-row">
               <motion.input
                 type="tel"
@@ -58,9 +76,17 @@ export default function DemoCta() {
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
             </div>
+            <motion.textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder={t.messagePlaceholder}
+              rows={3}
+              whileFocus={{ scale: 1.02 }}
+              className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
+            />
             <motion.div
               animate={{
-                boxShadow: phone.trim() || email.trim()
+                boxShadow: name.trim() || phone.trim() || email.trim()
                   ? ["0 0 0 0 rgba(251,76,1,0)", "0 0 16px 3px rgba(251,76,1,0.15)", "0 0 0 0 rgba(251,76,1,0)"]
                   : "0 0 0 0 rgba(251,76,1,0)",
               }}
@@ -69,9 +95,10 @@ export default function DemoCta() {
             >
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 sm:w-auto"
+                disabled={loading}
+                className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto"
               >
-                {t.cta}
+                {loading ? "..." : t.cta}
               </button>
             </motion.div>
           </form>
