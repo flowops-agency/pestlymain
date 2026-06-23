@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
+import { useDeviceAnimation } from "@/components/animation-wrappers";
 
 export default function AiIntegration() {
   const { dict } = useTranslation();
   const t = dict.aiIntegration;
+  const { shouldAnimate } = useDeviceAnimation();
 
   return (
     <section className="px-4 py-16">
@@ -17,7 +19,8 @@ export default function AiIntegration() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 text-4xl font-bold">
+          <h2 className="mb-4 font-bold"
+            style={{ fontSize: "var(--text-heading)" }}>
             {t.headingBefore}{" "}
             <span className="text-[#FF7757]">{t.headingHighlight}</span>
           </h2>
@@ -33,28 +36,36 @@ export default function AiIntegration() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="rounded-[18px] border border-[#E1E1E1] bg-[#F9FAFB] p-4 shadow-[0px_37px_10px_0px_rgba(0,0,0,0.00),_0px_24px_10px_0px_rgba(0,0,0,0.01),_0px_13px_8px_0px_rgba(0,0,0,0.02),_0px_6px_6px_0px_rgba(0,0,0,0.03),_0px_1px_3px_0px_rgba(0,0,0,0.04)]"
           >
-            <div className="h-[320px] flex flex-col items-center justify-center rounded-xl border border-[#E1E1E1] bg-white p-4">
+            <div className="min-h-[220px] md:h-[320px] flex flex-col items-center justify-center rounded-xl border border-[#E1E1E1] bg-white p-4">
               <div className="relative flex flex-col items-center">
                 {/* Phone icon with sound waves */}
                 <div className="relative flex h-16 w-16 items-center justify-center">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {[1, 2, 3].map((i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute rounded-full border-2 border-orange-300"
-                        style={{ width: 48 + i * 16, height: 48 + i * 16 }}
-                        animate={{
-                          scale: [1, 1.15, 1],
-                          opacity: [0.4, 0, 0.4],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeOut",
-                          delay: i * 0.3,
-                        }}
-                      />
-                    ))}
+                    {[1, 2, 3].map((i) =>
+                      shouldAnimate ? (
+                        <motion.div
+                          key={i}
+                          className="absolute rounded-full border-2 border-orange-200"
+                          style={{ width: 48 + i * 16, height: 48 + i * 16 }}
+                          animate={{
+                            scale: [1, 1.15, 1],
+                            opacity: [0.4, 0, 0.4],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeOut",
+                            delay: i * 0.3,
+                          }}
+                        />
+                      ) : (
+                        <div
+                          key={i}
+                          className="absolute rounded-full border-2 border-orange-200"
+                          style={{ width: 48 + i * 16, height: 48 + i * 16 }}
+                        />
+                      )
+                    )}
                   </div>
                   <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 to-orange-200">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB4C01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -73,33 +84,39 @@ export default function AiIntegration() {
               </div>
 
               <div className="mt-4 flex flex-col items-center gap-2">
-                <motion.div
-                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="text-orange-400"
-                >
-                  ↓
-                </motion.div>
+                {shouldAnimate ? (
+                  <motion.div
+                    animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="text-orange-400"
+                  >
+                    ↓
+                  </motion.div>
+                ) : <div className="text-orange-400">↓</div>}
                 <div className="rounded-lg bg-orange-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[1]}
                 </div>
-                <motion.div
-                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-                  className="text-green-500"
-                >
-                  ↓
-                </motion.div>
+                {shouldAnimate ? (
+                  <motion.div
+                    animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                    className="text-green-500"
+                  >
+                    ↓
+                  </motion.div>
+                ) : <div className="text-green-500">↓</div>}
                 <div className="rounded-lg bg-green-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[2]}
                 </div>
-                <motion.div
-                  animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-                  className="text-blue-500"
-                >
-                  ↓
-                </motion.div>
+                {shouldAnimate ? (
+                  <motion.div
+                    animate={{ y: [0, 4, 0], opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                    className="text-blue-500"
+                  >
+                    ↓
+                  </motion.div>
+                ) : <div className="text-blue-500">↓</div>}
                 <div className="rounded-lg bg-blue-50 px-4 py-2 text-sm text-gray-700">
                   {t.cards.voice.steps[3]}
                 </div>
@@ -117,7 +134,7 @@ export default function AiIntegration() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="rounded-[18px] border border-[#E1E1E1] bg-[#F9FAFB] p-4 shadow-[0px_37px_10px_0px_rgba(0,0,0,0.00),_0px_24px_10px_0px_rgba(0,0,0,0.01),_0px_13px_8px_0px_rgba(0,0,0,0.02),_0px_6px_6px_0px_rgba(0,0,0,0.03),_0px_1px_3px_0px_rgba(0,0,0,0.04)]"
           >
-            <div className="h-[320px] flex flex-col rounded-xl border border-[#E1E1E1] bg-white p-4">
+            <div className="min-h-[220px] md:h-[320px] flex flex-col rounded-xl border border-[#E1E1E1] bg-white p-4">
               <div className="flex items-center gap-2 rounded-lg border border-gray-200 p-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
                   <circle cx="11" cy="11" r="8" />
@@ -160,7 +177,7 @@ export default function AiIntegration() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="rounded-[18px] border border-[#E1E1E1] bg-[#F9FAFB] p-4 shadow-[0px_37px_10px_0px_rgba(0,0,0,0.00),_0px_24px_10px_0px_rgba(0,0,0,0.01),_0px_13px_8px_0px_rgba(0,0,0,0.02),_0px_6px_6px_0px_rgba(0,0,0,0.03),_0px_1px_3px_0px_rgba(0,0,0,0.04)]"
           >
-            <div className="h-[320px] flex flex-col rounded-xl border border-[#E1E1E1] bg-white p-4">
+            <div className="min-h-[220px] md:h-[320px] flex flex-col rounded-xl border border-[#E1E1E1] bg-white p-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">{t.cards.escalation.mode}</span>
                 <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-600">{t.cards.escalation.urgentLabel}</span>

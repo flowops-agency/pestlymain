@@ -40,9 +40,9 @@ export default function Navbar() {
           <Image
             src="/pestly-logo.png"
             alt="Pestly"
-            width={400}
-            height={112}
-            className="h-20 w-auto"
+            width={288}
+            height={288}
+            className="h-12 w-auto sm:h-14"
             priority
           />
         </LocalizedLink>
@@ -84,15 +84,15 @@ export default function Navbar() {
       </motion.div>
 
       {/* Mobile nav */}
-      <div className="relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between lg:hidden">
-        <div className="flex w-full items-center justify-between rounded-full bg-white/50 px-4 py-2 backdrop-blur-sm">
+      <div className="relative z-50 mx-auto flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-center justify-between lg:hidden">
+        <div className="flex w-full items-center justify-between rounded-full bg-white/50 px-3 py-2 backdrop-blur-sm">
           <LocalizedLink href="/">
             <Image
               src="/pestly-logo.png"
               alt="Pestly"
-              width={360}
-              height={96}
-              className="h-16 w-auto"
+              width={288}
+              height={288}
+              className="h-12 w-auto sm:h-14"
               priority
             />
           </LocalizedLink>
@@ -103,7 +103,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-label={t.menuLabel}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full text-black transition-colors"
+              className="relative flex h-11 w-11 items-center justify-center rounded-full text-black transition-colors"
             >
               <AnimatePresence mode="wait">
                 {mobileOpen ? (
@@ -164,7 +164,7 @@ export default function Navbar() {
                 variants={{
                   visible: { transition: { staggerChildren: 0.06, delayChildren: 0.08 } },
                 }}
-                className="flex flex-col px-4 py-4"
+                className="flex flex-col px-4 py-4 gap-2"
               >
                 {t.navLinks.map((link) => (
                   <motion.div
@@ -176,7 +176,7 @@ export default function Navbar() {
                   >
                     <LocalizedLink
                       href={link.href}
-                      className="block rounded-lg px-3 py-3 text-sm font-medium text-black/80 transition-colors active:bg-orange-50"
+                      className="block rounded-lg px-4 py-4 text-base font-medium text-black/80 transition-colors active:bg-orange-50 active:scale-[0.97]"
                       onClick={() => setMobileOpen(false)}
                     >
                       {link.label}

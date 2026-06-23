@@ -50,38 +50,36 @@ export default function DemoCta() {
 
         {!sent ? (
           <form onSubmit={submit} className="mt-8 flex w-full flex-col gap-3">
-            <motion.input
+            <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={t.namePlaceholder}
-              whileFocus={{ scale: 1.02 }}
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
             />
             <div className="flex w-full flex-col gap-3 sm:flex-row">
-              <motion.input
+              <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t.phonePlaceholder}
-                whileFocus={{ scale: 1.02 }}
+                inputMode="tel"
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
-              <motion.input
+              <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t.emailPlaceholder}
-                whileFocus={{ scale: 1.02 }}
+                inputMode="email"
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
             </div>
-            <motion.textarea
+            <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={t.messagePlaceholder}
               rows={3}
-              whileFocus={{ scale: 1.02 }}
               className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
             />
             <motion.div
@@ -96,7 +94,7 @@ export default function DemoCta() {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-3 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-8 py-4 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto"
               >
                 {loading ? "..." : t.cta}
               </button>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
+import { useDeviceAnimation } from "@/components/animation-wrappers";
 
 const icons: Record<string, React.ReactNode> = {
   phone: (
@@ -41,6 +42,7 @@ const icons: Record<string, React.ReactNode> = {
 export default function SetupService() {
   const { dict } = useTranslation();
   const t = dict.setupService;
+  const { shouldAnimate } = useDeviceAnimation();
 
   return (
     <section className="w-full px-4 py-20 md:py-28">
@@ -52,7 +54,8 @@ export default function SetupService() {
           transition={{ duration: 0.5 }}
           className="mb-14 text-center"
         >
-          <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+          <h2 className="mb-4 font-bold text-gray-900"
+            style={{ fontSize: "var(--text-heading)" }}>
             {t.heading}{" "}
             <span className="text-[#FF6B2B]">{t.highlight}</span>
           </h2>
@@ -72,13 +75,19 @@ export default function SetupService() {
               whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}
               className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50"
-              >
-                {icons[step.icon] || null}
-              </motion.div>
+              {shouldAnimate ? (
+                <motion.div
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50"
+                >
+                  {icons[step.icon] || null}
+                </motion.div>
+              ) : (
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50">
+                  {icons[step.icon] || null}
+                </div>
+              )}
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
                 {step.title}
               </h3>

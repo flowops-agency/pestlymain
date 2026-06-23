@@ -56,7 +56,7 @@ export default function Footer() {
                     >
                       <LocalizedLink
                         href={link.href}
-                        className="text-sm text-gray-500 transition-colors hover:text-[#171717]"
+                        className="block py-2 text-sm text-gray-500 transition-colors hover:text-[#171717]"
                       >
                         {link.label}
                         <motion.span
@@ -96,7 +96,7 @@ export default function Footer() {
               >
                 <Link
                   href={icon.href}
-                  className="block text-gray-500 transition-colors hover:text-[#171717]"
+                  className="flex items-center justify-center p-3 text-gray-500 transition-colors hover:text-[#171717]"
                 >
                   {icon.name === "Twitter" && (
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">

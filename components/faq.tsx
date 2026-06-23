@@ -19,7 +19,8 @@ export default function Faq() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 text-4xl font-semibold">
+          <h2 className="mb-4 font-semibold"
+            style={{ fontSize: "var(--text-heading)" }}>
             {t.headingBefore}{" "}
             <span className="text-[#FF6B2B]">{t.headingHighlight}</span>
           </h2>
@@ -70,7 +71,7 @@ export default function Faq() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="border-t border-[#EBEBEB] px-6 py-4 text-sm leading-relaxed text-gray-500">
+                    <p className="border-t border-[#EBEBEB] px-6 py-4 text-sm md:text-base leading-relaxed text-gray-500">
                       {faq.answer}
                     </p>
                   </motion.div>

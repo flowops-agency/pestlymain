@@ -5,34 +5,47 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import LocalizedLink from "./localized-link";
+import { useDeviceAnimation } from "@/components/animation-wrappers";
 
 export default function Hero() {
   const { dict } = useTranslation();
   const t = dict.hero;
+  const { shouldAnimate } = useDeviceAnimation();
 
   return (
     <div
       id="home"
-      className="relative mx-auto my-2 flex max-w-7xl flex-col items-center justify-center overflow-hidden rounded-b-3xl border border-black md:border-0 px-4 pb-16 pt-24 md:my-14 md:px-8 md:pb-8"
+      className="relative mx-auto my-2 flex max-w-7xl flex-col items-center justify-center overflow-hidden rounded-b-3xl border border-black md:border-0 px-4 pb-12 pt-16 md:pt-24 md:my-14 md:px-8 md:pb-8"
       style={{
         background:
           "linear-gradient(to top, rgba(247,135,67,1) 0%, rgba(255,244,239,1) 50%, rgba(255,255,255,1) 100%)",
       }}
     >
       {/* Breathing gradient overlay */}
-      <motion.div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(247,135,67,0.15) 0%, rgba(255,244,239,0.1) 50%, transparent 100%)",
-        }}
-        animate={{ opacity: [0, 0.4, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {shouldAnimate ? (
+        <motion.div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(247,135,67,0.15) 0%, rgba(255,244,239,0.1) 50%, transparent 100%)",
+          }}
+          animate={{ opacity: [0, 0.4, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(247,135,67,0.15) 0%, rgba(255,244,239,0.1) 50%, transparent 100%)",
+          }}
+        />
+      )}
       <motion.div
         initial="hidden"
         animate="visible"
-        className="relative z-20 mx-auto mb-4 max-w-6xl text-balance text-center text-4xl font-semibold tracking-tight text-gray-700 md:text-7xl"
+        className="relative z-20 mx-auto mb-4 max-w-6xl text-balance text-center font-semibold tracking-tight text-gray-700"
+        style={{ fontSize: "var(--text-display)" }}
       >
         <motion.h2
           variants={{
@@ -67,7 +80,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-        className="relative z-20 mx-auto mt-8 max-w-2xl px-4 text-center text-base/6 text-gray-600"
+        className="relative z-20 mx-auto mt-8 max-w-2xl px-4 text-center text-base/7 md:text-base/6 text-gray-600"
         dangerouslySetInnerHTML={{ __html: t.subtitle }}
       />
 
@@ -92,7 +105,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Phone mockup */}
-      <div className="relative w-full min-h-[22rem] pt-[1.5rem]">
+      <div className="relative w-full min-h-[20rem] md:min-h-[26rem] pt-[1.5rem]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,7 +115,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="relative mx-auto h-[520px] w-[280px] md:h-[600px] md:w-[320px]"
+          className="relative mx-auto h-[380px] w-[205px] sm:h-[480px] sm:w-[260px] md:h-[600px] md:w-[320px]"
         >
           <div className="absolute inset-0 rounded-[50px] border-[5px] border-black bg-black shadow-xl" />
 
@@ -230,7 +243,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+          className="absolute inset-0 z-0 items-center justify-center pointer-events-none hidden md:flex"
         >
           <div className="absolute z-0 rounded-full border border-black/10" style={{ width: "1400px", height: "1400px" }} />
           <motion.div
@@ -252,7 +265,8 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Floating sparkle dots */}
+        {/* Floating sparkle dots — hidden on mobile for performance */}
+        <div className="hidden sm:block">
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={i}
@@ -274,6 +288,7 @@ export default function Hero() {
             }}
           />
         ))}
+        </div>
       </motion.div>
       </div>
     </div>

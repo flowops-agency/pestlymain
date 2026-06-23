@@ -22,7 +22,7 @@ export default function LocaleSwitcher() {
       onClick={switchLocale}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/80 px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm transition-all hover:bg-white hover:text-gray-900 hover:shadow"
+      className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/80 px-3 min-h-[44px] text-xs font-medium text-gray-600 shadow-sm transition-all hover:bg-white hover:text-gray-900 hover:shadow"
       aria-label={locale === "de" ? "Switch to English" : "Zu Deutsch wechseln"}
     >
       {/* DE badge */}

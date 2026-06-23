@@ -72,12 +72,13 @@ export default function Founder() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t.phonePlaceholder}
-                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
+                inputMode="tel"
+                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
                 required
               />
               <button
                 type="submit"
-                className="shrink-0 rounded-lg bg-[#FB4C01] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#E04400]"
+                className="shrink-0 rounded-lg bg-[#FB4C01] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#E04400]"
               >
                 {t.cta}
               </button>

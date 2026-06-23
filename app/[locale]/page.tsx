@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function HomePage() {
   return (
-    <main>
+    <main id="main-content">
       <Navbar />
       <Hero />
       <DemoCta />

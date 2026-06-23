@@ -1,7 +1,35 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useTransform, animate, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+/* -------------------------------------------------------------------------- */
+/*  useIsMobile — detect small viewports for disabling heavy animations       */
+/* -------------------------------------------------------------------------- */
+
+export function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  useDeviceAnimation — combine reduced-motion + mobile check                */
+/* -------------------------------------------------------------------------- */
+
+export function useDeviceAnimation() {
+  const prefersReduced = useReducedMotion();
+  const isMobile = useIsMobile();
+  // Disable heavy animations when user prefers reduced motion OR on mobile
+  const shouldAnimate = !prefersReduced && !isMobile;
+  return { shouldAnimate, prefersReduced, isMobile };
+}
 
 /* -------------------------------------------------------------------------- */
 /*  FadeIn — generic fade + directional slide on scroll                      */

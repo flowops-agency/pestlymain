@@ -18,7 +18,8 @@ export default function Stats() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-12 text-center"
         >
-          <h2 className="text-4xl font-bold md:text-5xl">
+          <h2 className="font-bold"
+            style={{ fontSize: "var(--text-heading)" }}>
             {t.headingBefore}{" "}
             <span className="text-[oklch(0.65_0.25_30)]">{t.headingHighlight}</span>
           </h2>
