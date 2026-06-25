@@ -4,8 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 
+const LEAD_WEBHOOKS = {
+  de: "https://n8n.pestly.de/webhook/lead-de",
+  en: "https://n8n.pestly.de/webhook/lead-us",
+} as const;
+
 export default function DemoCta() {
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
   const t = dict.demo;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +24,7 @@ export default function DemoCta() {
     if (!name.trim() && !email.trim() && !phone.trim()) return;
     setLoading(true);
     try {
-      await fetch("https://n8n.pestly.de/webhook/lead-new", {
+      await fetch(LEAD_WEBHOOKS[locale], {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
