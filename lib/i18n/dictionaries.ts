@@ -310,7 +310,7 @@ const de: Dictionary = {
     line2Highlight: "Anfrage",
     line2After: "verpassen",
     subtitle:
-      "Pestly ist Ihr KI-Telefonassistent für Schädlingsbekämpfung. Er beantwortet Anrufe, WhatsApp, SMS und E-Mails autonom — bucht Termine in Ihren Kalender und leitet dringende Fälle weiter. <strong>Sie bekämpfen Schädlinge, Pestly telefoniert.</strong>",
+      "Pestly ist Ihr KI-Telefonassistent für Schädlingsbekämpfung. Er beantwortet Anrufe, WhatsApp, SMS, E-Mails und Website-Widgets autonom — bucht Termine in Ihren Kalender und leitet dringende Fälle weiter. <strong>Sie bekämpfen Schädlinge, Pestly telefoniert.</strong>",
     cta: "Kostenlose Demo buchen",
     callerName: "Herr Müller",
     callerMsg: "Guten Tag, wir haben Kakerlaken in der Küche — können Sie heute noch vorbeikommen?",
@@ -362,8 +362,8 @@ const de: Dictionary = {
       },
       multichannel: {
         title: "Alle Kanäle, eine Nummer",
-        desc: "Anruf, WhatsApp, SMS oder E-Mail — Pestly fasst alles in einem Posteingang zusammen. Ihr Kunde erreicht Sie, wie er will.",
-        channels: ["Anruf", "WhatsApp", "SMS", "E-Mail"],
+        desc: "Anruf, WhatsApp, SMS, E-Mail oder Website-Widget — Pestly fasst alles in einem Posteingang zusammen. Ihr Kunde erreicht Sie, wie er will.",
+        channels: ["Anruf", "WhatsApp", "SMS", "E-Mail", "Website-Widget"],
       },
       knowledge: {
         title: "Intelligente Wissensdatenbank",
@@ -467,6 +467,7 @@ const de: Dictionary = {
           "Voicemail + Transkription",
           "WhatsApp-Integration",
           "E-Mail-Beantwortung",
+          "Website-Widget (Einbettung für Ihre Website)",
           "Wissensdatenbank (eigene Inhalte)",
           "Kalender-Sync (Google, Outlook, Cal.com)",
           "Monatlich kündbar",
@@ -589,6 +590,7 @@ const de: Dictionary = {
         { label: "Terminbuchung", href: "/#features" },
         { label: "WhatsApp-Integration", href: "/#features" },
         { label: "Wissensdatenbank", href: "/#features" },
+        { label: "Website-Widget", href: "/#features" },
       ],
       Unternehmen: [
         { label: "Über uns", href: "#" },
@@ -896,7 +898,7 @@ const en: Dictionary = {
     line2Highlight: "on the job",
     line2After: "",
     subtitle:
-      "Pestly is your AI phone assistant for pest control companies. It answers calls, WhatsApp, SMS, and emails autonomously — books appointments in your calendar and forwards urgent cases. <strong>You handle pests, Pestly handles calls.</strong>",
+      "Pestly is your AI phone assistant for pest control companies. It answers calls, WhatsApp, SMS, emails, and website widgets autonomously — books appointments in your calendar and forwards urgent cases. <strong>You handle pests, Pestly handles calls.</strong>",
     cta: "Book a Free Demo",
     callerName: "Mr. Johnson",
     callerMsg: "Hi, I think we have termites in the basement — can you come take a look?",
@@ -948,8 +950,8 @@ const en: Dictionary = {
       },
       multichannel: {
         title: "All channels, one number",
-        desc: "Calls, WhatsApp, SMS, or email — Pestly consolidates everything into one inbox. Your customers reach you however they want.",
-        channels: ["Phone", "WhatsApp", "SMS", "Email"],
+        desc: "Calls, WhatsApp, SMS, email, or website widgets — Pestly consolidates everything into one inbox. Your customers reach you however they want.",
+        channels: ["Phone", "WhatsApp", "SMS", "Email", "Website Widget"],
       },
       knowledge: {
         title: "Smart Knowledge Base",
@@ -1053,6 +1055,7 @@ const en: Dictionary = {
           "Voicemail + transcription",
           "WhatsApp integration",
           "Email response",
+          "Website Widget (embed code for your site)",
           "Knowledge base (your content)",
           "Calendar sync (Google, Outlook, Cal.com)",
           "Monthly cancellation",
@@ -1175,6 +1178,7 @@ const en: Dictionary = {
         { label: "Appointment Booking", href: "/#features" },
         { label: "WhatsApp Integration", href: "/#features" },
         { label: "Knowledge Base", href: "/#features" },
+        { label: "Website Widget", href: "/#features" },
       ],
       Company: [
         { label: "About Us", href: "#" },
