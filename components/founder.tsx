@@ -2,28 +2,44 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
+
+const LEAD_WEBHOOK = "https://n8n.pestly.de/webhook/lead-new";
 
 export default function Founder() {
   const { dict } = useTranslation();
   const t = dict.founder;
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim()) return;
+    const phoneV = phone.trim();
+    if (!phoneV) return;
+    setLoading(true);
+    setError(null);
     try {
-      await fetch("https://n8n.pestly.de/webhook/385ed7ed-7e30-46b2-acb4-0b47e390a7ce", {
+      const res = await fetch(LEAD_WEBHOOK, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: "founder", phone: phone.trim(), timestamp: new Date().toISOString() }),
+        body: JSON.stringify({
+          name: "Callback request",
+          phone: phoneV,
+          message: "Founder section — call me back",
+          source: "founder",
+        }),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setSent(true);
     } catch (err) {
       console.error("Webhook failed:", err);
+      setError(t.error);
+    } finally {
+      setLoading(false);
     }
-    setSent(true);
   };
 
   return (
@@ -66,22 +82,31 @@ export default function Founder() {
 
           {/* Phone input */}
           {!sent ? (
-            <form onSubmit={submit} className="mt-8 flex w-full max-w-md flex-col gap-3 sm:flex-row">
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder={t.phonePlaceholder}
-                inputMode="tel"
-                className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
-                required
-              />
-              <button
-                type="submit"
-                className="shrink-0 rounded-lg bg-[#FB4C01] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#E04400]"
-              >
-                {t.cta}
-              </button>
+            <form onSubmit={submit} className="mt-8 flex w-full max-w-md flex-col gap-3">
+              <div className="flex w-full flex-col gap-3 sm:flex-row">
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder={t.phonePlaceholder}
+                  inputMode="tel"
+                  autoComplete="tel"
+                  className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="shrink-0 rounded-lg bg-[#FB4C01] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#E04400] disabled:opacity-50"
+                >
+                  {loading ? "..." : t.cta}
+                </button>
+              </div>
+              {error ? (
+                <p className="rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-700" role="alert">
+                  {error}
+                </p>
+              ) : null}
             </form>
           ) : (
             <motion.p

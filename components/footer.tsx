@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import LocaleSwitcher from "./locale-switcher";
 import LocalizedLink from "./localized-link";
+import PestlyLogo from "./pestly-logo";
 
 export default function Footer() {
   const { dict } = useTranslation();
@@ -21,11 +22,8 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0 }}
           >
-            <LocalizedLink href="/" className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#FB4C01] text-sm font-bold text-white">
-                P
-              </div>
-              <span className="text-lg font-medium text-black">Pestly</span>
+            <LocalizedLink href="/" className="inline-flex items-center">
+              <PestlyLogo className="h-8 w-auto" />
             </LocalizedLink>
             <p className="mt-2 text-sm text-gray-500">{t.brandDesc}</p>
             <div className="mt-4">

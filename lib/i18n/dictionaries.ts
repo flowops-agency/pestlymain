@@ -21,7 +21,8 @@ export interface HeroDict {
   line2Before: string;
   line2Highlight: string;
   line2After: string;
-  subtitle: string;
+  tagline: string;
+  bullets: string[];
   cta: string;
   callerName: string;
   callerMsg: string;
@@ -140,6 +141,8 @@ export interface DemoDict {
   cta: string;
   dsgvo: string;
   success: string;
+  error: string;
+  validation: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -154,6 +157,7 @@ export interface FounderDict {
   cta: string;
   dsgvo: string;
   success: string;
+  error: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -261,10 +265,24 @@ export interface CommonDict {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  SEO                                                                       */
+/* -------------------------------------------------------------------------- */
+export interface SeoDict {
+  title: string;
+  description: string;
+  ogImageAlt: string;
+  impressumDescription: string;
+  privacyDescription: string;
+  termsDescription: string;
+  cookieSettingsDescription: string;
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Root Dictionary                                                           */
 /* -------------------------------------------------------------------------- */
 export interface Dictionary {
   common: CommonDict;
+  seo: SeoDict;
   navbar: NavbarDict;
   hero: HeroDict;
   socialProof: SocialProofDict;
@@ -293,11 +311,27 @@ const de: Dictionary = {
     localeSwitcher: { de: "DE", en: "US" },
     skipLink: "Zum Hauptinhalt springen",
   },
+  seo: {
+    title: "KI-Telefonassistent Schädlingsbekämpfung | Pestly",
+    description:
+      "Pestly: KI-Telefonassistent für Schädlingsbekämpfer. Nimmt Anrufe, WhatsApp & E-Mail an, bucht Termine, eskaliert Notfälle. Jetzt Demo buchen.",
+    ogImageAlt: "Pestly — KI-Telefonassistent für Schädlingsbekämpfung",
+    impressumDescription:
+      "Impressum und Anbieterkennzeichnung der Pestly LLC gemäß § 5 DDG.",
+    privacyDescription:
+      "Datenschutzerklärung von Pestly: Informationen zur Verarbeitung personenbezogener Daten nach DSGVO.",
+    termsDescription:
+      "Allgemeine Geschäftsbedingungen (AGB) für die Nutzung von Pestly.",
+    cookieSettingsDescription:
+      "Cookie-Einstellungen verwalten und Datenschutzpräferenzen für pestly.de festlegen.",
+  },
   navbar: {
     logo: "Pestly",
     navLinks: [
       { href: "/#home", label: "Start" },
+      { href: "/leistungen", label: "Leistungen" },
       { href: "/#features", label: "Funktionen" },
+      { href: "/ki-telefonassistent", label: "Wissen" },
       { href: "/#faq", label: "FAQ" },
     ],
     cta: "Kostenlos testen",
@@ -309,8 +343,12 @@ const de: Dictionary = {
     line2Before: "",
     line2Highlight: "Anfrage",
     line2After: "verpassen",
-    subtitle:
-      "Pestly ist Ihr KI-Telefonassistent für Schädlingsbekämpfung. Er beantwortet Anrufe, WhatsApp, SMS, E-Mails und Website-Widgets autonom — bucht Termine in Ihren Kalender und leitet dringende Fälle weiter. <strong>Sie bekämpfen Schädlinge, Pestly telefoniert.</strong>",
+    tagline: "KI-Telefonassistent für Schädlingsbekämpfung.",
+    bullets: [
+      "Anrufe, WhatsApp, SMS und E-Mail beantworten",
+      "Termine buchen, Notfälle eskalieren",
+      "Wir richten alles ein und betreiben es — Sie müssen nichts tun",
+    ],
     cta: "Kostenlose Demo buchen",
     callerName: "Herr Müller",
     callerMsg: "Guten Tag, wir haben Kakerlaken in der Küche — können Sie heute noch vorbeikommen?",
@@ -356,18 +394,18 @@ const de: Dictionary = {
       "Pestly übernimmt die Kommunikation für Ihr Schädlingsbekämpfungsunternehmen — von der Rufannahme bis zur Terminbuchung.",
     cards: {
       voice: {
-        status: "Aktiv — nimmt Anrufe entgegen",
-        title: "KI-Sprachassistent — versteht Deutsch perfekt",
-        desc: "Dank Mistral und Azure-optimiertem Deutsch versteht Pestly auch Fachbegriffe der Schädlingsbekämpfung. Kein „Drücken Sie die 1“ mehr.",
+        status: "Live — Deutsch",
+        title: "KI-Sprachassistent — Deutsch",
+        desc: "Natürliche Gespräche auf Deutsch, inkl. Fachbegriffen der Schädlingsbekämpfung. Kein „Drücken Sie die 1“.",
       },
       multichannel: {
         title: "Alle Kanäle, eine Nummer",
-        desc: "Anruf, WhatsApp, SMS, E-Mail oder Website-Widget — Pestly fasst alles in einem Posteingang zusammen. Ihr Kunde erreicht Sie, wie er will.",
-        channels: ["Anruf", "WhatsApp", "SMS", "E-Mail", "Website-Widget"],
+        desc: "Anruf, WhatsApp, SMS, E-Mail und Widget laufen in Pestly zusammen — ein Posteingang, ein Assistent.",
+        channels: ["Anruf", "WhatsApp", "SMS", "E-Mail"],
       },
       knowledge: {
         title: "Intelligente Wissensdatenbank",
-        desc: "Hinterlegen Sie einfach Ihre Preise, Einsatzgebiete und Schädlingsarten — Pestly beantwortet alles korrekt und bucht passende Termine.",
+        desc: "Preise, Gebiete, Schädlingsarten und Regeln einmal pflegen — Pestly antwortet konsistent und bucht passende Termine.",
         labels: ["Öffnungszeiten", "Preise", "Einsatzgebiet", "Notfälle", "Team", "Schädlingsarten"],
       },
       calendar: {
@@ -539,12 +577,15 @@ const de: Dictionary = {
     cta: "Kostenlose Demo buchen",
     dsgvo: "✓ DSGVO-konform — Ihre Daten sind sicher.",
     success: "✓ Danke! Wir melden uns in Kürze bei Ihnen.",
+    error: "Senden fehlgeschlagen. Bitte später erneut versuchen oder anrufen.",
+    validation: "Bitte E-Mail oder Telefonnummer angeben.",
   },
   founder: {
     heading: "Der Mensch hinter Pestly",
     name: "Tom Berger",
     role: "Gründer",
     success: "✓ Danke! Wir melden uns in Kürze.",
+    error: "Senden fehlgeschlagen. Bitte später erneut versuchen.",
     quote: "Pestly ist nicht fürs Silicon Valley gemacht, sondern für den echten Schädlingsbekämpfungs-Alltag. Eine KI, die Ihnen den Rücken freihält, während Sie im Einsatz sind.",
     phonePlaceholder: "Ihre Telefonnummer",
     cta: "Jetzt anrufen lassen",
@@ -592,11 +633,21 @@ const de: Dictionary = {
         { label: "Wissensdatenbank", href: "/#features" },
         { label: "Website-Widget", href: "/#features" },
       ],
-      Unternehmen: [
-        { label: "Über uns", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Karriere", href: "#" },
-        { label: "Partner werden", href: "#" },
+      Wissen: [
+        { label: "Leistungen", href: "/leistungen" },
+        {
+          label: "KI-Telefonassistent erklärt",
+          href: "/ki-telefonassistent",
+        },
+        {
+          label: "Vs. Anrufbeantworter",
+          href: "/vs/anrufbeantworter",
+        },
+        {
+          label: "DSGVO & KI-Telefonie",
+          href: "/dsgvo-ki-telefonie",
+        },
+        { label: "Demo buchen", href: "/#demo" },
       ],
       Rechtliches: [
         { label: "Impressum", href: "/impressum" },
@@ -881,11 +932,26 @@ const en: Dictionary = {
     localeSwitcher: { de: "DE", en: "US" },
     skipLink: "Skip to main content",
   },
+  seo: {
+    title: "AI Phone Assistant for Pest Control | Pestly",
+    description:
+      "Pestly: AI phone assistant for pest control. Answers calls, WhatsApp & email, books jobs, escalates emergencies. Book a free demo today.",
+    ogImageAlt: "Pestly — AI phone assistant for pest control",
+    impressumDescription:
+      "Legal notice and company information for Pestly LLC.",
+    privacyDescription:
+      "Pestly privacy policy: how we process personal data and protect your privacy.",
+    termsDescription: "Terms of service for using Pestly.",
+    cookieSettingsDescription:
+      "Manage cookie preferences and privacy settings for pestly.de.",
+  },
   navbar: {
     logo: "Pestly",
     navLinks: [
       { href: "/#home", label: "Home" },
+      { href: "/leistungen", label: "Services" },
       { href: "/#features", label: "Features" },
+      { href: "/ki-telefonassistent", label: "Guides" },
       { href: "/#faq", label: "FAQ" },
     ],
     cta: "Test for free",
@@ -894,11 +960,15 @@ const en: Dictionary = {
   hero: {
     line1Before: "Never miss another",
     line1Highlight: "lead",
-    line2Before: "because you were",
+    line2Before: "while you're",
     line2Highlight: "on the job",
     line2After: "",
-    subtitle:
-      "Pestly is your AI phone assistant for pest control companies. It answers calls, WhatsApp, SMS, emails, and website widgets autonomously — books appointments in your calendar and forwards urgent cases. <strong>You handle pests, Pestly handles calls.</strong>",
+    tagline: "AI phone assistant for pest control.",
+    bullets: [
+      "Answers calls, WhatsApp, SMS, and email",
+      "Books jobs and escalates emergencies",
+      "We set it up and keep it running — you do nothing",
+    ],
     cta: "Book a Free Demo",
     callerName: "Mr. Johnson",
     callerMsg: "Hi, I think we have termites in the basement — can you come take a look?",
@@ -944,18 +1014,18 @@ const en: Dictionary = {
       "Pestly handles all communication for your pest control business — from answering calls to booking appointments.",
     cards: {
       voice: {
-        status: "Active — taking calls now",
-        title: "AI Voice Agent — understands English perfectly",
-        desc: "Powered by Mistral & Azure-optimized English, Pestly understands pest control terminology inside and out. No more &ldquo;Press 1&rdquo; menus.",
+        status: "Live — English",
+        title: "AI voice agent — English & Spanish",
+        desc: "Natural conversations in English and Spanish, including pest control terminology. No more “press 1” menus.",
       },
       multichannel: {
         title: "All channels, one number",
-        desc: "Calls, WhatsApp, SMS, email, or website widgets — Pestly consolidates everything into one inbox. Your customers reach you however they want.",
-        channels: ["Phone", "WhatsApp", "SMS", "Email", "Website Widget"],
+        desc: "Calls, WhatsApp, SMS, and email flow into Pestly — one inbox, one assistant.",
+        channels: ["Phone", "WhatsApp", "SMS", "Email"],
       },
       knowledge: {
-        title: "Smart Knowledge Base",
-        desc: "Just set your prices, hours, and services once — Pestly answers everything accurately and books the right appointments.",
+        title: "Smart knowledge base",
+        desc: "Set prices, areas, pest types, and rules once — Pestly answers consistently and books the right jobs.",
         labels: ["Hours", "Pricing", "Service Area", "Emergencies", "Team", "Pest Types"],
       },
       calendar: {
@@ -1127,12 +1197,15 @@ const en: Dictionary = {
     cta: "Book a free demo",
     dsgvo: "✓ Your data is private, encrypted, and never shared.",
     success: "✓ Thanks! We'll reach out shortly.",
+    error: "Could not send. Please try again later or call us.",
+    validation: "Please provide an email or phone number.",
   },
   founder: {
     heading: "The Founder",
     name: "Tom Berger",
     role: "Founder",
     success: "✓ Thanks! We'll be in touch shortly.",
+    error: "Could not send. Please try again later.",
     quote: "Pestly wasn't built for Silicon Valley — it was built for real pest control jobs. An AI that has your back while you work.",
     phonePlaceholder: "Your phone number",
     cta: "Get a call back",
@@ -1180,11 +1253,15 @@ const en: Dictionary = {
         { label: "Knowledge Base", href: "/#features" },
         { label: "Website Widget", href: "/#features" },
       ],
-      Company: [
-        { label: "About Us", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Partner Program", href: "#" },
+      Resources: [
+        { label: "Services", href: "/leistungen" },
+        {
+          label: "AI phone assistant explained",
+          href: "/ki-telefonassistent",
+        },
+        { label: "Vs voicemail", href: "/vs/anrufbeantworter" },
+        { label: "Privacy & AI telephony", href: "/dsgvo-ki-telefonie" },
+        { label: "Book a demo", href: "/#demo" },
       ],
       Legal: [
         { label: "Legal Notice", href: "/impressum" },

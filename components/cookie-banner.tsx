@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useSyncExternalStore } from "react";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
+import {
+  acceptCookieBanner,
+  getCookieBannerServerSnapshot,
+  getCookieBannerVisible,
+  subscribeCookieBanner,
+} from "@/lib/cookie-storage";
 
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false);
+  const visible = useSyncExternalStore(
+    subscribeCookieBanner,
+    getCookieBannerVisible,
+    getCookieBannerServerSnapshot
+  );
   const { dict } = useTranslation();
   const t = dict.cookieBanner;
-
-  useEffect(() => {
-    const accepted = localStorage.getItem("pestly-cookies");
-    if (!accepted) setVisible(true);
-  }, []);
-
-  const accept = () => {
-    localStorage.setItem("pestly-cookies", "1");
-    setVisible(false);
-  };
 
   return (
     <AnimatePresence>
@@ -30,7 +30,8 @@ export default function CookieBanner() {
         >
           <p className="mb-3 text-sm leading-relaxed text-gray-600">{t.text}</p>
           <button
-            onClick={accept}
+            type="button"
+            onClick={acceptCookieBanner}
             className="rounded-lg bg-[#FB4C01] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#E04400]"
           >
             {t.accept}

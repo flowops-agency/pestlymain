@@ -1,0 +1,51 @@
+# Pestly
+
+> AI phone assistant for pest control / Schädlingsbekämpfung companies.
+
+## Summary
+Pestly answers calls, WhatsApp, SMS, email, and website widgets; books calendar appointments; escalates emergencies with transcript SMS. Built for pest control operators who miss leads while on jobs — not a generic call-center bot.
+
+## Primary audience
+- German pest control businesses (solo → multi-van)
+- Owners and office managers
+- Secondary: English-speaking pest control teams
+
+## Pricing
+- No public list prices (depends on channels, locations, complexity)
+- Free, non-binding demo
+- No minimum contract advertised as a hard requirement in product FAQ
+- See /pricing.md for agent-readable pricing stance
+- Contact: info@pestly.de
+
+## Key URLs
+- https://pestly.de/de — German homepage
+- https://pestly.de/en — English homepage
+- https://pestly.de/de/leistungen — Services hub
+- https://pestly.de/de/leistungen/ki-sprache — Voice agent service
+- https://pestly.de/de/leistungen/multikanal — Multichannel
+- https://pestly.de/de/leistungen/wissensdatenbank — Knowledge base
+- https://pestly.de/de/leistungen/termine — Booking
+- https://pestly.de/de/leistungen/setup — Setup & operations
+- https://pestly.de/de/ki-telefonassistent — What is an AI phone assistant for pest control
+- https://pestly.de/de/vs/anrufbeantworter — vs answering machine / voicemail
+- https://pestly.de/de/dsgvo-ki-telefonie — Privacy / GDPR and AI telephony
+- https://pestly.de/de/datenschutz — Privacy policy
+- https://pestly.de/de/impressum — Legal notice
+- https://pestly.de/pricing.md — Pricing overview for agents
+- https://pestly.de/llms.txt — This file
+
+## Differentiators
+- Vertical focus: pest control terminology and workflows
+- Multichannel intake (voice + messaging)
+- Emergency escalation with transcript
+- EU/DE-oriented data processing narrative (see privacy page)
+- Setup typically about 5 days per site FAQ
+
+## What it is not
+- Not a full replacement for on-site inspection or licensed pest treatment
+- Not a generic “AI receptionist for any industry” positioning
+- Not opaque “contact sales only” without a demo path — free demo is the entry
+
+## Contact
+- Email: info@pestly.de
+- Entity: Pestly LLC (see impressum)

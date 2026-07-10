@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Inter, Geist_Mono } from "next/font/google";
+import Analytics from "@/components/analytics";
+import MotionProvider from "@/components/motion-provider";
+import { defaultLocale, locales, type Locale } from "@/lib/i18n/dictionaries";
+import { siteName, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -13,10 +18,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pestly — KI-Telefonassistent für Ihr Handwerk",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "KI-Telefonassistent für Schädlingsbekämpfung | Pestly",
+    template: "%s | Pestly",
+  },
   description:
-    "Pestly beantwortet Anrufe, WhatsApp, SMS und E-Mails für Ihr Handwerk — automatisch. Nie wieder einen Auftrag verpassen.",
-  icons: { icon: "/pestly-icon.png" },
+    "Pestly beantwortet Anrufe, WhatsApp, SMS und E-Mails für Schädlingsbekämpfer — bucht Termine und leitet Notfälle weiter.",
+  icons: {
+    icon: [{ url: "/pestly-icon.svg", type: "image/svg+xml" }, { url: "/pestly-icon.png" }],
+    apple: "/pestly-icon.png",
+  },
+  openGraph: {
+    siteName,
+    type: "website",
+  },
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -26,14 +49,24 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({
+function resolveLang(headerLocale: string | null): Locale {
+  if (headerLocale && (locales as readonly string[]).includes(headerLocale)) {
+    return headerLocale as Locale;
+  }
+  return defaultLocale;
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const lang = resolveLang(headerList.get("x-pestly-locale"));
+
   return (
     <html
-      lang="de"
+      lang={lang}
       suppressHydrationWarning
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
@@ -44,7 +77,10 @@ export default function RootLayout({
         >
           Zum Hauptinhalt springen
         </a>
-        {children}
+        <MotionProvider>
+          {children}
+          <Analytics />
+        </MotionProvider>
       </body>
     </html>
   );

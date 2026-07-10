@@ -1,10 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Shield, BarChart3, Megaphone, Check } from "lucide-react";
 import type { CookieSettingsDict } from "@/lib/i18n/dictionaries";
-
-const STORAGE_KEY = "pestly-cookie-preferences";
+import {
+  type CookiePrefs,
+  getCookiePrefsServerSnapshot,
+  readCookiePrefs,
+  subscribeCookiePrefs,
+  writeCookiePrefs,
+} from "@/lib/cookie-storage";
 
 const iconMap: Record<string, React.ElementType> = {
   essential: Shield,
@@ -12,72 +17,51 @@ const iconMap: Record<string, React.ElementType> = {
   marketing: Megaphone,
 };
 
-interface CookiePrefs {
-  essential: boolean;
-  analytics: boolean;
-  marketing: boolean;
-}
-
-const defaultPrefs: CookiePrefs = {
-  essential: true,
-  analytics: false,
-  marketing: false,
-};
-
 export default function CookieSettingsContent({
   dict,
 }: {
   dict: CookieSettingsDict;
 }) {
-  const [prefs, setPrefs] = useState<CookiePrefs>(defaultPrefs);
+  const stored = useSyncExternalStore(
+    subscribeCookiePrefs,
+    readCookiePrefs,
+    getCookiePrefsServerSnapshot
+  );
+  const [draft, setDraft] = useState<CookiePrefs | null>(null);
   const [saved, setSaved] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as Partial<CookiePrefs>;
-        setPrefs({ ...defaultPrefs, ...parsed });
-      }
-    } catch {
-      // ignore corrupt storage
-    }
-    setLoaded(true);
-  }, []);
+  const prefs = draft ?? stored;
 
   const toggle = (key: keyof CookiePrefs) => {
-    if (key === "essential") return; // always on
-    setPrefs((prev) => ({ ...prev, [key]: !prev[key] }));
+    if (key === "essential") return;
+    setDraft((prev) => {
+      const base = prev ?? stored;
+      return { ...base, [key]: !base[key] };
+    });
     setSaved(false);
   };
 
   const save = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-    // Also set legacy flag so the cookie banner doesn't show
-    localStorage.setItem("pestly-cookies", "1");
+    writeCookiePrefs(prefs);
+    setDraft(null);
     setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    window.setTimeout(() => setSaved(false), 3000);
   };
 
   return (
-    <section className="py-24 px-4">
+    <section className="px-4 py-24">
       <div className="mx-auto max-w-3xl">
-        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
+          <h1 className="mb-2 text-4xl font-bold tracking-tight">
             {dict.title}
           </h1>
           <p className="text-muted-foreground">{dict.subtitle}</p>
         </div>
 
-        {/* Intro */}
-        <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
+        <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
           {dict.intro}
         </p>
 
-        {/* Categories */}
-        <div className="space-y-4 mb-8">
+        <div className="mb-8 space-y-4">
           {dict.categories.map((cat) => {
             const Icon = iconMap[cat.id] ?? Shield;
             const isOn = prefs[cat.id as keyof CookiePrefs];
@@ -85,38 +69,36 @@ export default function CookieSettingsContent({
             return (
               <div
                 key={cat.id}
-                className="border border-gray-200 rounded-xl p-6"
+                className="rounded-xl border border-gray-200 p-6"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                     <Icon size={18} className="text-accent" />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-4">
                       <h2 className="text-base font-semibold text-foreground">
                         {cat.title}
                       </h2>
-                      {/* Toggle */}
                       <button
                         type="button"
                         role="switch"
                         aria-checked={isOn}
+                        aria-label={cat.title}
                         disabled={isDisabled}
-                        onClick={() =>
-                          toggle(cat.id as keyof CookiePrefs)
-                        }
-                        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed ${
+                        onClick={() => toggle(cat.id as keyof CookiePrefs)}
+                        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 ${
                           isOn ? "bg-accent" : "bg-gray-200"
                         }`}
                       >
                         <span
-                          className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition-transform ${
+                          className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition-transform ${
                             isOn ? "translate-x-5" : "translate-x-0"
                           }`}
                         />
                       </button>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-2">
+                    <p className="mt-2 text-sm text-muted-foreground">
                       {cat.description}
                     </p>
                   </div>
@@ -126,11 +108,10 @@ export default function CookieSettingsContent({
           })}
         </div>
 
-        {/* Save button */}
         <button
+          type="button"
           onClick={save}
-          disabled={!loaded}
-          className="inline-flex items-center gap-2 rounded-lg bg-[#FB4C01] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#E04400] disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#FB4C01] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#E04400]"
         >
           {saved ? (
             <>
@@ -142,10 +123,7 @@ export default function CookieSettingsContent({
           )}
         </button>
 
-        {/* Footer note */}
-        <p className="text-xs text-muted-foreground mt-6">
-          {dict.footerNote}
-        </p>
+        <p className="mt-6 text-xs text-muted-foreground">{dict.footerNote}</p>
       </div>
     </section>
   );

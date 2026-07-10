@@ -42,3 +42,8 @@ next-env.d.ts
 .gstack/
 
 .vercel
+product-marketing.md
+.agents/
+.tmp_*.py
+unnamed.png
+public/logo-prototypes/

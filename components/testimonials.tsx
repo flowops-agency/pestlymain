@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import LocalizedLink from "./localized-link";
 
@@ -37,9 +38,11 @@ export default function Testimonials() {
               className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
             >
               <div className="flex items-center gap-4 mb-4">
-                <img
+                <Image
                   src={`https://i.pravatar.cc/80?img=${[12, 11, 10][i]}`}
                   alt={item.name}
+                  width={56}
+                  height={56}
                   className="h-14 w-14 rounded-full object-cover border-2 border-orange-100"
                 />
                 <div>

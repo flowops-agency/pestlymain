@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 
 const LEAD_WEBHOOKS = {
@@ -18,27 +18,41 @@ export default function DemoCta() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() && !email.trim() && !phone.trim()) return;
+    const nameV = name.trim();
+    const emailV = email.trim();
+    const phoneV = phone.trim();
+    const messageV = message.trim();
+
+    if (!emailV && !phoneV) {
+      setError(t.validation);
+      return;
+    }
+
     setLoading(true);
+    setError(null);
     try {
-      await fetch(LEAD_WEBHOOKS[locale], {
+      const res = await fetch(LEAD_WEBHOOKS[locale], {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
-          message: message.trim(),
+          name: nameV,
+          email: emailV,
+          phone: phoneV,
+          message: messageV,
         }),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setSent(true);
     } catch (err) {
       console.error("Webhook failed:", err);
+      setError(t.error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    setSent(true);
   };
 
   return (
@@ -60,6 +74,7 @@ export default function DemoCta() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={t.namePlaceholder}
+              autoComplete="name"
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
             />
             <div className="flex w-full flex-col gap-3 sm:flex-row">
@@ -69,6 +84,7 @@ export default function DemoCta() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t.phonePlaceholder}
                 inputMode="tel"
+                autoComplete="tel"
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
               <input
@@ -77,6 +93,7 @@ export default function DemoCta() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t.emailPlaceholder}
                 inputMode="email"
+                autoComplete="email"
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
               />
             </div>
@@ -87,6 +104,11 @@ export default function DemoCta() {
               rows={3}
               className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400 focus:border-[#FB4C01] focus:outline-none focus:ring-2 focus:ring-[#FB4C01]/20"
             />
+            {error ? (
+              <p className="rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-700" role="alert">
+                {error}
+              </p>
+            ) : null}
             <motion.div
               animate={{
                 boxShadow: name.trim() || phone.trim() || email.trim()

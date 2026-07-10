@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import { useDeviceAnimation } from "@/components/animation-wrappers";
 
@@ -150,9 +150,9 @@ export default function AiIntegration() {
                 variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
                 className="mt-3 flex-1 space-y-2 overflow-hidden"
               >
-                {t.cards.knowledge.qa.map((item, i) => (
+                {t.cards.knowledge.qa.map((item) => (
                   <motion.div
-                    key={i}
+                    key={item.q}
                     variants={{
                       hidden: { opacity: 0, x: -12 },
                       visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
@@ -185,7 +185,7 @@ export default function AiIntegration() {
 
               <div className="mt-4 flex-1 space-y-3">
                 {t.cards.escalation.items.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg border border-gray-100 p-3">
+                  <div key={`${item.label}-${item.time}`} className="flex items-center justify-between rounded-lg border border-gray-100 p-3">
                     <div>
                       <p className="text-sm text-gray-800">{item.label}</p>
                       <p className="text-xs text-gray-400">{item.time}</p>

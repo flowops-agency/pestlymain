@@ -40,11 +40,11 @@ export default function PrivacyContent({ dict }: { dict: PrivacyDict }) {
 
         {/* Sections */}
         <div className="space-y-6">
-          {dict.sections.map((section, i) => {
+          {dict.sections.map((section) => {
             const Icon = iconMap[section.icon] ?? Building2;
             return (
               <div
-                key={i}
+                key={section.title}
                 className="border border-gray-200 rounded-xl p-6 md:p-8"
               >
                 <div className="flex items-start gap-4">

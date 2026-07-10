@@ -1,11 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { m as motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 import LocaleSwitcher from "./locale-switcher";
 import LocalizedLink from "./localized-link";
+import PestlyLogo from "./pestly-logo";
+
+const linkUnderline = {
+  rest: { scaleX: 0, originX: 0.5 },
+  hover: { scaleX: 1, originX: 0.5 },
+};
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,12 +20,6 @@ export default function Navbar() {
   const { scrollY } = useScroll();
   const navBg = useTransform(scrollY, [0, 80], ["rgba(255,255,255,0.5)", "rgba(255,255,255,0.85)"]);
   const navShadow = useTransform(scrollY, [0, 150], ["0px 0px 0px rgba(0,0,0,0)", "0px 4px 30px rgba(0,0,0,0.12)"]);
-
-  // Navbar link underline variants
-  const linkUnderline = {
-    rest: { scaleX: 0, originX: 0.5 },
-    hover: { scaleX: 1, originX: 0.5 },
-  };
 
   return (
     <div className="fixed inset-x-0 top-2 z-50 w-full">
@@ -37,14 +36,7 @@ export default function Navbar() {
           href="/"
           className="relative z-20 flex shrink-0 items-center justify-center px-2 py-1"
         >
-          <Image
-            src="/pestly-logo.png"
-            alt="Pestly"
-            width={288}
-            height={288}
-            className="h-12 w-auto sm:h-14"
-            priority
-          />
+          <PestlyLogo className="h-10 w-auto sm:h-11" />
         </LocalizedLink>
 
         {/* Nav links */}
@@ -86,20 +78,14 @@ export default function Navbar() {
       {/* Mobile nav */}
       <div className="relative z-50 mx-auto flex w-full max-w-[calc(100vw-1.5rem)] flex-col items-center justify-between lg:hidden">
         <div className="flex w-full items-center justify-between rounded-full bg-white/50 px-3 py-2 backdrop-blur-sm">
-          <LocalizedLink href="/">
-            <Image
-              src="/pestly-logo.png"
-              alt="Pestly"
-              width={288}
-              height={288}
-              className="h-12 w-auto sm:h-14"
-              priority
-            />
+          <LocalizedLink href="/" className="flex items-center">
+            <PestlyLogo className="h-9 w-auto" />
           </LocalizedLink>
 
           <div className="flex items-center gap-2">
             <LocaleSwitcher />
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-label={t.menuLabel}
@@ -149,20 +135,18 @@ export default function Navbar() {
           </div>
         </div>
 
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="mt-2 w-full overflow-hidden rounded-2xl bg-white/90 shadow-lg backdrop-blur-md"
-            >
+        <div
+          className={`mt-2 w-full overflow-hidden rounded-2xl bg-white/90 shadow-lg backdrop-blur-md transition-[grid-template-rows] duration-300 ease-in-out ${
+            mobileOpen ? "grid grid-rows-[1fr]" : "grid grid-rows-[0fr]"
+          }`}
+        >
+          <div className="min-h-0 overflow-hidden">
               <motion.div
                 initial="hidden"
-                animate="visible"
+                animate={mobileOpen ? "visible" : "hidden"}
                 variants={{
                   visible: { transition: { staggerChildren: 0.06, delayChildren: 0.08 } },
+                  hidden: {},
                 }}
                 className="flex flex-col px-4 py-4 gap-2"
               >
@@ -199,9 +183,8 @@ export default function Navbar() {
                   </LocalizedLink>
                 </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   );

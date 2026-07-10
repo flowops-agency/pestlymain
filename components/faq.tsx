@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 
 export default function Faq() {
@@ -28,9 +28,11 @@ export default function Faq() {
         </motion.div>
 
         <div className="space-y-4 rounded-[22px] bg-[#DCDCDC] p-4">
-          {t.items.map((faq, i) => (
+          {t.items.map((faq, i) => {
+            const isOpen = openIndex === i;
+            return (
             <motion.div
-              key={i}
+              key={faq.question}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -38,11 +40,13 @@ export default function Faq() {
               className="overflow-hidden rounded-[17px] border border-[#EBEBEB] bg-gradient-to-b from-[#F6F6F6] via-[#FDFDFD] to-[#F6F6F6] shadow-[0px_95px_27px_0px_rgba(0,0,0,0.00),_0px_61px_24px_0px_rgba(0,0,0,0.03),_0px_34px_21px_0px_rgba(0,0,0,0.11),_0px_15px_15px_0px_rgba(0,0,0,0.19),_0px_4px_8px_0px_rgba(0,0,0,0.22)]"
             >
               <button
+                type="button"
                 className="flex w-full items-center gap-2 px-6 py-5 text-left"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                aria-expanded={isOpen}
+                onClick={() => setOpenIndex(isOpen ? null : i)}
               >
                 <motion.div
-                  animate={{ rotate: openIndex === i ? 45 : 0 }}
+                  animate={{ rotate: isOpen ? 45 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   <svg
@@ -62,23 +66,20 @@ export default function Faq() {
                 </motion.div>
                 <span className="text-lg text-neutral-800">{faq.question}</span>
               </button>
-              <AnimatePresence>
-                {openIndex === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <p className="border-t border-[#EBEBEB] px-6 py-4 text-sm md:text-base leading-relaxed text-gray-500">
-                      {faq.answer}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div
+                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="border-t border-[#EBEBEB] px-6 py-4 text-sm md:text-base leading-relaxed text-gray-500">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

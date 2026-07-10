@@ -12,31 +12,40 @@ import Faq from "@/components/faq";
 import Founder from "@/components/founder";
 import CookieBanner from "@/components/cookie-banner";
 import Footer from "@/components/footer";
-import { getDictionary, locales, type Locale } from "@/lib/i18n/dictionaries";
+import { getDictionary, type Locale } from "@/lib/i18n/dictionaries";
+import { buildHomeJsonLd, buildPageMetadata, serializeJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  const dict = getDictionary(locale as Locale);
+  const { locale: raw } = await params;
+  const locale = raw as Locale;
+  const dict = getDictionary(locale);
 
-  return {
-    title: locale === "de"
-      ? "Pestly — KI-Telefonassistent für Schädlingsbekämpfung"
-      : "Pestly — AI Phone Assistant for Pest Control",
-    description: dict.hero.subtitle.replace(/<[^>]*>/g, ""),
-    alternates: {
-      languages: {
-        "de": "/de",
-        "en": "/en",
-      },
-    },
-  };
+  return buildPageMetadata({
+    locale,
+    title: dict.seo.title,
+    description: dict.seo.description,
+    ogImageAlt: dict.seo.ogImageAlt,
+  });
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: Props) {
+  const { locale: raw } = await params;
+  const locale = raw as Locale;
+  const dict = getDictionary(locale);
+  const jsonLd = buildHomeJsonLd({
+    locale,
+    description: dict.seo.description,
+    faqItems: dict.faq.items,
+  });
+
   return (
     <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <Navbar />
       <Hero />
       <DemoCta />

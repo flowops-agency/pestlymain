@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import type { Dictionary, Locale } from "./dictionaries";
 
 const LocaleContext = createContext<{ locale: Locale; dict: Dictionary } | null>(null);
@@ -14,8 +14,9 @@ export function LocaleProvider({
   dict: Dictionary;
   children: ReactNode;
 }) {
+  const value = useMemo(() => ({ locale, dict }), [locale, dict]);
   return (
-    <LocaleContext.Provider value={{ locale, dict }}>
+    <LocaleContext.Provider value={value}>
       {children}
     </LocaleContext.Provider>
   );

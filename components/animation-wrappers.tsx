@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate, useInView, useReducedMotion } from "framer-motion";
+import { m as motion, useMotionValue, useTransform, animate, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 /* -------------------------------------------------------------------------- */
@@ -26,8 +26,13 @@ export function useIsMobile(breakpoint = 768) {
 export function useDeviceAnimation() {
   const prefersReduced = useReducedMotion();
   const isMobile = useIsMobile();
+  // Stay false on SSR + first client paint so markup matches, then enable after mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   // Disable heavy animations when user prefers reduced motion OR on mobile
-  const shouldAnimate = !prefersReduced && !isMobile;
+  const shouldAnimate = mounted && !prefersReduced && !isMobile;
   return { shouldAnimate, prefersReduced, isMobile };
 }
 
@@ -140,7 +145,7 @@ interface ScaleInProps {
   delay?: number;
 }
 
-export function ScaleIn({ children, className, delay = 0 }: ScaleInProps) {
+function ScaleIn({ children, className, delay = 0 }: ScaleInProps) {
   return (
     <motion.div
       className={className}
