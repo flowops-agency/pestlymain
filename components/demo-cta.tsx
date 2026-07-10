@@ -9,6 +9,12 @@ const LEAD_WEBHOOKS = {
   en: "https://n8n.pestly.de/webhook/lead-us",
 } as const;
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function DemoCta() {
   const { dict, locale } = useTranslation();
   const t = dict.demo;
@@ -31,6 +37,10 @@ export default function DemoCta() {
       setError(t.validation);
       return;
     }
+    if (emailV && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV)) {
+      setError(t.validation);
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -43,9 +53,22 @@ export default function DemoCta() {
           email: emailV,
           phone: phoneV,
           message: messageV,
+          source: locale === "en" ? "demo-us" : "demo-de",
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      // Prefer explicit success when n8n returns JSON body
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const data = (await res.json()) as { success?: boolean };
+        if (data.success === false) throw new Error("webhook success=false");
+      }
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", {
+          event_category: "demo_form",
+          event_label: locale,
+        });
+      }
       setSent(true);
     } catch (err) {
       console.error("Webhook failed:", err);
@@ -68,7 +91,7 @@ export default function DemoCta() {
         <p className="mt-4 text-base leading-relaxed text-gray-600">{t.subtitle}</p>
 
         {!sent ? (
-          <form onSubmit={submit} className="mt-8 flex w-full flex-col gap-3">
+          <form onSubmit={submit} className="mt-8 flex w-full flex-col gap-3" noValidate>
             <input
               type="text"
               value={name}

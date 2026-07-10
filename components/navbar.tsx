@@ -67,7 +67,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
           <LocalizedLink
-            href="#demo"
+            href="/#demo"
             className="inline-flex items-center justify-center rounded-[6px] bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-3 py-1.5 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset] transition duration-200 hover:-translate-y-0.5"
           >
             {t.cta}
@@ -175,7 +175,7 @@ export default function Navbar() {
                   className="mt-1 flex flex-col gap-2 border-t border-gray-100 pt-3"
                 >
                   <LocalizedLink
-                    href="#demo"
+                    href="/#demo"
                     className="inline-flex items-center justify-center rounded-[6px] bg-[linear-gradient(181deg,#5E5E5E_18.12%,#000_99.57%)] px-3 py-2.5 text-sm font-bold text-white shadow-[0px_4px_8px_0px_rgba(3,7,18,0.06),0px_2px_4px_0px_rgba(3,7,18,0.06),0px_0px_0px_1px_rgba(3,7,18,0.08),0px_1px_1px_2px_rgba(255,255,255,0.40)_inset,0px_-1px_5px_2px_rgba(255,255,255,0.40)_inset]"
                     onClick={() => setMobileOpen(false)}
                   >

@@ -94,6 +94,8 @@ export default function Footer() {
               >
                 <Link
                   href={icon.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center p-3 text-gray-500 transition-colors hover:text-[#171717]"
                 >
                   {icon.name === "Twitter" && (

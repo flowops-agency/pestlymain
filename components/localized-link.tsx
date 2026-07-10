@@ -8,12 +8,15 @@ type LinkProps = ComponentProps<typeof Link>;
 
 export default function LocalizedLink({ href, ...props }: LinkProps) {
   const { locale } = useTranslation();
-  // Don't prefix hash-only or external links
-  const localizedHref =
-    typeof href === "string" &&
-    href.startsWith("/") &&
-    !href.startsWith("#")
-      ? `/${locale}${href}`
-      : href;
+  let localizedHref = href;
+  if (typeof href === "string") {
+    // Bare hash → home section with locale (works from any page)
+    if (href.startsWith("#")) {
+      localizedHref = `/${locale}/${href}`;
+    } else if (href.startsWith("/") && !href.startsWith("//")) {
+      // Absolute site path → prefix locale once
+      localizedHref = `/${locale}${href}`;
+    }
+  }
   return <Link href={localizedHref} {...props} />;
 }

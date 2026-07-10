@@ -7,8 +7,14 @@ import { useTranslation } from "@/lib/i18n/locale-context";
 
 const LEAD_WEBHOOK = "https://n8n.pestly.de/webhook/lead-new";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function Founder() {
-  const { dict } = useTranslation();
+  const { dict, locale } = useTranslation();
   const t = dict.founder;
   const [phone, setPhone] = useState("");
   const [sent, setSent] = useState(false);
@@ -26,13 +32,27 @@ export default function Founder() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Callback request",
+          name: locale === "en" ? "Callback request" : "Rückruf-Anfrage",
           phone: phoneV,
-          message: "Founder section — call me back",
+          message:
+            locale === "en"
+              ? "Founder section — please call back"
+              : "Founder-Bereich — bitte zurückrufen",
           source: "founder",
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const data = (await res.json()) as { success?: boolean };
+        if (data.success === false) throw new Error("webhook success=false");
+      }
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", {
+          event_category: "founder_callback",
+          event_label: locale,
+        });
+      }
       setSent(true);
     } catch (err) {
       console.error("Webhook failed:", err);
@@ -51,7 +71,6 @@ export default function Founder() {
         transition={{ duration: 0.6 }}
         className="mx-auto flex max-w-4xl flex-col items-center gap-10 md:flex-row md:items-start"
       >
-        {/* Photo */}
         <div className="shrink-0">
           <motion.div
             animate={{ y: [0, -6, 0] }}
@@ -68,7 +87,6 @@ export default function Founder() {
           </motion.div>
         </div>
 
-        {/* Text */}
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
           <h2 className="mb-1 text-2xl font-bold text-gray-900">{t.heading}</h2>
           <p className="text-sm font-medium text-[#FB4C01]">
@@ -80,7 +98,6 @@ export default function Founder() {
             &ldquo;{t.quote}&rdquo;
           </blockquote>
 
-          {/* Phone input */}
           {!sent ? (
             <form onSubmit={submit} className="mt-8 flex w-full max-w-md flex-col gap-3">
               <div className="flex w-full flex-col gap-3 sm:flex-row">
