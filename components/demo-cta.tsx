@@ -24,8 +24,9 @@ export default function DemoCta() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const nameV = name.trim();
-    const emailV = email.trim();
-    const phoneV = phone.trim();
+    const emailV = email.trim().toLowerCase();
+    // keep + and digits; strip spaces/dashes/slashes (common DE formats)
+    const phoneV = phone.trim().replace(/[^\d+]/g, "").replace(/(?!^)\+/g, "");
     const messageV = message.trim();
 
     if (!emailV && !phoneV) {
