@@ -41,7 +41,8 @@ export default function Founder() {
         }),
       });
       const data = (await res.json().catch(() => null)) as { success?: boolean } | null;
-      if (!res.ok || data?.success === false) throw new Error(`HTTP ${res.status}`);
+      // require explicit success:true (empty body / HTML must not green-light)
+      if (!res.ok || data?.success !== true) throw new Error(`HTTP ${res.status}`);
       if (typeof window !== "undefined" && typeof window.gtag === "function") {
         window.gtag("event", "generate_lead", {
           event_category: "founder_callback",

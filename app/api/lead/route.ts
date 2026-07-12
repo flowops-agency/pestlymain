@@ -47,13 +47,32 @@ export async function POST(req: NextRequest) {
       signal: AbortSignal.timeout(20_000),
     });
 
-    if (!res.ok) {
-      const detail = await res.text().catch(() => "");
-      console.error("lead webhook HTTP", res.status, detail.slice(0, 300));
+    const raw = await res.text().catch(() => "");
+    let payload: { success?: boolean; lead_id?: number | string; crm?: string } | null =
+      null;
+    if (raw.trim()) {
+      try {
+        payload = JSON.parse(raw) as {
+          success?: boolean;
+          lead_id?: number | string;
+          crm?: string;
+        };
+      } catch {
+        payload = null;
+      }
+    }
+
+    // n8n CRM failures often return HTTP 200 + empty body (responseNode never runs)
+    if (!res.ok || !payload || payload.success !== true) {
+      console.error("lead webhook failed", res.status, raw.slice(0, 300));
       return NextResponse.json({ success: false }, { status: 502 });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      lead_id: payload.lead_id ?? null,
+      crm: payload.crm ?? "synced",
+    });
   } catch (err) {
     console.error("lead api error", err);
     return NextResponse.json({ success: false }, { status: 500 });
