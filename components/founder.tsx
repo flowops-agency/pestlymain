@@ -42,10 +42,16 @@ export default function Founder() {
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const contentType = res.headers.get("content-type") || "";
-      if (contentType.includes("application/json")) {
-        const data = (await res.json()) as { success?: boolean };
-        if (data.success === false) throw new Error("webhook success=false");
+      // n8n returns empty body + application/json; res.json() throws on empty
+      const text = await res.text();
+      if (text.trim()) {
+        let data: { success?: boolean } | null = null;
+        try {
+          data = JSON.parse(text) as { success?: boolean };
+        } catch {
+          data = null;
+        }
+        if (data?.success === false) throw new Error("webhook success=false");
       }
       if (typeof window !== "undefined" && typeof window.gtag === "function") {
         window.gtag("event", "generate_lead", {
