@@ -5,8 +5,6 @@ import Image from "next/image";
 import { m as motion } from "framer-motion";
 import { useTranslation } from "@/lib/i18n/locale-context";
 
-const LEAD_WEBHOOK = "https://n8n.pestly.de/webhook/lead-new";
-
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -28,7 +26,8 @@ export default function Founder() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(LEAD_WEBHOOK, {
+      // same-origin proxy — avoids browser CORS / adblock on n8n.pestly.de
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -41,18 +40,8 @@ export default function Founder() {
           source: "founder",
         }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      // n8n returns empty body + application/json; res.json() throws on empty
-      const text = await res.text();
-      if (text.trim()) {
-        let data: { success?: boolean } | null = null;
-        try {
-          data = JSON.parse(text) as { success?: boolean };
-        } catch {
-          data = null;
-        }
-        if (data?.success === false) throw new Error("webhook success=false");
-      }
+      const data = (await res.json().catch(() => null)) as { success?: boolean } | null;
+      if (!res.ok || data?.success === false) throw new Error(`HTTP ${res.status}`);
       if (typeof window !== "undefined" && typeof window.gtag === "function") {
         window.gtag("event", "generate_lead", {
           event_category: "founder_callback",
@@ -61,7 +50,7 @@ export default function Founder() {
       }
       setSent(true);
     } catch (err) {
-      console.error("Webhook failed:", err);
+      console.error("Lead submit failed:", err);
       setError(t.error);
     } finally {
       setLoading(false);
