@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import DemoCta from "@/components/demo-cta";
-import SocialProof from "@/components/social-proof";
 import SetupService from "@/components/setup-service";
-import Stats from "@/components/stats";
 import FeaturesBento from "@/components/features-bento";
 import AiIntegration from "@/components/ai-integration";
-import Testimonials from "@/components/testimonials";
 import Faq from "@/components/faq";
 import Founder from "@/components/founder";
 import CookieBanner from "@/components/cookie-banner";
@@ -49,12 +46,18 @@ export default async function HomePage({ params }: Props) {
       <Navbar />
       <Hero />
       <DemoCta />
-      <SocialProof />
       <SetupService />
-      <Stats />
+      <section className="relative w-full px-4 py-16 md:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-bold" style={{ fontSize: "var(--text-heading)" }}>
+            {dict.stats.headingBefore}{" "}
+            <span className="text-[oklch(0.65_0.25_30)]">{dict.stats.headingHighlight}</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-gray-600">{dict.stats.subtitle}</p>
+        </div>
+      </section>
       <FeaturesBento />
       <AiIntegration />
-      <Testimonials />
       <Faq />
       <Founder />
       <CookieBanner />
