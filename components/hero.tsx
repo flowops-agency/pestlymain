@@ -80,6 +80,7 @@ export default function Hero() {
         {t.tagline}
       </motion.p>
 
+      {t.bullets.length > 0 ? (
       <motion.ul
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -89,18 +90,13 @@ export default function Hero() {
         {t.bullets.map((item) => (
           <li
             key={item}
-            className="flex items-start gap-2.5 rounded-lg border border-black/5 bg-white/70 px-3 py-2 text-sm text-gray-800 shadow-sm backdrop-blur-sm md:py-1.5 md:text-[13px]"
+            className="rounded-lg border border-black/5 bg-white/70 px-3 py-2 text-sm text-gray-800 shadow-sm backdrop-blur-sm md:py-1.5 md:text-[13px]"
           >
-            <span
-              className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#FB4C01] text-[10px] font-bold text-white"
-              aria-hidden
-            >
-              ✓
-            </span>
-            <span>{item}</span>
+            {item}
           </li>
         ))}
       </motion.ul>
+      ) : null}
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -127,6 +123,10 @@ export default function Hero() {
           </LocalizedLink>
         </motion.div>
       </motion.div>
+
+      <p className="relative z-20 mx-auto mb-4 max-w-xl px-4 text-center text-xs text-gray-600 md:text-sm">
+        {dict.demo.dsgvo}
+      </p>
 
       <HeroPhone t={t} />
     </div>
