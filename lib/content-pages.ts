@@ -226,7 +226,7 @@ const de: Record<ContentPath, ContentPage> = {
       {
         heading: "Technik und Standort — was Pestly kommuniziert",
         paragraphs: [
-          "Laut Produkt- und FAQ-Informationen: Verarbeitung und Speicherung mit Fokus auf deutschen Servern (Netcup), KI-Komponenten mit EU-Bezug (u. a. Mistral, Azure in Frankfurt), verschlüsselte Übertragung. Konkrete Unterauftragsverarbeiter und Datenflüsse gehören in Vertrag und Datenschutzerklärung — nicht in Marketing-Slogans.",
+          "Laut Produkt- und FAQ-Informationen: Verarbeitung und Speicherung mit Fokus auf einem von uns betriebenen Server, KI-Komponenten mit EU-Bezug (u. a. Mistral, Azure in Frankfurt), verschlüsselte Übertragung. Konkrete Unterauftragsverarbeiter und Datenflüsse gehören in Vertrag und Datenschutzerklärung — nicht in Marketing-Slogans.",
         ],
       },
       {
@@ -477,7 +477,7 @@ const en: Record<ContentPath, ContentPage> = {
       {
         heading: "What Pestly communicates about infrastructure",
         paragraphs: [
-          "Product FAQ materials describe German hosting (Netcup), EU-oriented AI providers (including Mistral and Azure in Frankfurt), and encrypted handling. Exact sub-processors belong in the contract and privacy policy — not marketing slogans alone.",
+          "Product FAQ materials describe a server we operate, EU-oriented AI providers (including Mistral and Azure in Frankfurt), and encrypted handling. Exact sub-processors belong in the contract and privacy policy — not marketing slogans alone.",
         ],
       },
       {
