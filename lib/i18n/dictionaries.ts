@@ -732,7 +732,7 @@ const de: Dictionary = {
           "Pestly nutzt KI-Sprachmodelle folgender Anbieter:",
           "• Mistral AI (Frankreich) – in der bestehenden Erklärung genannt; AVV nicht in dieser Datei belegt",
           "• Azure AI (Frankfurt) – in der bestehenden Erklärung genannt; Region und AVV nicht in dieser Datei belegt",
-          "Eine Weitergabe an Dritte außerhalb der genannten Auftragsverarbeiter erfolgt nicht.",
+          "Empfänger nur, wenn der jeweilige Verarbeitungsweg für den Betrieb aktiviert ist.",
         ],
       },
       {
@@ -740,7 +740,7 @@ const de: Dictionary = {
         title: "Speicherdauer und Löschung",
         contentLines: [
           "Gesprächsdaten werden für die Dauer des Vertragsverhältnisses gespeichert und nach Vertragsende gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.",
-          "Anrufaufzeichnungen und Transkriptionen werden nach 90 Tagen automatisch gelöscht, es sei denn, sie werden für die Vertragserfüllung benötigt.",
+          "Anrufaufzeichnungen werden nicht gespeichert, solange die Aufnahme aus ist. Ein automatischer Löschjob für Aufnahmen ist nicht belegt.",
           "Website-Nutzungsdaten werden gemäß den Einstellungen in Ihrem Cookie-Banner gespeichert.",
         ],
       },
@@ -1305,9 +1305,9 @@ const en: Dictionary = {
         title: "AI Language Models and Data Processing",
         contentLines: [
           "Pestly uses AI language models from the following providers:",
-          "• Mistral AI (France) – GDPR-compliant, DPA in place",
-          "• Azure AI (Frankfurt, Germany) – GDPR-compliant, DPA in place",
-          "No data is shared with third parties beyond the named data processors.",
+          "• Mistral AI (France) – named in the existing notice; AVV not evidenced in this file",
+          "• Azure AI (Frankfurt, Germany) – named in the existing notice; region and AVV not evidenced in this file",
+          "Recipients only if that processing path is activated for the tenant.",
         ],
       },
       {
@@ -1315,7 +1315,7 @@ const en: Dictionary = {
         title: "Data Retention and Deletion",
         contentLines: [
           "Call data is stored for the duration of the contractual relationship and deleted after termination, unless statutory retention obligations apply.",
-          "Call recordings and transcriptions are automatically deleted after 90 days, unless required for contract fulfillment.",
+          "Call recording files are not stored while recording is off. No automatic deletion job for recordings is evidenced.",
           "Website usage data is stored according to your Cookie Settings preferences.",
         ],
       },
