@@ -89,10 +89,11 @@ export default function Founder() {
             {t.name} — {t.role}
           </p>
 
-          <blockquote className="relative mt-4 text-lg leading-relaxed text-gray-600 md:text-xl">
-            <span className="absolute -left-3 top-0 text-4xl text-[#FB4C01]/30">&ldquo;</span>
-            &ldquo;{t.quote}&rdquo;
-          </blockquote>
+          {t.quote ? (
+          <p className="relative mt-4 text-lg leading-relaxed text-gray-600 md:text-xl">
+            {t.quote}
+          </p>
+          ) : null}
 
           {!sent ? (
             <form onSubmit={submit} className="mt-8 flex w-full max-w-md flex-col gap-3">
@@ -131,12 +132,11 @@ export default function Founder() {
             </motion.p>
           )}
 
-          <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-400">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
+          {t.dsgvo ? (
+          <p className="mt-3 text-xs text-gray-500">
             {t.dsgvo}
           </p>
+          ) : null}
         </div>
       </motion.div>
     </section>
