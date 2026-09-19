@@ -308,13 +308,13 @@ export interface Dictionary {
 /* -------------------------------------------------------------------------- */
 const de: Dictionary = {
   common: {
-    localeSwitcher: { de: "DE", en: "US" },
+    localeSwitcher: { de: "DE", en: "EN" },
     skipLink: "Zum Hauptinhalt springen",
   },
   seo: {
     title: "KI-Telefonassistent Schädlingsbekämpfung | Pestly",
     description:
-      "Pestly: KI-Telefonassistent für Schädlingsbekämpfer. Nimmt Anrufe, WhatsApp & E-Mail an, bucht Termine, eskaliert Notfälle. Jetzt Demo buchen.",
+      "Pestly nimmt Anrufe für Schädlingsbekämpfer an und bucht in Ihren Kalender oder gibt Notfälle an Sie. Demo 15 Minuten, unverbindlich.",
     ogImageAlt: "Pestly — KI-Telefonassistent für Schädlingsbekämpfung",
     impressumDescription:
       "Impressum und Anbieterkennzeichnung der Pestly LLC gemäß § 5 DDG.",
@@ -338,53 +338,38 @@ const de: Dictionary = {
     menuLabel: "Menü öffnen",
   },
   hero: {
-    line1Before: "Nie wieder eine",
-    line1Highlight: "",
+    line1Before: "Während Sie im Einsatz sind,",
+    line1Highlight: "nimmt Pestly den Anruf an.",
     line2Before: "",
-    line2Highlight: "Anfrage",
-    line2After: "verpassen",
-    tagline: "KI-Telefonassistent für Schädlingsbekämpfung.",
-    bullets: [
-      "Anrufe, WhatsApp, SMS und E-Mail beantworten",
-      "Termine buchen, Notfälle eskalieren",
-      "Wir richten alles ein und betreiben es — Sie müssen nichts tun",
-    ],
-    cta: "Kostenlose Demo buchen",
-    callerName: "Herr Müller",
-    callerMsg: "Guten Tag, wir haben Kakerlaken in der Küche — können Sie heute noch vorbeikommen?",
+    line2Highlight: "",
+    line2After: "",
+    tagline: "Anrufe auf Deutsch: Befall, Angebot oder Notdienst. Termin in Ihren Kalender — oder die Lage an Sie, wenn es nicht warten kann. Go-Live in etwa fünf Werktagen: Telefon und ein Kalender.",
+    bullets: [],
+    cta: "15 Minuten Demo, unverbindlich",
+    callerName: "Anrufer",
+    callerMsg: "Guten Tag, wir haben Wespen am Dach — können Sie heute noch vorbeikommen?",
     aiName: "Pestly (KI)",
     aiResponse:
-      "Guten Tag Herr Müller, das tut mir leid zu hören. Ich prüfe schnell die Verfügbarkeit...",
+      "Guten Tag, ich prüfe die Verfügbarkeit in Ihrem Kalender.",
     bookingTitle: "Terminvorschlag",
     bookingTime1: "Morgen, 14:00 - 16:00",
     bookingTime2: "oder Do, 09:00 - 12:00",
     bookingTag: "Notdienst",
-    summaryLine1: "✓ Termin angefragt",
-    summaryLine2: "✓ WhatsApp-Bestätigung gesendet",
+    summaryLine1: "Kalender prüfen",
+    summaryLine2: "Mündliche Bestätigung im Gespräch",
     currentCall: "Aktueller Anruf",
     statusConnected: "Verbunden",
   },
   socialProof: {
-    heading: "Von der Schädlingsbekämpfung empfohlen",
-    logos: [
-      { name: "VSS", subtitle: "Verband für Schädlingsbekämpfung" },
-      { name: "DPSD", subtitle: "Deutscher Schädlingsbekämpfer" },
-      { name: "DSLV", subtitle: "Landesverb. Schädlingsbek." },
-      { name: "IHK", subtitle: "Industrie- und Handelskammer" },
-    ],
+    heading: "",
+    logos: [],
   },
   stats: {
     headingBefore: "Das Problem ist",
     headingHighlight: "real",
     subtitle:
-      "Während Sie im Außeneinsatz Schädlinge bekämpfen, klingelt das Telefon in Ihrer Zentrale — und Aufträge bleiben unbeantwortet.",
-    stats: [
-      { value: "35", label: "der Anrufe bei Schädlingsbekämpfern werden nicht beantwortet", decimals: 0, suffix: "%" },
-      { value: "62", label: "der Anrufer rufen nicht zurück", decimals: 0, suffix: "%" },
-      { value: "3500", label: "Umsatzverlust pro Woche (bei 5 verpassten Anrufen / Tag)", decimals: 0, prefix: "€", suffix: "" },
-      { value: "85", label: "rufen nicht ein zweites Mal an", decimals: 0, suffix: "%" },
-      { value: "15", label: "Auftragsverlust durch Nichterreichbarkeit", decimals: 0, suffix: "%" },
-    ],
+      "Während Sie im Außeneinsatz Schädlinge bekämpfen, klingelt das Telefon in Ihrer Zentrale — und Aufträge bleiben unbeantwortet. Pestly nimmt den Anruf an, versteht Befall, Angebot oder Notdienst und bucht in Ihren Kalender — oder gibt den Notfall an Sie weiter.",
+    stats: [],
   },
   features: {
     headingBefore: "Ihr",
@@ -399,9 +384,9 @@ const de: Dictionary = {
         desc: "Natürliche Gespräche auf Deutsch, inkl. Fachbegriffen der Schädlingsbekämpfung. Kein „Drücken Sie die 1“.",
       },
       multichannel: {
-        title: "Alle Kanäle, eine Nummer",
-        desc: "Anruf, WhatsApp, SMS, E-Mail und Widget laufen in Pestly zusammen — ein Posteingang, ein Assistent.",
-        channels: ["Anruf", "WhatsApp", "SMS", "E-Mail"],
+        title: "Telefon und ein Kalender",
+        desc: "Am Go-Live (öffentlich): Telefon und ein Kalender. WhatsApp, E-Mail, Widget oder Owner-SMS nur, sobald der Kanal für Ihren Betrieb wirklich an ist — nicht als Tag-5-Versprechen.",
+        channels: ["Anruf", "Kalender"],
       },
       knowledge: {
         title: "Intelligente Wissensdatenbank",
@@ -409,78 +394,55 @@ const de: Dictionary = {
         labels: ["Öffnungszeiten", "Preise", "Einsatzgebiet", "Notfälle", "Team", "Schädlingsarten"],
       },
       calendar: {
-        title: "Automatische Terminbuchung",
-        desc: "Pestly prüft Ihre Verfügbarkeit in Echtzeit, schlägt dem Kunden passende Termine vor und bucht sie direkt in Ihren Kalender — ohne dass Sie einen Finger rühren.",
+        title: "Ein Kalender",
+        desc: "Ein Kalender, in dem Ihre echten Termine liegen. Mündliche Bestätigung im Gespräch.",
         months: {
           label: "Juni 2026",
           days: ["MO", "DI", "MI", "DO", "FR", "SA", "SO"],
         },
         integrations: [
-          { name: "Google Kalender", status: "Verbunden" },
-          { name: "Cal.com", status: "Aktiv" },
-          { name: "Outlook", status: "Verbunden" },
-          { name: "Terminbestätigung", status: "WhatsApp + E-Mail" },
+          { name: "Ihr Kalender", status: "ein Spoke" },
         ],
       },
     },
   },
   aiIntegration: {
-    headingBefore: "So funktioniert's —",
-    headingHighlight: "volle Automation",
+    headingBefore: "So",
+    headingHighlight: "funktioniert’s",
     subtitle:
-      "Vom eingehenden Anruf bis zur Terminbestätigung — Pestly arbeitet vollständig autonom. Nur bei Bedarf wird Ihr Smartphone kurz lautlos.",
+      "Pestly nimmt den Anruf auf Deutsch an — ohne Warteschleifen-Menü als Standard. Am Go-Live (öffentlich): Telefon und ein Kalender. WhatsApp, E-Mail, Widget oder Owner-SMS nur, sobald der Kanal für Ihren Betrieb wirklich an ist — nicht als Tag-5-Versprechen.",
     cards: {
       voice: {
-        title: "Anruf → Termin in Sekunden",
-        desc: "Kunde ruft an, Pestly nimmt entgegen, versteht das Anliegen, schlägt Termine vor und bucht — in unter 30 Sekunden.",
-        steps: ["Eingehender Anruf", "KI versteht Anfrage & prüft Verfügbarkeit", "Terminvorschlag + Buchung", "WhatsApp-Bestätigung an Kunden"],
+        title: "Annehmen, verstehen, buchen",
+        desc: "Annehmen — Anruf auf Deutsch. Verstehen — Befall, Angebot, Notdienst oder Rückruf aus Ihrer Wissensdatenbank. Buchen — ein Kalender; mündliche Bestätigung im Gespräch.",
+        steps: ["Annehmen — Anruf auf Deutsch", "Verstehen — Befall, Angebot, Notdienst", "Buchen — ein Kalender", "Eskalieren — Lage an Sie"],
       },
       knowledge: {
-        title: "Wissensdatenbank & FAQ",
-        desc: "Hinterlegen Sie Preise, Leistungen und Richtlinien einmalig — Pestly beantwortet alles korrekt und konsistent.",
+        title: "Wissensdatenbank",
+        desc: "Sie liefern Preise, Leistungen und Zeiten — wir pflegen die Wissensdatenbank.",
         placeholder: "Frage an Pestly...",
         qa: [
-          { q: "Was kostet eine Wespenbekämpfung?", a: "Ab €80, genauer Preis nach Sichtung vor Ort." },
-          { q: "Wie schnell können Sie kommen?", a: "Heute Nachmittag ab 15 Uhr hätten wir einen Termin frei." },
-          { q: "Hilft das auch gegen Bettwanzen?", a: "Ja, wir haben eine spezielle Wärmebehandlung dafür." },
+          { q: "Befall, Angebot oder Notdienst?", a: "Pestly ordnet nach Ihren Regeln." },
+          { q: "Wann ist ein Termin möglich?", a: "Nur in dem einen Kalender, den Sie anbinden." },
+          { q: "Was, wenn es nicht warten kann?", a: "Die Lage geht an Sie. Sie entscheiden." },
         ],
       },
       escalation: {
-        title: "Intelligente Eskalation",
-        desc: "Bei Notfällen oder wenn der Kunde ein persönliches Gespräch wünscht — Pestly sendet Ihnen sofort eine SMS mit Transkript und Voicemail.",
-        mode: "Notfall-Modus",
-        urgentLabel: "Dringend",
-        items: [
-          { label: "Familie Krüger — Kakerlaken", time: "vor 2 Min" },
-          { label: "Restaurant Linde — Mäuse", time: "vor 5 Min" },
-          { label: "Firma Schröder — Wespenbefall", time: "vor 15 Min" },
-        ],
-        notification: "SMS-Benachrichtigung gesendet",
-        notificationDetail: "+49 176 1234567 — Transkript folgt per E-Mail",
+        title: "Eskalieren",
+        desc: "Wenn es nicht warten kann: Pestly ordnet nach Ihren Regeln und gibt die Lage an Sie. Sie entscheiden. Standard ist kein stilles Durchstellen aufs Handy. Eine automatische Notdienst-SMS versprechen wir nicht, solange dieser Weg nicht live ist.",
+        mode: "Notdienst",
+        urgentLabel: "An Sie",
+        items: [],
+        notification: "Lage an Sie",
+        notificationDetail: "Keine automatische Notdienst-SMS, solange dieser Weg nicht live ist.",
       },
     },
   },
   testimonials: {
-    headingBefore: "Das sagen unsere",
-    headingHighlight: "Kunden",
-    cta: "Kostenlose Demo buchen",
-    items: [
-      {
-        name: "Markus Klein",
-        role: "Schädlingsbekämpfung, München",
-        text: "Seit ich Pestly habe, verpasse ich keinen Anruf mehr. Letzte Woche hat die KI einen Wespen-Einsatz angenommen, während ich auf dem Dach war.",
-      },
-      {
-        name: "Thomas Wagner",
-        role: "Kammerjäger, Berlin",
-        text: "Meine Kunden sind begeistert, dass sie sofort einen Termin bekommen — per WhatsApp, ohne Warteschleife. Ich spare locker 5 Stunden pro Woche.",
-      },
-      {
-        name: "Sabine Müller",
-        role: "Schädlingsbekämpfung, Stuttgart",
-        text: "Die Wissensdatenbank ist genial. Einmal eingerichtet, beantwortet Pestly 90% der Fragen selbstständig. Ich kann mich endlich auf die Arbeit konzentrieren.",
-      },
-    ],
+    headingBefore: "",
+    headingHighlight: "",
+    cta: "15 Minuten Demo, unverbindlich",
+    items: [],
   },
   pricing: {
     headingBefore: "Transparente",
@@ -543,12 +505,12 @@ const de: Dictionary = {
       {
         question: "Versteht Pestly auch Fachbegriffe aus der Schädlingsbekämpfung?",
         answer:
-          "Ja. Pestly nutzt Mistral AI (Frankreich) und Azure AI (Frankfurt) — beides DSGVO-konform mit Auftragsverarbeitungsvereinbarung (AVV). Die Sprachdaten werden auf deutschen Netcup-Servern verarbeitet. Fachbegriffe wie ‚Befallsgrad‘, ‚Thermische Entwesung‘ oder ‚Rodentizid-Einsatz‘ sind kein Problem.",
+          "Ja. Fachbegriffe wie Befall, Angebot und Notdienst kommen aus Ihrer Wissensdatenbank. Datenschutz und AVV klären wir vor dem Go-Live.",
       },
       {
         question: "Was passiert bei Notfällen oder komplexen Anfragen?",
         answer:
-          "Pestly erkennt, wenn ein Kunde dringend ein persönliches Gespräch braucht. In dem Fall sendet die KI Ihnen sofort eine SMS mit Transkript und Voicemail. Sie können dann zurückrufen — oder Pestly lässt den Kunden wissen, dass Sie sich melden.",
+          "Wenn es nicht warten kann, gibt Pestly die Lage an Sie. Sie entscheiden. Standard ist kein stilles Durchstellen. Eine automatische Notdienst-SMS versprechen wir nicht, solange dieser Weg nicht live ist.",
       },
       {
         question: "Welche Kosten kommen auf mich zu?",
@@ -556,9 +518,9 @@ const de: Dictionary = {
           "Das kommt auf die Komplexität Ihres Betriebs an — ob Einzelunternehmen oder größerer Betrieb, wie viele Standorte und Kanäle angebunden werden sollen. In einem kurzen, unverbindlichen Gespräch erstellen wir Ihnen ein maßgeschneidertes Angebot. Keine Mindestvertragslaufzeit.",
       },
       {
-        question: "Ist Pestly DSGVO-konform?",
+        question: "Wie geht Pestly mit Datenschutz um?",
         answer:
-          "Ja. Alle Daten werden auf deutschen Netcup-Servern verarbeitet und gespeichert. Die KI-Sprachmodelle kommen von Mistral AI (Frankreich) und Azure AI (Frankfurt) — beide DSGVO-konform. Eine Auftragsverarbeitungsvereinbarung (AVV) kann auf Wunsch angefragt werden. Gesprächsdaten werden verschlüsselt und nicht an Dritte weitergegeben.",
+          "Datenschutz und AVV klären wir vor dem Go-Live. Empfänger stehen in der Datenschutzerklärung — nur die, die für Ihren Betrieb an sind.",
       },
       {
         question: "Kann ich meine bestehende Telefonnummer behalten?",
@@ -575,7 +537,7 @@ const de: Dictionary = {
     emailPlaceholder: "Ihre E-Mail-Adresse",
     messagePlaceholder: "Ihre Nachricht (z. B. welches Problem?)",
     cta: "Kostenlose Demo buchen",
-    dsgvo: "✓ DSGVO-konform — Ihre Daten sind sicher.",
+    dsgvo: "Preis nennen wir im Gespräch. Datenschutz und AVV klären wir vor dem Go-Live.",
     success: "✓ Danke! Wir melden uns in Kürze bei Ihnen.",
     error: "Senden fehlgeschlagen. Bitte später erneut versuchen oder anrufen.",
     validation: "Bitte E-Mail oder Telefonnummer angeben.",
@@ -589,36 +551,36 @@ const de: Dictionary = {
     quote: "Pestly ist nicht fürs Silicon Valley gemacht, sondern für den echten Schädlingsbekämpfungs-Alltag. Eine KI, die Ihnen den Rücken freihält, während Sie im Einsatz sind.",
     phonePlaceholder: "Ihre Telefonnummer",
     cta: "Jetzt anrufen lassen",
-    dsgvo: "✓ DSGVO-konform — Ihre Daten sind sicher und werden nicht weitergegeben.",
+    dsgvo: "Preis nennen wir im Gespräch. Datenschutz und AVV klären wir vor dem Go-Live.",
   },
   cookieBanner: {
-    text: "Pestly nutzt Cookies & lokale Speicherung, um die Seite zu verbessern. Keine Weitergabe an Dritte. DSGVO-konform.",
+    text: "Pestly nutzt Cookies und lokale Speicherung, um die Seite zu betreiben. Details in der Datenschutzerklärung.",
     accept: "Verstanden",
   },
   setupService: {
-    heading: "Wir machen das —",
-    highlight: "kein IT-Wissen nötig",
-    subtitle: "Kein IT-Wissen nötig. Wir übernehmen das gesamte Setup für Sie — von der Rufnummer bis zum KI-Training. In nur 5 Tagen sind Sie live.",
+    heading: "Einrichtung ohne IT-Projekt",
+    highlight: "auf Ihrer Seite",
+    subtitle: "Sie liefern Wissen und Freigaben (rund 1–1,5 Stunden plus AVV und Kalender). Wir richten Telefon und einen Kalender in etwa fünf Werktagen ein. Mitnahme der Nummer läuft parallel, falls sie länger dauert.",
     steps: [
       {
         icon: "phone",
         title: "Rufnummer & Leitungen",
-        desc: "Wir portieren Ihre bestehende Nummer oder richten eine neue ein — inklusive Anbindung an unser deutsches Netcup-Netzwerk.",
+        desc: "Neue Nummer oder bereits erreichbare Leitung. Portierung ist kein Tag-5-Versprechen.",
       },
       {
         icon: "database",
         title: "Wissensdatenbank",
-        desc: "Sie liefern Preise, Leistungen und Öffnungszeiten — wir pflegen alles ein. Kein technisches Know-how nötig.",
+        desc: "Sie liefern Preise, Leistungen und Zeiten — wir pflegen die Wissensdatenbank.",
       },
       {
         icon: "calendar",
         title: "Kalender & Integrationen",
-        desc: "Wir verbinden Google Kalender, Outlook oder Cal.com. Termine werden ab sofort automatisch gebucht.",
+        desc: "Ein Kalender, in dem Ihre echten Termine liegen. Mündliche Bestätigung im Gespräch.",
       },
       {
         icon: "brain",
         title: "KI-Training auf Schädlingsbekämpfung",
-        desc: "Wir trainieren Pestly auf Ihre Fachbegriffe und Abläufe — damit die KI von Tag eins an perfekt funktioniert.",
+        desc: "Wir richten Pestly auf Ihre Fachbegriffe und Abläufe ein — Befall, Angebot, Notdienst.",
       },
     ],
   },
@@ -629,7 +591,7 @@ const de: Dictionary = {
       Leistungen: [
         { label: "KI-Sprachassistent", href: "/#features" },
         { label: "Terminbuchung", href: "/#features" },
-        { label: "WhatsApp-Integration", href: "/#features" },
+        { label: "Kalender", href: "/#features" },
         { label: "Wissensdatenbank", href: "/#features" },
         { label: "Website-Widget", href: "/#features" },
       ],
@@ -746,11 +708,11 @@ const de: Dictionary = {
       },
       {
         icon: "server",
-        title: "Netcup Server-Infrastruktur",
+        title: "Anwendungsserver",
         contentLines: [
-          "Alle Daten werden auf dedizierten Servern der netcup GmbH in Deutschland verarbeitet und gespeichert. Standort: Nürnberg, Deutschland.",
+          "Die Anwendung liegt auf einem von uns betriebenen Server (IPv4 148.230.70.221).",
           "Die Server unterliegen deutschem Datenschutzrecht und der DSGVO. Der Zugriff ist durch moderne Verschlüsselungsverfahren (TLS 1.3) und Firewall-Systeme geschützt.",
-          "Ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO wurde mit der netcup GmbH geschlossen.",
+          "Ein Hosting-DPA mit einem benannten Anbieter liegt nicht als unterzeichnetes Dokument in dieser Erklärung.",
         ],
       },
       {
@@ -761,7 +723,6 @@ const de: Dictionary = {
           "• Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) – für die Erbringung unserer Dienstleistungen",
           "• Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) – für die Verbesserung unseres Angebots",
           "• Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) – für optionale Cookie-Kategorien",
-          "• Art. 9 Abs. 2 lit. h DSGVO – bei Verarbeitung besonderer Kategorien im Gesundheitswesen",
         ],
       },
       {
@@ -769,8 +730,8 @@ const de: Dictionary = {
         title: "KI-Sprachmodelle und Auftragsverarbeitung",
         contentLines: [
           "Pestly nutzt KI-Sprachmodelle folgender Anbieter:",
-          "• Mistral AI (Frankreich) – DSGVO-konform, AVV abgeschlossen",
-          "• Azure AI (Frankfurt, Deutschland) – DSGVO-konform, AVV abgeschlossen",
+          "• Mistral AI (Frankreich) – in der bestehenden Erklärung genannt; AVV nicht in dieser Datei belegt",
+          "• Azure AI (Frankfurt) – in der bestehenden Erklärung genannt; Region und AVV nicht in dieser Datei belegt",
           "Eine Weitergabe an Dritte außerhalb der genannten Auftragsverarbeiter erfolgt nicht.",
         ],
       },
@@ -868,7 +829,7 @@ const de: Dictionary = {
         title: "§6 Datenschutz",
         contentLines: [
           "Die Verarbeitung personenbezogener Daten erfolgt gemäß der Datenschutzerklärung und den Bestimmungen der DSGVO.",
-          "Pestly verarbeitet alle Daten auf deutschen Netcup-Servern. Mit allen Unterauftragsverarbeitern wurden Auftragsverarbeitungsverträge (AVV) geschlossen.",
+          "Die Anwendung liegt auf einem von uns betriebenen Server. Empfänger nur, soweit sie für den Zweck wirklich angebunden sind.",
           "Der Kunde verpflichtet sich, seine eigenen Kunden über die Datenverarbeitung durch Pestly zu informieren, soweit dies datenschutzrechtlich erforderlich ist.",
         ],
       },
@@ -899,7 +860,7 @@ const de: Dictionary = {
   cookieSettings: {
     title: "Cookie-Einstellungen",
     subtitle: "Ihre Privatsphäre-Einstellungen verwalten",
-    intro: "Pestly verwendet Cookies und lokale Speicherung, um die Funktionalität der Website zu gewährleisten und Ihr Erlebnis zu verbessern. Sie können hier Ihre Präferenzen für verschiedene Kategorien festlegen. Alle Daten werden DSGVO-konform auf deutschen Netcup-Servern verarbeitet.",
+    intro: "Pestly verwendet Cookies und lokale Speicherung, um die Funktionalität der Website zu gewährleisten und Ihr Erlebnis zu verbessern. Sie können hier Ihre Präferenzen für verschiedene Kategorien festlegen. Details stehen in der Datenschutzerklärung.",
     categories: [
       {
         id: "essential",
@@ -935,7 +896,7 @@ const en: Dictionary = {
   seo: {
     title: "AI Phone Assistant for Pest Control | Pestly",
     description:
-      "Pestly: AI phone assistant for pest control. Answers calls, WhatsApp & email, books jobs, escalates emergencies. Book a free demo today.",
+      "Pestly answers calls for German pest-control companies and books a job in your calendar or hands emergencies to you. 15-minute demo.",
     ogImageAlt: "Pestly — AI phone assistant for pest control",
     impressumDescription:
       "Legal notice and company information for Pestly LLC.",
@@ -958,53 +919,38 @@ const en: Dictionary = {
     menuLabel: "Open menu",
   },
   hero: {
-    line1Before: "Never miss another",
-    line1Highlight: "lead",
-    line2Before: "while you're",
-    line2Highlight: "on the job",
+    line1Before: "While you are on site,",
+    line1Highlight: "Pestly answers the call.",
+    line2Before: "",
+    line2Highlight: "",
     line2After: "",
-    tagline: "AI phone assistant for pest control.",
-    bullets: [
-      "Answers calls, WhatsApp, SMS, and email",
-      "Books jobs and escalates emergencies",
-      "We set it up and keep it running — you do nothing",
-    ],
-    cta: "Book a Free Demo",
-    callerName: "Mr. Johnson",
-    callerMsg: "Hi, I think we have termites in the basement — can you come take a look?",
+    tagline: "Calls in German: infestation, quote or emergency. A booking in your calendar — or the details to you when it cannot wait. Typical go-live in about five working days: phone and one calendar.",
+    bullets: [],
+    cta: "15-minute demo, no obligation",
+    callerName: "Caller",
+    callerMsg: "Hello, we have wasps on the roof — can you come today?",
     aiName: "Pestly (AI)",
     aiResponse:
-      "Good morning Mr. Johnson, sorry to hear that. Let me check availability right away...",
+      "Hello, I will check availability in your calendar.",
     bookingTitle: "Suggested Appointment",
     bookingTime1: "Tomorrow, 2:00 PM - 4:00 PM",
     bookingTime2: "or Thu, 9:00 AM - 12:00 PM",
     bookingTag: "Emergency",
-    summaryLine1: "✓ Appointment scheduled",
-    summaryLine2: "✓ WhatsApp confirmation sent",
+    summaryLine1: "Check calendar",
+    summaryLine2: "Spoken confirmation on the call",
     currentCall: "Current Call",
     statusConnected: "Connected",
   },
   socialProof: {
-    heading: "Trusted by Pest Control Professionals",
-    logos: [
-      { name: "NPMA", subtitle: "National Pest Management" },
-      { name: "PCA", subtitle: "Pest Control Association" },
-      { name: "FPMA", subtitle: "Florida Pest Management" },
-      { name: "TPCA", subtitle: "Texas Pest Control" },
-    ],
+    heading: "",
+    logos: [],
   },
   stats: {
     headingBefore: "The problem is",
     headingHighlight: "real",
     subtitle:
-      "While you're out on a pest control job, your office phone keeps ringing — and potential revenue goes unanswered.",
-    stats: [
-      { value: "35", label: "of business calls go unanswered", decimals: 0, suffix: "%" },
-      { value: "62", label: "of callers never call back", decimals: 0, suffix: "%" },
-      { value: "4800", label: "in lost revenue per week (5 missed pest control calls/day)", decimals: 0, prefix: "$", suffix: "" },
-      { value: "85", label: "don't try a second time", decimals: 0, suffix: "%" },
-      { value: "15", label: "revenue loss from missed calls", decimals: 0, suffix: "%" },
-    ],
+      "While you are on a job, the phone in the office still rings — and the enquiry goes unanswered. Pestly answers the call, understands infestation, quote request or emergency, and books into your calendar — or hands the emergency to you.",
+    stats: [],
   },
   features: {
     headingBefore: "Your",
@@ -1014,14 +960,14 @@ const en: Dictionary = {
       "Pestly handles all communication for your pest control business — from answering calls to booking appointments.",
     cards: {
       voice: {
-        status: "Live — English",
-        title: "AI voice agent — English & Spanish",
-        desc: "Natural conversations in English and Spanish, including pest control terminology. No more “press 1” menus.",
+        status: "Live — German",
+        title: "AI voice agent — German",
+        desc: "Natural conversations in German, including pest-control terminology. No “press 1” menu as the default.",
       },
       multichannel: {
-        title: "All channels, one number",
-        desc: "Calls, WhatsApp, SMS, and email flow into Pestly — one inbox, one assistant.",
-        channels: ["Phone", "WhatsApp", "SMS", "Email"],
+        title: "Phone and one calendar",
+        desc: "At go-live (public): phone and one calendar. WhatsApp, email, widget or owner SMS only once that channel is actually on for the company — not a day-5 promise.",
+        channels: ["Phone", "Calendar"],
       },
       knowledge: {
         title: "Smart knowledge base",
@@ -1029,78 +975,55 @@ const en: Dictionary = {
         labels: ["Hours", "Pricing", "Service Area", "Emergencies", "Team", "Pest Types"],
       },
       calendar: {
-        title: "Automated Appointment Booking",
-        desc: "Pestly checks your real-time availability, suggests appointment slots to customers, and books directly to your calendar — hands-free.",
+        title: "One calendar",
+        desc: "One calendar that already holds your real jobs. Spoken confirmation on the call.",
         months: {
           label: "June 2026",
           days: ["MO", "TU", "WE", "TH", "FR", "SA", "SU"],
         },
         integrations: [
-          { name: "Google Calendar", status: "Connected" },
-          { name: "Cal.com", status: "Active" },
-          { name: "Outlook", status: "Connected" },
-          { name: "Confirmation", status: "WhatsApp + Email" },
+          { name: "Your calendar", status: "one spoke" },
         ],
       },
     },
   },
   aiIntegration: {
-    headingBefore: "How it works —",
-    headingHighlight: "full automation",
+    headingBefore: "How it",
+    headingHighlight: "works",
     subtitle:
-      "From incoming call to appointment confirmation — Pestly works fully autonomously. Your phone only buzzes when you're truly needed.",
+      "Pestly answers the call in German — no hold-menu as the default. At go-live (public): phone and one calendar. WhatsApp, email, widget or owner SMS only once that channel is actually on for the company — not a day-5 promise.",
     cards: {
       voice: {
-        title: "Call → Appointment in Seconds",
-        desc: "Customer calls, Pestly answers, understands the request, suggests times, and books — in under 30 seconds.",
-        steps: ["Incoming call", "AI understands request & checks availability", "Suggest times + book", "WhatsApp confirmation sent"],
+        title: "Answer, understand, book",
+        desc: "Answer in German. Understand infestation, quote or emergency from your knowledge base. Book one calendar; spoken confirmation on the call.",
+        steps: ["Answer — call in German", "Understand — infestation, quote, emergency", "Book — one calendar", "Escalate — details to you"],
       },
       knowledge: {
-        title: "Knowledge Base & FAQ",
-        desc: "Set your prices, services, and policies once — Pestly answers everything accurately and consistently.",
+        title: "Knowledge base",
+        desc: "You provide prices, services and hours — we maintain the knowledge base.",
         placeholder: "Ask Pestly...",
         qa: [
-          { q: "How much is termite treatment?", a: "Starting at $800, exact quote after inspection." },
-          { q: "How fast can you come out?", a: "We have an opening this afternoon at 3 PM." },
-          { q: "Do you treat bed bugs too?", a: "Yes, we offer heat treatment and chemical options." },
+          { q: "Infestation, quote or emergency?", a: "Pestly follows your rules." },
+          { q: "When is a slot available?", a: "Only in the one calendar you connect." },
+          { q: "When it cannot wait?", a: "The details go to you. You decide." },
         ],
       },
       escalation: {
-        title: "Smart Escalation",
-        desc: "For emergencies or when a customer needs to speak with you personally — Pestly sends an immediate SMS with transcript and voicemail.",
-        mode: "Emergency Mode",
-        urgentLabel: "Urgent",
-        items: [
-          { label: "Johnson Family — Roaches", time: "2 min ago" },
-          { label: "Lakeside Diner — Rodents", time: "5 min ago" },
-          { label: "Greenwood School — Termites", time: "15 min ago" },
-        ],
-        notification: "SMS notification sent",
-        notificationDetail: "+1 (505) 555-0123 — Transcript will follow via email",
+        title: "Escalate",
+        desc: "When it cannot wait: Pestly treats it as emergency under your rules and hands the details to you. You decide. Silent live transfer is not the default. We do not promise an automatic emergency SMS while that path is not live.",
+        mode: "Emergency",
+        urgentLabel: "To you",
+        items: [],
+        notification: "Details to you",
+        notificationDetail: "No automatic emergency SMS while that path is not live.",
       },
     },
   },
   testimonials: {
-    headingBefore: "What our",
-    headingHighlight: "customers say",
-    cta: "Book a Free Demo",
-    items: [
-      {
-        name: "James Carter",
-        role: "Pest Control, Austin TX",
-        text: "Since I got Pestly, I haven't missed a single call. Last week the AI booked a termite treatment while I was out on inspection. Absolute game-changer.",
-      },
-      {
-        name: "David Chen",
-        role: "Termite & Fumigation, Portland OR",
-        text: "My customers love that they get an appointment instantly — via WhatsApp, no hold time. I'm saving at least 5 hours a week.",
-      },
-      {
-        name: "Sarah Mitchell",
-        role: "Pest Management, Denver CO",
-        text: "The knowledge base is brilliant. Set it up once and Pestly answers 90% of questions on its own. I can finally focus on the work.",
-      },
-    ],
+    headingBefore: "",
+    headingHighlight: "",
+    cta: "15-minute demo, no obligation",
+    items: [],
   },
   pricing: {
     headingBefore: "Transparent",
@@ -1163,12 +1086,12 @@ const en: Dictionary = {
       {
         question: "Can Pestly understand pest control-specific terms?",
         answer:
-          "Yes. Pestly is trained on industry-specific terminology — terms like 'infestation level,' 'thermal remediation,' or 'rodent exclusion' are handled naturally. All voice data is encrypted and stored securely in the US.",
+          "Yes. Infestation, quote and emergency terms come from your knowledge base. Data processing agreement before go-live. Pestly is built for German pest-control companies.",
       },
       {
         question: "What happens with emergencies or complex requests?",
         answer:
-          "Pestly detects when a customer urgently needs to speak with you. In that case, the AI immediately sends you an SMS with transcript and voicemail. You can call back — or Pestly lets the customer know you'll reach out.",
+          "When it cannot wait, Pestly hands the details to you. You decide. Silent live transfer is not the default. We do not promise an automatic emergency SMS while that path is not live.",
       },
       {
         question: "What are the costs?",
@@ -1178,7 +1101,7 @@ const en: Dictionary = {
       {
         question: "Is my data private and secure?",
         answer:
-          "Absolutely. Your data is stored privately and encrypted end-to-end — never shared with third parties. For our trial AI, no sensitive call data is retained. If you need full compliance documentation or encryption details, we can provide that on request.",
+          "We name the price on the call. Data processing agreement before go-live. Recipients are only those actually connected for that company.",
       },
       {
         question: "Can I keep my existing phone number?",
@@ -1195,7 +1118,7 @@ const en: Dictionary = {
     emailPlaceholder: "Your email address",
     messagePlaceholder: "Your message (e.g., what pest problem?)",
     cta: "Book a free demo",
-    dsgvo: "✓ Your data is private, encrypted, and never shared.",
+    dsgvo: "We name the price on the call. Data processing agreement before go-live.",
     success: "✓ Thanks! We'll reach out shortly.",
     error: "Could not send. Please try again later or call us.",
     validation: "Please provide an email or phone number.",
@@ -1209,36 +1132,36 @@ const en: Dictionary = {
     quote: "Pestly wasn't built for Silicon Valley — it was built for real pest control jobs. An AI that has your back while you work.",
     phonePlaceholder: "Your phone number",
     cta: "Get a call back",
-    dsgvo: "✓ Your data is private, encrypted, and never shared.",
+    dsgvo: "We name the price on the call. Data processing agreement before go-live.",
   },
   cookieBanner: {
-    text: "Pestly uses cookies & local storage to improve your experience. No third-party sharing. Your data stays private.",
+    text: "Pestly uses cookies and local storage to run this site. Details in the privacy notice.",
     accept: "Got it",
   },
   setupService: {
-    heading: "We handle the setup —",
-    highlight: "no IT knowledge needed",
-    subtitle: "No IT knowledge needed. We take care of everything — from phone number porting to AI training. You'll be live in just 5 days.",
+    heading: "Setup without an IT project",
+    highlight: "on your side",
+    subtitle: "You provide knowledge and approvals (about 1–1.5 hours plus a data processing agreement and calendar access). We set up phone and one calendar in about five working days. Number porting runs in parallel if it takes longer.",
     steps: [
       {
         icon: "phone",
         title: "Phone Number & Lines",
-        desc: "Port your existing number or get a new one — including connection to our German Netcup network for crystal-clear calls.",
+        desc: "A new number or a line that already rings. Porting is not a day-5 promise.",
       },
       {
         icon: "database",
         title: "Knowledge Base Setup",
-        desc: "You provide your prices, services, and hours — we enter everything. No technical expertise required.",
+        desc: "You provide prices, services and hours — we maintain the knowledge base.",
       },
       {
         icon: "calendar",
         title: "Calendar & Integrations",
-        desc: "We connect Google Calendar, Outlook, or Cal.com. Appointments will be booked automatically from day one.",
+        desc: "One calendar that already holds your real jobs. Spoken confirmation on the call.",
       },
       {
         icon: "brain",
         title: "AI Training for Pest Control",
-        desc: "We train Pestly on your terminology and workflows — so the AI performs perfectly from day one.",
+        desc: "We set Pestly up on your terminology and workflows — infestation, quote, emergency.",
       },
     ],
   },
@@ -1249,7 +1172,7 @@ const en: Dictionary = {
       Services: [
         { label: "AI Voice Assistant", href: "/#features" },
         { label: "Appointment Booking", href: "/#features" },
-        { label: "WhatsApp Integration", href: "/#features" },
+        { label: "Calendar", href: "/#features" },
         { label: "Knowledge Base", href: "/#features" },
         { label: "Website Widget", href: "/#features" },
       ],
@@ -1360,11 +1283,11 @@ const en: Dictionary = {
       },
       {
         icon: "server",
-        title: "Netcup Server Infrastructure",
+        title: "Application server",
         contentLines: [
-          "All data is processed and stored on dedicated servers at netcup GmbH in Germany. Location: Nuremberg, Germany.",
+          "The application runs on a server we operate (IPv4 148.230.70.221).",
           "The servers are subject to German data protection law and the GDPR. Access is protected by modern encryption (TLS 1.3) and firewall systems.",
-          "A Data Processing Agreement (DPA) pursuant to Art. 28 GDPR has been concluded with netcup GmbH.",
+          "A hosting DPA with a named provider is not on file as a signed document in this notice.",
         ],
       },
       {
@@ -1375,7 +1298,6 @@ const en: Dictionary = {
           "• Art. 6(1)(b) GDPR (contract performance) – for providing our services",
           "• Art. 6(1)(f) GDPR (legitimate interest) – for improving our offerings",
           "• Art. 6(1)(a) GDPR (consent) – for optional cookie categories",
-          "• Art. 9(2)(h) GDPR – for processing special categories in healthcare",
         ],
       },
       {
@@ -1482,7 +1404,7 @@ const en: Dictionary = {
         title: "6. Privacy",
         contentLines: [
           "The processing of personal data is carried out in accordance with the Privacy Policy and the provisions of the GDPR.",
-          "Pestly processes all data on German Netcup servers. Data Processing Agreements (DPAs) have been concluded with all subcontractors.",
+          "The application runs on a server we operate. Recipients only where actually connected for that purpose.",
           "The customer undertakes to inform their own customers about data processing by Pestly insofar as this is required by data protection law.",
         ],
       },
